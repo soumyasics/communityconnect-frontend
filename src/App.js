@@ -1,6 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UserLogin from "./Pages/Users/UserLogin/userLogin";
+import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
   //local
   const url = "http://localhost:4003";

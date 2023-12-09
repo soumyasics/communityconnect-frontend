@@ -15,6 +15,9 @@
 .user-navbar-left {
   font-weight: bold;
 }
+.user-navbar-left p {
+  margin-bottom: 0;
+}
 .user-navbar-center {
   display: flex;
   justify-content: space-between;
