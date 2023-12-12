@@ -1,0 +1,37 @@
+#user-signup-form-input {
+  width: 95%;
+}
+
+#user-signup-form-input input:not([type="checkbox"]) {
+  margin-top: 20px;
+}
+#user-signup-form-input input[type="file"] {
+  margin-top: 0;
+}
+
+#user-signup-form-input select {
+  margin-top: 20px;
+}
+#user-signup-form-input .signup-check-box {
+  margin-top: 0;
+}
+.signup-form-flex-div {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.signup-form-flex-div > div {
+  width: 50%;
+}
+
+.signup-form-name-div input {
+  width: 100%;
+}
+
+#user-signup-btn {
+  margin-top: 20px;
+  width: 170px;
+  margin-left: auto;
+  margin-right: auto;
+}
