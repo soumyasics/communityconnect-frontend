@@ -18,7 +18,10 @@ const UserSignup = () => {
       <CommunityHeader />
       <Container className="user-signup-container">
         <div className="user-signup-form">
-          <div className="user-signup-form-heading"> Register </div>
+          <div className="user-signup-form-heading">
+            {" "}
+            <h6>Register</h6>{" "}
+          </div>
 
           <div className="user-signup-input-container">
             <Form.Select

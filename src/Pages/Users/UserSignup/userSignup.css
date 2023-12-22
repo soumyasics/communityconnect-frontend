@@ -22,12 +22,17 @@
   align-items: center;
 }
 
+.user-signup-form-heading h6 {
+  margin: 0;
+  padding: 0;
+}
+
 /* input container  */
 .user-signup-input-container {
   box-sizing: border-box;
   width: 90%;
-  /* background-color: white; */
-  background-color: gray;
+  background-color: white;
+  /* background-color: gray; */
   margin: auto;
   margin-top: 20px;
   padding: 30px 10px;

@@ -7,20 +7,22 @@ import "./signupForm.css";
 const UserSignupForm = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
-    firstName: "a",
-    lastName: "b",
-    email: "d@gmail.com",
-    password: "123123123",
-    gender: "male",
-    phoneNumber: "123412341234",
-    street: "stre",
-    city: "c",
-    state: "st",
-    pincode: "12343",
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    gender: "",
+    age: "",
+    phoneNumber: "",
+    street: "",
+    city: "",
+    state: "",
+    nationality: "",
+    pincode: "",
     img: null,
   });
 
-  const [agreedToTerms, setAgreedToTerms] = useState(true);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
@@ -40,7 +42,10 @@ const UserSignupForm = () => {
       event.stopPropagation();
     }
     setValidated(true);
-
+    console.log("data", userData);
+    console.log("data", userData.phoneNumber.length);
+    console.log("data", typeof userData.phoneNumber.length);
+    console.log("len", userData.password.length != 10);
     if (
       !userData.firstName ||
       !userData.lastName ||
@@ -48,16 +53,22 @@ const UserSignupForm = () => {
       !userData.password ||
       !userData.gender ||
       !userData.phoneNumber ||
+      !userData.age ||
       !userData.street ||
       !userData.city ||
       !userData.state ||
-      !userData.pincode
+      !userData.pincode ||
+      !userData.nationality
     ) {
       console.log("Please fill all the fields");
       return;
     } else {
       if (!agreedToTerms) {
         console.log("Not checked");
+        return;
+      }
+      if (userData.phoneNumber.length !== 10) {
+        console.log("Phone number must be 10 digits");
         return;
       }
       sendDataToServer(userData);
@@ -68,20 +79,22 @@ const UserSignupForm = () => {
     setAgreedToTerms(e.target.checked);
   };
 
+  const redirectLogin = () => {
+    navigate("/user/login");
+  };
   const sendDataToServer = async (data) => {
-    console.log("my data", data);
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     };
+
     try {
       const response = await axios.post(
         "http://localhost:5000/user/signup",
         data,
         config
       );
-      console.log("response", response);
       if (response.status === 201) {
         console.log("user created successfully");
         alert("Registration successful.");
@@ -153,8 +166,8 @@ const UserSignupForm = () => {
         <Form.Group>
           <Form.Control
             onChange={handleChange}
-            name="phoneNumber"
-            value={userData.phoneNumber}
+            name="age"
+            value={userData.age}
             type="number"
             placeholder="Your age"
             required
@@ -191,9 +204,6 @@ const UserSignupForm = () => {
           />
           <Form.Control.Feedback type="invalid">
             Please Enter atleast 8 characters.
-          </Form.Control.Feedback>
-          <Form.Control.Feedback>
-            Your password is strong.
           </Form.Control.Feedback>
         </Form.Group>
       </div>
@@ -258,9 +268,9 @@ const UserSignupForm = () => {
       <div className="signup-form-flex-div">
         <Form.Group>
           <Form.Control
-            name="state"
+            name="nationality"
             onChange={handleChange}
-            value={userData.state}
+            value={userData.nationality}
             type="text"
             placeholder="Nationality"
             required
@@ -269,17 +279,20 @@ const UserSignupForm = () => {
             Please provide your Nationality
           </Form.Control.Feedback>
         </Form.Group>
+
         <Form.Group>
           <Form.Control
+            required
+            type="text"
+            minLength={10}
+            placeholder="Phone Number"
+            name="phoneNumber"
             onChange={handleChange}
             value={userData.phoneNumber}
-            name="phoneNumber"
-            type="number"
-            placeholder="Contact Number"
-            required
+            pattern="[0-9]{10}"
           />
           <Form.Control.Feedback type="invalid">
-            Contact Number is required.
+            Please Enter 10 digits phone Number.
           </Form.Control.Feedback>
         </Form.Group>
       </div>
@@ -293,16 +306,26 @@ const UserSignupForm = () => {
           accept="image/*"
         />
       </Form.Group>
-      <Form.Group className="mt-3">
-        <Form.Check
-          required
-          className="signup-check-box"
-          label="Agree to our terms and conditions"
-          feedbackType="invalid"
-          checked={agreedToTerms}
-          onChange={handleCheckboxChange}
-        />
-      </Form.Group>
+      <div className="signup-form-flex-div">
+        <Form.Group className="mt-3">
+          <Form.Check
+            required
+            className="signup-check-box"
+            label="Agree to our terms and conditions"
+            feedbackType="invalid"
+            checked={agreedToTerms}
+            onChange={handleCheckboxChange}
+          />
+        </Form.Group>
+
+        <p className="mt-3">
+          {" "}
+          Already have an account?{" "}
+          <span className="redirect-login" onClick={redirectLogin}>
+            Login
+          </span>{" "}
+        </p>
+      </div>
 
       <div className="signup-form-flex-div">
         <Button id="user-signup-btn" type="submit">

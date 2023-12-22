@@ -2,10 +2,9 @@ import { Form, Button, Col, InputGroup, Row } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import "./userLogin.css";
 const UserLoginForm = ({ user }) => {
   const navigate = useNavigate();
-  console.log("user", user);
   const [validated, setValidated] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,7 +29,11 @@ const UserLoginForm = ({ user }) => {
       return;
     }
 
-    sendDataToServer(email, password);
+    if (user === "user") {
+      sendDataToServer(email, password);
+    } else {
+      console.log("user is different");
+    }
   };
 
   const sendDataToServer = async (email, password) => {
@@ -59,6 +62,9 @@ const UserLoginForm = ({ user }) => {
       console.log(error);
       alert(error.response.data.message);
     }
+  };
+  const redirectUserSignup = () => {
+    navigate("/user/signup");
   };
   return (
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
@@ -90,10 +96,16 @@ const UserLoginForm = ({ user }) => {
         <Form.Control.Feedback type="invalid">
           Please Enter atleast 8 characters.
         </Form.Control.Feedback>
-        <Form.Control.Feedback>Your password is strong.</Form.Control.Feedback>
       </Form.Group>
       <div className="user-login-btn-container-2">
-        <a href="#">Forgot Password?</a>
+        <span className="user-forgot-password mb-3">Forgot Password?</span>
+        <p>
+          Don’t have an account?{" "}
+          <span className="user-forgot-password" onClick={redirectUserSignup}>
+            {" "}
+            Sign up{" "}
+          </span>
+        </p>
         <br />
 
         <Button className="user-login-btn" type="submit">
