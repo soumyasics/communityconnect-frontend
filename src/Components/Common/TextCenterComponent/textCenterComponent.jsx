@@ -1,20 +1,18 @@
 import "./textCenterComponent.css";
 
-const TextCenterComponent = () => {
+const TextCenterComponent = ({
+  heading,
+  textContent,
+  buttonContent = "About us",
+}) => {
   return (
-    <>
-      <div className="text-center">
-        <h1>Text Center Component</h1>
-        <p>
-          {" "}
-          We are a humanitarian initiative committed to making a positive impact
-          on the world. Based on the principles of empathy, solidarity, and
-          sustainable development, we strive to address the most pressing
-          challenges facing communities around the globe
-        </p> 
-        <button> About Us</button>
+    <div>
+      <div className="text-center-comp">
+        <h1>{heading}</h1>
+        <p>{textContent}</p>
+        <button> {buttonContent}</button>
       </div>
-    </>
+    </div>
   );
 };
 export default TextCenterComponent;
