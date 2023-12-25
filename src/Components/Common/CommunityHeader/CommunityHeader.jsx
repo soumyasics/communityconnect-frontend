@@ -8,9 +8,9 @@ import {
 import { IoSearchOutline } from "react-icons/io5";
 import headerImg from "../../../Assets/Images/login-header-img.png";
 import "./CommunityHeader.css";
-const CommunityHeader = () => {
+const CommunityHeader = ({imgPath = headerImg, textColor="white"}) => {
   const containerStyle = {
-    backgroundImage: `url(${headerImg})`,
+    backgroundImage: `url(${imgPath})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center",
@@ -21,6 +21,9 @@ const CommunityHeader = () => {
     regardless of their background or circumstance, deserves the opportunity to lead 
     a dignified and fulfilling life.`;
 
+  const fontColorStyle = {
+    color: textColor
+  } 
   return (
     <Container
       className="community-header-container"
@@ -39,7 +42,7 @@ const CommunityHeader = () => {
           </InputGroup.Text>
         </InputGroup>
 
-        <Container className="community-header-text-content">
+        <Container style={fontColorStyle} className="community-header-text-content">
           <h2>{heading}</h2>
           <p>{description}</p>
         </Container>
