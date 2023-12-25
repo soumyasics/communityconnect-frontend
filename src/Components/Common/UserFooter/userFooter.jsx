@@ -2,7 +2,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import "./userFooter.css";
-export default function () {
+export default function UserFooter () {
   return (
     <>
       <div className="user-footer-container">

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Form, Button, Col, InputGroup, Row } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
@@ -23,8 +24,9 @@ const UserLoginForm = ({ user }) => {
       event.stopPropagation();
     }
     setValidated(true);
-
-    if (!email || !password) {
+   
+    console.log(email)
+    if (!email || !password || password.length < 8) {
       console.log("Please fill all the fields");
       return;
     }
@@ -60,7 +62,12 @@ const UserLoginForm = ({ user }) => {
       }
     } catch (error) {
       console.log(error);
-      alert(error.response.data.message);
+      if (error.response) {
+        alert(error.response.data.message);
+      }else {
+        alert(error.message);
+      }
+
     }
   };
   const redirectUserSignup = () => {

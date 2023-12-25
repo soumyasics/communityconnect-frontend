@@ -1,8 +1,13 @@
 import { Container, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
 import "./userNavbar.css";
+import { useNavigate } from "react-router-dom";
+
 const UserNavbar = () => {
+  const navigate = useNavigate();
+  const redirectUserLogin = () => {
+    navigate('/user/login');
+  }  
   return (
     <>
       <Container fluid className="user-navbar-container">
@@ -15,7 +20,8 @@ const UserNavbar = () => {
           <Link to="">Donate</Link>
         </div>
         <div className="user-navbar-right">
-          <img src="https://picsum.photos/200/300" alt="profile-icon" />
+          {/* <img src="https://picsum.photos/200/300" alt="profile-icon" /> */}
+          <button onClick={redirectUserLogin}> Login </button>
         </div>
       </Container>
     </>

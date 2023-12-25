@@ -4,6 +4,13 @@ import { FaUserAstronaut } from "react-icons/fa";
 import TextCenterComponent from "../../../Components/Common/TextCenterComponent/textCenterComponent";
 import TextRightComponent from "../../../Components/Common/TextRightComponent/textRightComp";
 import bloodDonationImg from "../../../Assets/Images/blood-donation-img.png";
+import TextLeftComponent from "../../../Components/Common/TextLeftComponent/textLeftComponent";
+import charityImg from "../../../Assets/Images/charity-img.png";
+import HomeViewDonations from "../../../Components/Common/HomeViewDonations/homeViewDonation";
+import UserFooter from "../../../Components/Common/UserFooter/userFooter";
+import TextCenterQuote from "../../../Components/Common/TextCenterQuote/textCenterQuote";
+import ambulanceImg from "../../../Assets/Images/ambulance-img.png";
+
 const UserHome = () => {
   const bloodDonationHeading = "Blood Camp";
   const bloodDonationContent =
@@ -13,6 +20,10 @@ const UserHome = () => {
   const contributeContent =
     "We are a humanitarian initiative committed to making a positive impact on the world. Based on the principles of empathy, solidarity, andsustainable development, we strive to address the most pressingchallenges facing communities around the globe";
 
+  const donationHeading = "Donate";
+  const donationContent =
+    "Where your donation becomes poetry and movements tell tales";
+  const donationBtnContent = "View Charity";
   return (
     <>
       <UserNavbar />
@@ -22,14 +33,22 @@ const UserHome = () => {
         textContent={contributeContent}
       />
       <TextRightComponent
-        imgPath={bloodDonationImg}
+        imgPath={ambulanceImg}
         content={bloodDonationContent}
         heading={bloodDonationHeading}
         buttonContent={bloodDonationBtnContent}
       />
-      <div className="user-home-container">
-        {/* <h3 className="user-home-heading">User Home</h3> */}
-      </div>
+
+      <TextLeftComponent
+        imgPath={charityImg}
+        content={donationContent}
+        heading={donationHeading}
+        buttonContent={donationBtnContent}
+      />
+
+      <HomeViewDonations />
+      <TextCenterQuote />
+      <UserFooter />
     </>
   );
 };

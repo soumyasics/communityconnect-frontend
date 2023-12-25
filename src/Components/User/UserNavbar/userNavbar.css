@@ -8,8 +8,8 @@
   font-size: 16px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
-  padding-left: 25px;
-  padding-right: 25px;
+  padding-left: 25px !important;
+  padding-right: 25px !important;
 }
 
 .user-navbar-left {
@@ -33,4 +33,10 @@
   height: 40px;
   cursor: pointer;
   border-radius: 50%;
+}
+.user-navbar-right >button {
+  border: none;
+  background-color: transparent;
+  color: white;
+  
 }

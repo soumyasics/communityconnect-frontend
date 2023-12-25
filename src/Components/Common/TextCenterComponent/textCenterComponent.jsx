@@ -6,12 +6,10 @@ const TextCenterComponent = ({
   buttonContent = "About us",
 }) => {
   return (
-    <div>
-      <div className="text-center-comp">
-        <h1>{heading}</h1>
-        <p>{textContent}</p>
-        <button> {buttonContent}</button>
-      </div>
+    <div className="text-center-comp">
+      <h1>{heading}</h1>
+      <p>{textContent}</p>
+      <button> {buttonContent}</button>
     </div>
   );
 };
