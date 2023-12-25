@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import axiosInstance from "../../../BaseUrl";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosMultipartInstance from "../../../api/axiosMultipartInstance";
 import "./signupForm.css";
 const UserSignupForm = () => {
   const navigate = useNavigate();
@@ -21,8 +20,9 @@ const UserSignupForm = () => {
     pincode: "",
     img: null,
   });
-
+  const [validated, setValidated] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
@@ -30,11 +30,8 @@ const UserSignupForm = () => {
   const handleFilechange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.files[0] });
   };
-  useEffect(() => {
-    // console.log("current user data", userData);
-  }, [userData]);
+
   // form validation
-  const [validated, setValidated] = useState(false);
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -42,10 +39,6 @@ const UserSignupForm = () => {
       event.stopPropagation();
     }
     setValidated(true);
-    console.log("data", userData);
-    console.log("data", userData.phoneNumber.length);
-    console.log("data", typeof userData.phoneNumber.length);
-    console.log("len", userData.password.length != 10);
     if (
       !userData.firstName ||
       !userData.lastName ||
@@ -83,18 +76,8 @@ const UserSignupForm = () => {
     navigate("/user/login");
   };
   const sendDataToServer = async (data) => {
-    const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    };
-
     try {
-      const response = await axios.post(
-        "http://localhost:5000/user/signup",
-        data,
-        config
-      );
+      const response = await axiosMultipartInstance.post("/user/signup", data);
       if (response.status === 201) {
         console.log("user created successfully");
         alert("Registration successful.");
@@ -104,8 +87,11 @@ const UserSignupForm = () => {
       }
     } catch (error) {
       console.log(error);
-
-      alert(error.response.data.message);
+      if (error.response?.status === 400) {
+        alert(error.response.data.message);
+      }else {
+        alert(error.message)
+      }
     }
   };
   return (

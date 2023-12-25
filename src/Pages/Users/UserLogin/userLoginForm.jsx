@@ -1,8 +1,8 @@
-/* eslint-disable */
 import { Form, Button, Col, InputGroup, Row } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../../api/BaseUrl";
 import "./userLogin.css";
 const UserLoginForm = ({ user }) => {
   const navigate = useNavigate();
@@ -24,50 +24,45 @@ const UserLoginForm = ({ user }) => {
       event.stopPropagation();
     }
     setValidated(true);
-   
-    console.log(email)
+
+    console.log(email);
     if (!email || !password || password.length < 8) {
       console.log("Please fill all the fields");
       return;
     }
 
-    if (user === "user") {
-      sendDataToServer(email, password);
-    } else {
-      console.log("user is different");
-    }
+    sendDataToServer(email, password);
   };
 
   const sendDataToServer = async (email, password) => {
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const res = await axios.post(
-        "http://localhost:5000/user/login",
-        {
+    console.log("user", user);
+    console.log(user !== "user");
+    console.log(user !== "orphanage");
+    console.log(user !== "organization");
+    if (user === "user" || user === "orphanage" || user === "organization") {
+      try {
+        const res = await axiosInstance.post(`/${user}/login`, {
           email,
           password,
-        },
-        config
-      );
-      console.log("response", res);
-      if (res.status === 200) {
-        alert("Login successful.");
-        setTimeout(() => {
-          navigate("/");
-        }, 1500);
+        });
+        console.log("response", res);
+        if (res.status === 200) {
+          alert("Login successful.");
+          setTimeout(() => {
+            navigate("/");
+          }, 1500);
+        }
+      } catch (error) {
+        console.log(error);
+        if (error.response?.status === 400) {
+          alert(error.response.data.message);
+        } else {
+          alert(error.message);
+        }
       }
-    } catch (error) {
-      console.log(error);
-      if (error.response) {
-        alert(error.response.data.message);
-      }else {
-        alert(error.message);
-      }
-
+    } else {
+      console.log("user is different");
+      return;
     }
   };
   const redirectUserSignup = () => {
