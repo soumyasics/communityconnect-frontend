@@ -7,8 +7,8 @@ const AdminLoginForm = () => {
   const email = "admin@gmail.com";
   const password = "admin@123";
 
-  const [inputEmail, setInputEmail] = useState("");
-  const [inputPassword, setInputPassword] = useState("");
+  const [inputEmail, setInputEmail] = useState("admin@gmail.com");
+  const [inputPassword, setInputPassword] = useState("admin@123");
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -49,7 +49,7 @@ const AdminLoginForm = () => {
               name="email"
               value={inputEmail}
             />
-            <Form.Control.Feedback type="invalid" className="ms-4">
+            <Form.Control.Feedback type="invalid" >
               Please provide a valid email.
             </Form.Control.Feedback>
           </Form.Group>
@@ -64,12 +64,12 @@ const AdminLoginForm = () => {
               onChange={handleChange}
               value={inputPassword}
             />
-            <Form.Control.Feedback type="invalid" className="ms-4">
+            <Form.Control.Feedback type="invalid">
               Please Enter atleast 8 characters.
             </Form.Control.Feedback>
           </Form.Group>
-          <div className="user-login-btn-container-2">
-            <Button className="user-login-btn" type="submit">
+          <div className="admin-login-btn-container-2">
+            <Button className="admin-login-btn" type="submit">
               Login
             </Button>
           </div>
