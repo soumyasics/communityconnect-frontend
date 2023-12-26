@@ -4,11 +4,11 @@ import UserLogin from "./Pages/Users/UserLogin/userLogin";
 import UserSignup from "./Pages/Users/UserSignup/userSignup";
 import UserHome from "./Pages/Users/UserHome/UserHome";
 import UserOrphanagesList from "./Pages/Orphanages/UserOrphanagesList/userOrphanagesList";
-import "bootstrap/dist/css/bootstrap.min.css";
 import OrphanageDetails from "./Components/Common/OrphanageDetails/orphanageDetails";
+import "bootstrap/dist/css/bootstrap.min.css";
+import AdminLogin from "./Pages/Admin/AdminLogin/AdminLogin";
 function App() {
-  //local
-  const url = "http://localhost:4003";
+
 
   return (
     <BrowserRouter>
@@ -18,6 +18,9 @@ function App() {
         <Route path="/user/login" element={<UserLogin />} />
         <Route path="/user/orphanages-list" element={<UserOrphanagesList />} />
         <Route path="/user/orphanage/:id" element={<OrphanageDetails />} />
+
+        {/* Admin Routes  */}
+        <Route path="/admin/login" element={<AdminLogin/>} />
       </Routes>
     </BrowserRouter>
   );
