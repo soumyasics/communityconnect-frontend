@@ -7,9 +7,8 @@ import UserOrphanagesList from "./Pages/Orphanages/UserOrphanagesList/userOrphan
 import OrphanageDetails from "./Components/Common/OrphanageDetails/orphanageDetails";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AdminLogin from "./Pages/Admin/AdminLogin/AdminLogin";
+import AdminDashboard from "./Pages/Admin/AdminDashboard/adminDashboard";
 function App() {
-
-
   return (
     <BrowserRouter>
       <Routes>
@@ -20,7 +19,8 @@ function App() {
         <Route path="/user/orphanage/:id" element={<OrphanageDetails />} />
 
         {/* Admin Routes  */}
-        <Route path="/admin/login" element={<AdminLogin/>} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
       </Routes>
     </BrowserRouter>
   );

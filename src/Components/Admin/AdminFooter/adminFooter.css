@@ -1,8 +1,6 @@
 .admin-footer {
-    background-color: #800080;
+    background-color: #4B007A;
     height: 96px;
-    position: absolute;
-    bottom: 0;
     color: white;
     display: flex;
     justify-content: center;
@@ -12,4 +10,6 @@
 }
 .admin-footer p {
     margin-bottom: 7px;
+    font-size: 12px;
+    color: #e4dddd;
 }

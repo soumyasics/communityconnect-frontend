@@ -1,19 +1,20 @@
 import { Container, Form, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "./adminLoginForm.css";
 const AdminLoginForm = () => {
   const [validated, setValidated] = useState(false);
   const email = "admin@gmail.com";
   const password = "admin@123";
-
+  const navigate = useNavigate();
   const [inputEmail, setInputEmail] = useState("admin@gmail.com");
   const [inputPassword, setInputPassword] = useState("admin@123");
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
+    event.preventDefault();
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
     }
 
@@ -21,6 +22,9 @@ const AdminLoginForm = () => {
 
     if (email === inputEmail && password === inputPassword) {
       alert("login successfull");
+      setTimeout(() => {
+        navigate("/admin/dashboard");
+      }, 1500);
     } else {
       console.log("please check your email and password");
     }
@@ -34,10 +38,9 @@ const AdminLoginForm = () => {
   };
   return (
     <div id="admin-login-form-container">
-      
       <Container>
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
-        <h5> Admin Login</h5>
+          <h5> Admin Login</h5>
           <Form.Group className="mt-3" md={6}>
             <Form.Control
               md={6}
@@ -49,7 +52,7 @@ const AdminLoginForm = () => {
               name="email"
               value={inputEmail}
             />
-            <Form.Control.Feedback type="invalid" >
+            <Form.Control.Feedback type="invalid">
               Please provide a valid email.
             </Form.Control.Feedback>
           </Form.Group>
