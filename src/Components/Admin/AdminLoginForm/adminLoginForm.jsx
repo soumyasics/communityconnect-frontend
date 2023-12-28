@@ -23,7 +23,7 @@ const AdminLoginForm = () => {
     if (email === inputEmail && password === inputPassword) {
       alert("login successfull");
       setTimeout(() => {
-        navigate("/admin/dashboard");
+        navigate("/admin");
       }, 1500);
     } else {
       console.log("please check your email and password");

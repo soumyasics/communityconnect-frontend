@@ -1,18 +1,43 @@
-import AdminFooter from "../../../Components/Admin/AdminFooter/adminFooter";
-import AdminNavbar from "../../../Components/Admin/AdminNavbar/adminNavbar";
-import {Fragment} from 'react';
-
-import "./adminDashboard.css";
+import { useState, Fragment, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import AdminSidebar from "../../../Components/Admin/AdminSidebar/AdminSidebar";
-const AdminDashboard = () => {
-    return (
-        <Fragment >
-            <div className="admin-dashboard-container">
-                <AdminSidebar/>
-                
-            </div>
+import AdminOverview from "../../../Components/Admin/AdminOverview/adminOverview";
+import AdminUsers from "../../../Components/Admin/AdminUsers/adminUsers";
+import AdminOrp from "../../../Components/Admin/AdminOrp/adminOrp";
+import AdminDonations from "../../../Components/Admin/AdminDonations/adminDonations";
+import AdminOrg from "../../../Components/Admin/AdminOrg/adminOrg";
+import AdminEvents from "../../../Components/Admin/AdminEvents/adminEvents";
+import AdminSettings from "../../../Components/Admin/AdminSettings/adminSettings";
+import "./adminDashboard.css";
 
-        </Fragment>
-    )
-}
+const AdminDashboard = () => {
+  const [activePage, setActivePage] = useState("dashboard");
+  const navigate = useNavigate();
+  const changeActivePage = (page) => {
+    setActivePage(page);
+  };
+  useEffect(() => {
+    console.log("ac", activePage);
+  }, [activePage]);
+  return (
+    <Fragment>
+      <div className="admin-dashboard-container">
+        <AdminSidebar
+          activePage={activePage}
+          changeActivePage={changeActivePage}
+        />
+
+        <div className="admin-dashboard-main-bar">
+          {activePage === "overview" && <AdminOverview />}
+          {activePage === "users" && <AdminUsers />}
+          {activePage === "orphanages" && <AdminOrp />}
+          {activePage === "organizations" && <AdminOrg />}
+          {activePage === "events" && <AdminEvents />}
+          {activePage === "donations" && <AdminDonations />}
+          {activePage === "settings" && <AdminSettings />}
+        </div>
+      </div>
+    </Fragment>
+  );
+};
 export default AdminDashboard;
