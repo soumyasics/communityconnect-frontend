@@ -1,3 +1,8 @@
 .admin-dashboard-container {
-        display: flex;
+  display: flex;
+}
+
+.admin-dashboard-main-bar {
+  width: 82%;
+  margin-left: 18%;
 }

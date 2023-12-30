@@ -1,10 +1,11 @@
 .admin-sidebar-container {
-  width: 15rem;
   background-color: rgb(28, 37, 54);
   height: 100vh;
   color: white;
   padding-left: 20px;
   padding-top: 20px;
+  width:18%;
+  position: fixed;
 }
 .sidebar-heading {
   display: flex;

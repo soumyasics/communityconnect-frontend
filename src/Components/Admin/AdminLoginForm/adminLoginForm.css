@@ -42,7 +42,11 @@
 
 .admin-login-btn {
   color: white;
-  background-color: #4B007A ;
+  background-color: #1c2536;
   border: none;
-  
 }
+.admin-login-btn:hover {
+  background-color: #071228;
+
+}
+  
