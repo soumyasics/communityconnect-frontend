@@ -2,30 +2,80 @@ import { useState, useEffect } from "react";
 import axiosInstance from "../../../api/BaseUrl";
 import { Table } from "react-bootstrap";
 import "./adminUserTable.css";
-const AdminUserTable = () => {
+const AdminUserTable = ({ searchUserName }) => {
   const [usersData, setUsersData] = useState(null);
+  const [allUsersData, setAllUsersData] = useState(null);
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const recordPerPage = 5;
-  const lastIndex = currentPage * recordPerPage;
-  const firstIndex = lastIndex - recordPerPage;
-  const currentPageUsers = usersData?.slice(firstIndex, lastIndex);
-  const totalPages = Math.ceil(usersData?.length / recordPerPage) || 1;
+  const [recordPerPage, setRecordPerPage] = useState(5);
+
+  const [lastIndex, setLastIndex] = useState(currentPage * recordPerPage);
+  const [firstIndex, setFirstIndex] = useState(lastIndex - recordPerPage);
+
+  const [currentPageUsers, setCurrentPageUsers] = useState(null);
+  const [totalPages, setTotalPages] = useState(1);
   // pageNumbers Array representing page numbers for pagination control.
   // It is generated based on the total number of pages needed to display all records.
   // Each element in the array corresponds to a page number, starting from 1.
-  const pageNumbers = [...Array(totalPages + 1).keys()].slice(1);
+  const [pageNumbers, setPageNumbers] = useState(
+    [...Array(totalPages + 1).keys()].slice(1)
+  );
 
   useEffect(() => {
     getAllUsers();
   }, []);
 
+
+  useEffect(() => {
+    if (usersData?.length > 0) {
+      setCurrentPageUsers(usersData?.slice(firstIndex, lastIndex));
+      setTotalPages(Math.ceil(usersData.length / recordPerPage));
+    }else {
+      setCurrentPageUsers(null)
+    }
+  }, [usersData, firstIndex, lastIndex]);
+
+
+
+  useEffect(() => {
+    setPageNumbers([...Array(totalPages + 1).keys()].slice(1));
+  }, [totalPages]);
+
+  useEffect(() => {
+    setLastIndex(currentPage * recordPerPage);
+  }, [currentPage]);
+
+  useEffect(() => {
+    setFirstIndex(lastIndex - recordPerPage);
+  }, [lastIndex]);
+
+
+
+  useEffect(() => {
+    if (searchUserName.length > 0) {
+      // console.log("something searched", searchUserName.length, searchUserName)
+      const filteredUsers = allUsersData?.filter((user) => {
+        console.log("fn", user.firstName);
+        return user?.firstName
+          ?.toLowerCase()
+          .includes(searchUserName.toLowerCase());
+      });
+
+      console.log("filtered users", filteredUsers);
+      setCurrentPage(1)
+      setUsersData(filteredUsers);
+    } else {
+      console.log("nothting searched");
+      getAllUsers();
+    }
+  }, [searchUserName]);
+
   const getAllUsers = async () => {
     const res = await axiosInstance.get("user/get-all-users");
-    console.log("res", res);
     const allUsers = res?.data?.data;
     if (allUsers.length > 0) {
       setUsersData(allUsers);
+      setAllUsersData(allUsers);
     }
   };
 
@@ -58,19 +108,19 @@ const AdminUserTable = () => {
           </tr>
         </thead>
         <tbody>
-          {currentPageUsers?.length > 0 &&
+          {currentPageUsers?.length > 0 ?
             currentPageUsers.map((user, index) => {
               return (
-                <tr key={user.id}>
+                <tr key={user?._id}>
                   <td>{index + firstIndex + 1}</td>
-                  <td>{user.firstName}</td>
-                  <td>{user.age}</td>
-                  <td>{user.street}</td>
-                  <td>{user.contact}</td>
-                  <td>{user.email}</td>
+                  <td>{user?.firstName}</td>
+                  <td>{user?.age}</td>
+                  <td>{user?.street}</td>
+                  <td>{user?.contact}</td>
+                  <td>{user?.email}</td>
                 </tr>
               );
-            })}
+            }) : <h1> No Users Found</h1>}
         </tbody>
       </Table>
       {/* pagination buttons here */}

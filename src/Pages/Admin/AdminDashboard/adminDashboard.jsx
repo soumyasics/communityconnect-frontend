@@ -17,9 +17,7 @@ const AdminDashboard = () => {
   const changeActivePage = (page) => {
     setActivePage(page);
   };
-  useEffect(() => {
-    console.log("ac", activePage);
-  }, [activePage]);
+
   return (
     <Fragment>
       <div className="admin-dashboard-container">

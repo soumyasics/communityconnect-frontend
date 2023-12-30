@@ -1,9 +1,27 @@
+import { useState } from "react";
 import { CiExport } from "react-icons/ci";
 import { InputGroup, Form } from "react-bootstrap";
 import { IoIosSearch } from "react-icons/io";
-import "./adminUsers.css";
 import AdminUserTable from "../AdminUsersTable/adminUserTable";
+import "./adminUsers.css";
 const AdminUsers = () => {
+  const [searchInput, setSearchInput] = useState("");
+  const [searchedItem, setSearchedItem] = useState("");
+  // here used debouncing method for handling search inputs
+  let searchTimeout;
+  const handleSearchInputChange = (e) => {
+    setSearchInput(e.target.value);
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      handleSearch(e.target.value);
+    }, 1500);
+  };
+  
+  const handleSearch = (searchInput) => {
+    console.log("search input")
+    setSearchedItem(searchInput)
+  }
+ 
   return (
     <div className="admin-users-container">
       <div className="admin-user-title-container">
@@ -21,12 +39,14 @@ const AdminUsers = () => {
             id="user-search-id"
             placeholder="Search Users"
             aria-label="users"
+            value={searchInput}
+            onChange={handleSearchInputChange}
           />
         </InputGroup>
       </div>
 
       <div className="mt-5">
-        <AdminUserTable />
+        <AdminUserTable searchUserName={searchedItem}/>
       </div>
     </div>
   );
