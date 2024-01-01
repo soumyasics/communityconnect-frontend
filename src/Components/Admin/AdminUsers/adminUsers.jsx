@@ -18,7 +18,6 @@ const AdminUsers = () => {
   };
   
   const handleSearch = (searchInput) => {
-    console.log("search input")
     setSearchedItem(searchInput)
   }
  
