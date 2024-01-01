@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import axiosInstance from "../../../api/BaseUrl";
 import { Table } from "react-bootstrap";
-import "./adminOrpTable.css";
-
-const AdminOrpTable = ({ searchUserName }) => {
+import "./adminOrgTable.css";
+const AdminOrgTable = ({searchUserName}) => {
   const [usersData, setUsersData] = useState(null);
   const [allUsersData, setAllUsersData] = useState(null);
   // pagination
@@ -61,7 +60,7 @@ const AdminOrpTable = ({ searchUserName }) => {
   }, [searchUserName]);
 
   const getAllUsers = async () => {
-    const res = await axiosInstance.get("orphanage/get-all-orphanages");
+    const res = await axiosInstance.get("organization/get-all-organizations");
     console.log("res", res);
     const allUsers = res?.data?.data;
     if (allUsers.length > 0) {
@@ -87,13 +86,13 @@ const AdminOrpTable = ({ searchUserName }) => {
 
   return (
     <>
-      <Table striped bordered hover id="admin-orp-table-container">
+      <Table striped bordered hover id="admin-org-table-container">
         <thead>
           <tr>
-          <th>No</th>
-            <th>Orphanage Name</th>
+            <th>No</th>
+            <th>Organization Name</th>
+            <th>Owner Name</th>
             <th>Address</th>
-            <th>Year Of Establishment</th>
             <th>Contact Number</th>
             <th>Email</th>
           </tr>
@@ -105,8 +104,8 @@ const AdminOrpTable = ({ searchUserName }) => {
                 <tr key={user?._id}>
                   <td>{index + firstIndex + 1}</td>
                   <td>{user?.name}</td>
+                  <td>{user?.ownerName}</td>
                   <td>{user?.address}</td>
-                  <td>{user?.yearOfEstablishment}</td>
                   <td>{user?.phoneNumber}</td>
                   <td>{user?.email}</td>
                 </tr>
@@ -154,4 +153,4 @@ const AdminOrpTable = ({ searchUserName }) => {
     </>
   );
 };
-export default AdminOrpTable;
+export default AdminOrgTable;

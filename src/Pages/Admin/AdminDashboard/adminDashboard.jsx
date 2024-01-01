@@ -12,7 +12,7 @@ import AdminDashboardNav from "../../../Components/Admin/AdminDashboardNav/admin
 import "./adminDashboard.css";
 
 const AdminDashboard = () => {
-  const [activePage, setActivePage] = useState("users");
+  const [activePage, setActivePage] = useState("overview");
   const navigate = useNavigate();
   const changeActivePage = (page) => {
     setActivePage(page);

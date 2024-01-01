@@ -25,17 +25,14 @@ const AdminUserTable = ({ searchUserName }) => {
     getAllUsers();
   }, []);
 
-
   useEffect(() => {
     if (usersData?.length > 0) {
       setCurrentPageUsers(usersData?.slice(firstIndex, lastIndex));
       setTotalPages(Math.ceil(usersData.length / recordPerPage));
-    }else {
-      setCurrentPageUsers(null)
+    } else {
+      setCurrentPageUsers(null);
     }
   }, [usersData, firstIndex, lastIndex]);
-
-
 
   useEffect(() => {
     setPageNumbers([...Array(totalPages + 1).keys()].slice(1));
@@ -49,7 +46,6 @@ const AdminUserTable = ({ searchUserName }) => {
     setFirstIndex(lastIndex - recordPerPage);
   }, [lastIndex]);
 
-
   useEffect(() => {
     if (searchUserName.length > 0) {
       const filteredUsers = allUsersData?.filter((user) => {
@@ -58,7 +54,7 @@ const AdminUserTable = ({ searchUserName }) => {
           .includes(searchUserName.toLowerCase());
       });
 
-      setCurrentPage(1)
+      setCurrentPage(1);
       setUsersData(filteredUsers);
     } else {
       getAllUsers();
@@ -103,7 +99,7 @@ const AdminUserTable = ({ searchUserName }) => {
           </tr>
         </thead>
         <tbody>
-          {currentPageUsers?.length > 0 ?
+          {currentPageUsers?.length > 0 ? (
             currentPageUsers.map((user, index) => {
               return (
                 <tr key={user?._id}>
@@ -115,7 +111,10 @@ const AdminUserTable = ({ searchUserName }) => {
                   <td>{user?.email}</td>
                 </tr>
               );
-            }) : <tr> No Users Found</tr>}
+            })
+          ) : (
+            <tr> No Users Found</tr>
+          )}
         </tbody>
       </Table>
       {/* pagination buttons here */}
