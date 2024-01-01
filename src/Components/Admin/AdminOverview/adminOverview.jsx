@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axiosInstance from "../../../api/BaseUrl";
 import BarChart from "../../Charts/BarChart/barChart";
 import "./adminOverview.css";
+import PieChart from "../../Charts/PieChart/pieChart";
+import LineChart from "../../Charts/LineChart/lineChart";
 const AdminOverview = () => {
   const [usersData, setUsersData] = useState([]);
   const [orgData, setOrgData] = useState([]);
@@ -15,6 +17,7 @@ const AdminOverview = () => {
         data: allUsersDataLength,
       },
     ],
+    backgroundColor: ["red", "green", "blue"],
   });
   useEffect(() => {
     getAllUsers();
@@ -33,11 +36,13 @@ const AdminOverview = () => {
         {
           label: "Total Users",
           data: allUsersDataLength,
+          backgroundColor: ["#6366f1", "#f79009", "#10b981"],
+          borderColor: "black",
+          borderWidth: 2,
         },
       ],
     });
   }, [allUsersDataLength]);
-
 
   const getAllUsers = async () => {
     const res = await axiosInstance.get("user/get-all-users");
@@ -66,6 +71,14 @@ const AdminOverview = () => {
       <div className="admin-overview-barchart-container">
         <h3> Total Number of Users</h3>
         <BarChart chartData={dataSet} />
+      </div>
+      <div className="admin-overview-barchart-container">
+        <h3> Total Number of Users</h3>
+        <PieChart chartData={dataSet} />
+      </div>
+      <div className="admin-overview-barchart-container">
+        <h3> Total Number of Users</h3>
+        <LineChart chartData={dataSet} />
       </div>
     </>
   );
