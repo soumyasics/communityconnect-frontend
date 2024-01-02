@@ -1,9 +1,9 @@
 import { Container, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import "./userNavbar.css";
+import "./orphanageNavbar.css";
 
-const UserNavbar = () => {
+const OrphanageNavbar = () => {
   const navigate = useNavigate();
   const redirectUserLogin = () => {
     navigate("/user/login");
@@ -15,10 +15,10 @@ const UserNavbar = () => {
           <p> COMMUNITY CONNECT</p>
         </div>
         <div className="user-navbar-center">
-          <Link to="/">Home</Link>
+          <Link to="/orphanage">Home</Link>
           <Link to="">About</Link>
           <Link to="/user/orphanages-list">Orphanages</Link>
-          <Link to="">Donate</Link>
+          <Link to="/orphanage/donation-request">Request</Link>
         </div>
         <div className="user-navbar-right">
           {/* <img src="https://picsum.photos/200/300" alt="profile-icon" /> */}
@@ -28,4 +28,4 @@ const UserNavbar = () => {
     </>
   );
 };
-export default UserNavbar;
+export default OrphanageNavbar;

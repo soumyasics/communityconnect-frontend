@@ -1,13 +1,15 @@
-import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UserLogin from "./Pages/Users/UserLogin/userLogin";
 import UserSignup from "./Pages/Users/UserSignup/userSignup";
 import UserHome from "./Pages/Users/UserHome/UserHome";
 import UserOrphanagesList from "./Pages/Orphanages/UserOrphanagesList/userOrphanagesList";
 import OrphanageDetails from "./Components/Common/OrphanageDetails/orphanageDetails";
-import "bootstrap/dist/css/bootstrap.min.css";
 import AdminLogin from "./Pages/Admin/AdminLogin/AdminLogin";
 import AdminDashboard from "./Pages/Admin/AdminDashboard/adminDashboard";
+import CreateDonationRequest from "./Pages/Orphanages/CreateDonationRequest/createDonationRequest";
+import OrphanageHome from "./Pages/Orphanages/OrphanageHome/orphanageHome";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 function App() {
   return (
     <BrowserRouter>
@@ -17,6 +19,14 @@ function App() {
         <Route path="/user/login" element={<UserLogin />} />
         <Route path="/user/orphanages-list" element={<UserOrphanagesList />} />
         <Route path="/user/orphanage/:id" element={<OrphanageDetails />} />
+
+        {/* orphnaage routes  */}
+        <Route path="/orphanage" element={<OrphanageHome />} />
+        <Route
+          path="/orphanage/donation-request"
+          element={<CreateDonationRequest />}
+        />
+        <Route path="/orphanage/donation-request" element={<CreateDonationRequest />} />
 
         {/* Admin Routes  */}
         <Route path="/admin/login" element={<AdminLogin />} />

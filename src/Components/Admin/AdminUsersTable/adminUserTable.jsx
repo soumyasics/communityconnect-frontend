@@ -62,11 +62,15 @@ const AdminUserTable = ({ searchUserName }) => {
   }, [searchUserName]);
 
   const getAllUsers = async () => {
-    const res = await axiosInstance.get("user/get-all-users");
-    const allUsers = res?.data?.data;
-    if (allUsers.length > 0) {
-      setUsersData(allUsers);
-      setAllUsersData(allUsers);
+    try {
+      const res = await axiosInstance.get("user/get-all-users");
+      const allUsers = res?.data?.data;
+      if (allUsers.length > 0) {
+        setUsersData(allUsers);
+        setAllUsersData(allUsers);
+      }
+    } catch (error) {
+      console.log("Error on get all users", error);
     }
   };
 
@@ -113,7 +117,10 @@ const AdminUserTable = ({ searchUserName }) => {
               );
             })
           ) : (
-            <tr> No Users Found</tr>
+            <tr>
+              {" "}
+              <td>No Users Found</td>
+            </tr>
           )}
         </tbody>
       </Table>

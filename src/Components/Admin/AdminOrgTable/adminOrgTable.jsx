@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axiosInstance from "../../../api/BaseUrl";
 import { Table } from "react-bootstrap";
 import "./adminOrgTable.css";
-const AdminOrgTable = ({searchUserName}) => {
+const AdminOrgTable = ({ searchUserName }) => {
   const [usersData, setUsersData] = useState(null);
   const [allUsersData, setAllUsersData] = useState(null);
   // pagination
@@ -60,12 +60,16 @@ const AdminOrgTable = ({searchUserName}) => {
   }, [searchUserName]);
 
   const getAllUsers = async () => {
-    const res = await axiosInstance.get("organization/get-all-organizations");
-    console.log("res", res);
-    const allUsers = res?.data?.data;
-    if (allUsers.length > 0) {
-      setUsersData(allUsers);
-      setAllUsersData(allUsers);
+    try {
+      const res = await axiosInstance.get("organization/get-all-organizations");
+      console.log("res", res);
+      const allUsers = res?.data?.data;
+      if (allUsers.length > 0) {
+        setUsersData(allUsers);
+        setAllUsersData(allUsers);
+      }
+    } catch (error) {
+      console.log("error on get all organizations", error);
     }
   };
 
@@ -112,7 +116,10 @@ const AdminOrgTable = ({searchUserName}) => {
               );
             })
           ) : (
-            <tr> No Users Found</tr>
+            <tr>
+              {" "}
+              <td>No Users Found</td>
+            </tr>
           )}
         </tbody>
       </Table>

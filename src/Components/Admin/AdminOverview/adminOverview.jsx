@@ -45,24 +45,36 @@ const AdminOverview = () => {
   }, [allUsersDataLength]);
 
   const getAllUsers = async () => {
-    const res = await axiosInstance.get("user/get-all-users");
-    const allUsers = res?.data?.data;
-    if (allUsers?.length > 0) {
-      setUsersData(allUsers);
+    try {
+      const res = await axiosInstance.get("user/get-all-users");
+      const allUsers = res?.data?.data;
+      if (allUsers?.length > 0) {
+        setUsersData(allUsers);
+      }
+    } catch (error) {
+      console.log("error on get all users", error?.message);
     }
   };
   const getAllOrp = async () => {
-    const res = await axiosInstance.get("user/get-all-users");
-    const allOrp = res?.data?.data;
-    if (allOrp.length > 0) {
-      setOrgData(allOrp);
+    try {
+      const res = await axiosInstance.get("user/get-all-users");
+      const allOrp = res?.data?.data;
+      if (allOrp.length > 0) {
+        setOrgData(allOrp);
+      }
+    } catch (error) {
+      console.log("error on get all orp", error?.message);
     }
   };
   const getAllOrg = async () => {
-    const res = await axiosInstance.get("organization/get-all-organizations");
-    const allOrg = res?.data?.data;
-    if (allOrg.length > 0) {
-      setOrpData(allOrg);
+    try {
+      const res = await axiosInstance.get("organization/get-all-organizations");
+      const allOrg = res?.data?.data;
+      if (allOrg.length > 0) {
+        setOrpData(allOrg);
+      }
+    } catch (error) {
+      console.log("error on get all org", error?.message);
     }
   };
   return (

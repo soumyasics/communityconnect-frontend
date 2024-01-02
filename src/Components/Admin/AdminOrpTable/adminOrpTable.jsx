@@ -61,12 +61,16 @@ const AdminOrpTable = ({ searchUserName }) => {
   }, [searchUserName]);
 
   const getAllUsers = async () => {
-    const res = await axiosInstance.get("orphanage/get-all-orphanages");
-    console.log("res", res);
-    const allUsers = res?.data?.data;
-    if (allUsers.length > 0) {
-      setUsersData(allUsers);
-      setAllUsersData(allUsers);
+    try {
+      const res = await axiosInstance.get("orphanage/get-all-orphanages");
+      console.log("res", res);
+      const allUsers = res?.data?.data;
+      if (allUsers.length > 0) {
+        setUsersData(allUsers);
+        setAllUsersData(allUsers);
+      }
+    } catch (error) {
+      console.log("error on get all orphnages", error);
     }
   };
 
@@ -90,7 +94,7 @@ const AdminOrpTable = ({ searchUserName }) => {
       <Table striped bordered hover id="admin-orp-table-container">
         <thead>
           <tr>
-          <th>No</th>
+            <th>No</th>
             <th>Orphanage Name</th>
             <th>Address</th>
             <th>Year Of Establishment</th>
@@ -113,7 +117,10 @@ const AdminOrpTable = ({ searchUserName }) => {
               );
             })
           ) : (
-            <tr> No Users Found</tr>
+            <tr>
+              {" "}
+              <td>No Users Found</td>
+            </tr>
           )}
         </tbody>
       </Table>
