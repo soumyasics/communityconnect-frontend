@@ -9,7 +9,7 @@ const HomeViewDonations = () => {
       id: 1,
       orphanageName: "ABCD",
       date: "2022-11-11",
-      donatedBy: "Anand",
+      donatedBy: "Steve",
       donatedAmount: "1000",
     },
     {
