@@ -17,6 +17,10 @@ const UserLoginForm = ({ user }) => {
     setEmail(event.target.value);
   };
 
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -25,20 +29,19 @@ const UserLoginForm = ({ user }) => {
     }
     setValidated(true);
 
-    console.log(email);
     if (!email || !password || password.length < 8) {
       console.log("Please fill all the fields");
       return;
     }
 
+    if (!isValidEmail(email)) {
+      console.log("Invalid email");
+      return;
+    }
     sendDataToServer(email, password);
   };
 
   const sendDataToServer = async (email, password) => {
-    console.log("user", user);
-    console.log(user !== "user");
-    console.log(user !== "orphanage");
-    console.log(user !== "organization");
     if (user === "user" || user === "orphanage" || user === "organization") {
       try {
         const res = await axiosInstance.post(`/${user}/login`, {
@@ -46,10 +49,30 @@ const UserLoginForm = ({ user }) => {
           password,
         });
         console.log("response", res);
+
         if (res.status === 200) {
           alert("Login successful.");
           setTimeout(() => {
-            navigate("/");
+            if (user === "orphanage") {
+              const orpDataFromServer = res?.data?.data;
+              if (orpDataFromServer) {
+                if (orpDataFromServer.password) {
+                  delete orpDataFromServer.password;
+                }
+                localStorage.setItem(
+                  "orphanage-data",
+                  JSON.stringify(orpDataFromServer)
+                );
+                navigate("/orphanage");
+              } else {
+                console.log(
+                  "Orphanage data is not saved in local storage",
+                  orpDataFromServer
+                );
+              }
+            } else {
+              navigate("/");
+            }
           }, 1500);
         }
       } catch (error) {

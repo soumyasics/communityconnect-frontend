@@ -23,21 +23,24 @@ const OrphanageSignupForm = () => {
   const [validated, setValidated] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const navigate = useNavigate();
-  useEffect(() => {
-    console.log("orp", orphanageData);
-  }, [orphanageData]);
+
   // form validation
   const handleChange = (e) => {
-    console.log(e.target.name, e.target.value);
     setOrphanageData({ ...orphanageData, [e.target.name]: e.target.value });
   };
   const handleFilechange = (e) => {
-    console.log(e.target.name, e.target.files[0]);
     setOrphanageData({ ...orphanageData, img: e.target.files[0] });
   };
   const handleCheckboxChange = (e) => {
     setAgreedToTerms(e.target.checked);
   };
+
+
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -68,6 +71,10 @@ const OrphanageSignupForm = () => {
       }
       if (orphanageData.phoneNumber.length !== 10) {
         console.log("Phone number must be 10 digits");
+        return;
+      }
+      if (!isValidEmail(orphanageData.email)) {
+        console.log("Invalid email");
         return;
       }
       sendDataToServer(orphanageData);

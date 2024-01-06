@@ -30,6 +30,10 @@ const UserSignupForm = () => {
   const handleFilechange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.files[0] });
   };
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
 
   // form validation
   const handleSubmit = (event) => {
@@ -64,6 +68,11 @@ const UserSignupForm = () => {
         console.log("Phone number must be 10 digits");
         return;
       }
+      if (!isValidEmail(userData.email)) {
+        console.log("Invalid email");
+        return;
+      }
+
       sendDataToServer(userData);
     }
   };

@@ -5,27 +5,35 @@ import { useNavigate } from "react-router-dom";
 import "./orphanagesTableList.css";
 const OrphanagesTableList = () => {
   const [orphanagesList, setOrphanagesList] = useState([]);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   useEffect(() => {
     getAllOrphanagesList();
   }, []);
 
   const getAllOrphanagesList = async () => {
-    const res = await axiosInstance.get("orphanage/get-all-orphanages");
-
-    const lists = res?.data?.data;
-    if (lists.length > 0) {
-      setOrphanagesList(lists);
+    try {
+      const res = await axiosInstance.get("orphanage/get-all-orphanages");
+      const lists = res?.data?.data;
+      if (lists.length > 0) {
+        setOrphanagesList(lists);
+      }
+    } catch (error) {
+      console.error("error on get all orphanages", error);
     }
   };
-  
+
   const redirectOrphanageDetails = (id) => {
-    navigate('/user/orphanage/'+id);
+    navigate("/user/orphanage/" + id);
+  };
+
+  if (orphanagesList.length === 0) {
+    return (
+      <div className="m-5 p-5">
+        <h1>No orphanages found.</h1>
+      </div>
+    )
   }
 
-  useEffect(() => {
-    console.log("or", orphanagesList)
-  }, [orphanagesList])
   return (
     <div className="orphanges-table-lists">
       <h1> Listed Orphanages </h1>
@@ -51,9 +59,13 @@ const OrphanagesTableList = () => {
                   <td>{orp.city}</td>
                   <td>{orp.phoneNumber}</td>
                   <td>
-                    <button onClick={() => {
-                        redirectOrphanageDetails(orp._id)
-                    }}>View More</button>
+                    <button
+                      onClick={() => {
+                        redirectOrphanageDetails(orp._id);
+                      }}
+                    >
+                      View More
+                    </button>
                   </td>
                 </tr>
               );

@@ -10,10 +10,10 @@ import AdminEvents from "../../../Components/Admin/AdminEvents/adminEvents";
 import AdminSettings from "../../../Components/Admin/AdminSettings/adminSettings";
 import AdminDashboardNav from "../../../Components/Admin/AdminDashboardNav/adminDashboardNav";
 import "./adminDashboard.css";
+import AdminDonationRequests from "../../../Components/Admin/AdminDonationRequests/adminDonationRequests";
 
 const AdminDashboard = () => {
   const [activePage, setActivePage] = useState("overview");
-  const navigate = useNavigate();
   const changeActivePage = (page) => {
     setActivePage(page);
   };
@@ -32,8 +32,9 @@ const AdminDashboard = () => {
           {activePage === "users" && <AdminUsers />}
           {activePage === "orphanages" && <AdminOrp />}
           {activePage === "organizations" && <AdminOrg />}
-          {activePage === "events" && <AdminEvents />}
+          {activePage === "donation-requests" && <AdminDonationRequests  />}
           {activePage === "donations" && <AdminDonations />}
+          {activePage === "events" && <AdminEvents />}
           {activePage === "settings" && <AdminSettings />}
         </div>
       </div>

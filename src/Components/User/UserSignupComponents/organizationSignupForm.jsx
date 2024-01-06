@@ -24,17 +24,16 @@ const OrganizationSignupForm = () => {
   const [validated, setValidated] = useState(false);
 
   const handleFilechange = (e) => {
-    console.log(e.target.name, e.target.files[0]);
     setOrgData({ ...orgData, img: e.target.files[0] });
   };
   const handleCheckboxChange = (e) => {
     setAgreedToTerms(e.target.checked);
   };
 
-  useEffect(() => {
-    console.log("current user data", orgData);
-  }, [orgData]);
-  // form validation
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -65,6 +64,12 @@ const OrganizationSignupForm = () => {
         console.log("Phone number must be 10 digits");
         return;
       }
+
+      if (!isValidEmail(orgData.email)) {
+        console.log("Invalid email");
+        return;
+      }
+
       sendDataToServer(orgData);
     }
   };
