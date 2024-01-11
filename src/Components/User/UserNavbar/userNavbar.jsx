@@ -18,7 +18,7 @@ const UserNavbar = () => {
           <Link to="/">Home</Link>
           <Link to="">About</Link>
           <Link to="/user/orphanages-list">Orphanages</Link>
-          <Link to="/user/orphnage/request">Donate</Link>
+          <Link to="/user/orphanage/request">Donate</Link>
         </div>
         <div className="user-navbar-right">
           {/* <img src="https://picsum.photos/200/300" alt="profile-icon" /> */}
