@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axiosInstance from "../../../api/BaseUrl";
-import {  Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import DonationTableBody from "./donationTableBody.jsx";
 import "./adminDonationRequestTable.css";
 const AdminDonationRequestTable = ({ searchUserName }) => {
@@ -95,11 +95,6 @@ const AdminDonationRequestTable = ({ searchUserName }) => {
     setCurrentPage(pageNumber);
   };
 
-
-
-
-
-
   if (!usersData) {
     return (
       <>
@@ -109,8 +104,6 @@ const AdminDonationRequestTable = ({ searchUserName }) => {
   }
   return (
     <>
-
-
       <Table striped bordered hover id="admin-org-table-container">
         <thead>
           <tr>
@@ -124,33 +117,20 @@ const AdminDonationRequestTable = ({ searchUserName }) => {
           </tr>
         </thead>
         <tbody>
-          {currentPageUsers?.length > 0 ? (
+          {currentPageUsers?.length > 0 &&
             currentPageUsers.map((req, index) => {
               return (
                 <DonationTableBody
                   index={index}
+                  getAllRequests={getAllRequests}
                   req={req}
                   firstIndex={firstIndex}
                   key={req?._id}
                 />
               );
-            })
-          ) : (
-            <tr>
-              {" "}
-              <td>No Users Found</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          )}
+            })}
         </tbody>
       </Table>
-     
-
- 
-      {/* pop up modal for approve  */}
 
       {/* pagination buttons here */}
       <nav>

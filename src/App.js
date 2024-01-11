@@ -8,17 +8,20 @@ import AdminLogin from "./Pages/Admin/AdminLogin/AdminLogin";
 import AdminDashboard from "./Pages/Admin/AdminDashboard/adminDashboard";
 import CreateDonationRequest from "./Pages/Orphanages/CreateDonationRequest/createDonationRequest";
 import OrphanageHome from "./Pages/Orphanages/OrphanageHome/orphanageHome";
+import UserDonationRequest from "./Components/User/UserDonationRequest/userDonationRequest";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* user  */}
         <Route path="/" element={<UserHome />} />
         <Route path="/user/signup" element={<UserSignup />} />
         <Route path="/user/login" element={<UserLogin />} />
         <Route path="/user/orphanages-list" element={<UserOrphanagesList />} />
         <Route path="/user/orphanage/:id" element={<OrphanageDetails />} />
+        <Route path="/user/orphnage/request" element={<UserDonationRequest />} />
 
         {/* orphnaage routes  */}
         <Route path="/orphanage" element={<OrphanageHome />} />

@@ -3,16 +3,43 @@ import { Button, Modal } from "react-bootstrap";
 import axiosInstance from "../../../api/BaseUrl";
 import "./adminDonationRequestTable.css";
 
-const DonationTableBody = ({ req, index, firstIndex }) => {
+const DonationTableBody = ({ req, index, firstIndex, getAllRequests }) => {
   const sendApproveRequest = async (id) => {
-    console.log("id working", id);
+    if (!id) {
+      console.log("Id is required");
+    }
     try {
       const res = await axiosInstance.patch(
         `donation-request/approve-donation-request/${id}`
       );
       console.log("res", res);
+      if (res.status === 200) {
+        alert("Orphanage request approved");
+      }
     } catch (error) {
       console.log("error on approve request", error);
+      alert("Approve failed");
+    } finally {
+      getAllRequests();
+    }
+  };
+  const sendRejectRequest = async (id) => {
+    if (!id) {
+      console.log("Id is required");
+    }
+    try {
+      const res = await axiosInstance.patch(
+        `donation-request/reject-donation-request/${id}`
+      );
+      console.log("res", res);
+      if (res.status === 200) {
+        alert("Orphanage request rejected");
+      }
+    } catch (error) {
+      console.log("error on approve request", error);
+      alert("Rejection failed");
+    } finally {
+      getAllRequests();
     }
   };
 
@@ -36,7 +63,15 @@ const DonationTableBody = ({ req, index, firstIndex }) => {
           </Button>
         </td>
         <td>
-          <Button variant="danger"> Reject</Button>
+          <Button
+            onClick={() => {
+              sendRejectRequest(req?._id);
+            }}
+            variant="danger"
+          >
+            {" "}
+            Reject
+          </Button>
         </td>
       </tr>
     </>
