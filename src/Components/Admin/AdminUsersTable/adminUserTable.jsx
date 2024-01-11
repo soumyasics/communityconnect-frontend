@@ -14,9 +14,6 @@ const AdminUserTable = ({ searchUserName }) => {
 
   const [currentPageUsers, setCurrentPageUsers] = useState(null);
   const [totalPages, setTotalPages] = useState(1);
-  // pageNumbers Array representing page numbers for pagination control.
-  // It is generated based on the total number of pages needed to display all records.
-  // Each element in the array corresponds to a page number, starting from 1.
   const [pageNumbers, setPageNumbers] = useState(
     [...Array(totalPages + 1).keys()].slice(1)
   );

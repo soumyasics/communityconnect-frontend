@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import axiosInstance from "../../../api/BaseUrl";
-import { Table } from "react-bootstrap";
+import {  Table } from "react-bootstrap";
+import DonationTableBody from "./donationTableBody.jsx";
 import "./adminDonationRequestTable.css";
-import { Button } from "react-bootstrap";
 const AdminDonationRequestTable = ({ searchUserName }) => {
+  const [shopApproveModal, setShowApproveModal] = useState(false);
   const [usersData, setUsersData] = useState(null);
   const [allUsersData, setAllUsersData] = useState(null);
   // pagination
@@ -15,9 +16,6 @@ const AdminDonationRequestTable = ({ searchUserName }) => {
 
   const [currentPageUsers, setCurrentPageUsers] = useState(null);
   const [totalPages, setTotalPages] = useState(1);
-  // pageNumbers Array representing page numbers for pagination control.
-  // It is generated based on the total number of pages needed to display all records.
-  // Each element in the array corresponds to a page number, starting from 1.
   const [pageNumbers, setPageNumbers] = useState(
     [...Array(totalPages + 1).keys()].slice(1)
   );
@@ -50,8 +48,9 @@ const AdminDonationRequestTable = ({ searchUserName }) => {
   useEffect(() => {
     if (searchUserName.length > 0) {
       const filteredUsers = allUsersData?.filter((request) => {
-        console.log("req", request);
-        return request?.orphanageId?.name?.toLowerCase().includes(searchUserName.toLowerCase());
+        return request?.orphanageId?.name
+          ?.toLowerCase()
+          .includes(searchUserName.toLowerCase());
       });
 
       setCurrentPage(1);
@@ -95,6 +94,12 @@ const AdminDonationRequestTable = ({ searchUserName }) => {
   const changeCurrentPage = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+
+
+
+
+
   if (!usersData) {
     return (
       <>
@@ -104,6 +109,8 @@ const AdminDonationRequestTable = ({ searchUserName }) => {
   }
   return (
     <>
+
+
       <Table striped bordered hover id="admin-org-table-container">
         <thead>
           <tr>
@@ -119,27 +126,32 @@ const AdminDonationRequestTable = ({ searchUserName }) => {
         <tbody>
           {currentPageUsers?.length > 0 ? (
             currentPageUsers.map((req, index) => {
-                console.log("req ", req)
               return (
-                <tr key={req?._id}>
-                  <td>{index + firstIndex + 1}</td>
-                  <td>{req?.orphanageId?.name || "Orphanage"}</td>
-                  <td>{req?.title}</td>
-                  <td>{req?.targetAmount}</td>
-                  <td>{req?.orphanageId?.phoneNumber || "Not available"}</td>
-                  <td><Button variant='success'> Approve</Button></td>
-                  <td><Button variant='danger'> Reject</Button></td>
-                </tr>
+                <DonationTableBody
+                  index={index}
+                  req={req}
+                  firstIndex={firstIndex}
+                  key={req?._id}
+                />
               );
             })
           ) : (
             <tr>
               {" "}
               <td>No Users Found</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
           )}
         </tbody>
       </Table>
+     
+
+ 
+      {/* pop up modal for approve  */}
+
       {/* pagination buttons here */}
       <nav>
         <ul className="admin-users-table-pagination pagination">
@@ -177,4 +189,5 @@ const AdminDonationRequestTable = ({ searchUserName }) => {
     </>
   );
 };
+
 export default AdminDonationRequestTable;
