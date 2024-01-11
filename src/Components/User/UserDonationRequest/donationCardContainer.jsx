@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./userDonationRequest.css";
 const DonationCardContainer = ({ allAcceptedReqs }) => {
   const navigate = useNavigate();
-  
+
   return (
     <Container fluid className="my-5">
       <h1 className="text-center text-dark">All Donation Requests</h1>
@@ -13,23 +13,32 @@ const DonationCardContainer = ({ allAcceptedReqs }) => {
         {allAcceptedReqs.map((req) => {
           return (
             <Card
+              key={req._id}
+              className="shadow rounded pb-4"
               onClick={() => {
                 navigate(req._id);
               }}
-              style={{ width: "18rem" }}
+              style={{ width: "18rem", cursor: "pointer" }}
             >
               <Card.Img variant="top" src={orpImg} />
               <Card.Body className="h-50">
-                <Card.Title className="">
-                  {req.orphanageId?.name.slice(0, 25) || "Orphnage"}
+                <Card.Title className="text-primary font-weight-bold">
+                  {req?.title}
+                  <br />
+                  <span className="text-secondary">
+                    <small className="font-italic">
+                      ({req.orphanageId?.name.slice(0, 25) || "Orphnage"})
+                    </small>
+                  </span>
                 </Card.Title>
-                <Card.Text className="h-50">
+                <Card.Text className="h-50 mb-0">
                   {req.description.slice(0, 100) + "..." || "Description"}
                 </Card.Text>
                 <Stack
                   direction="horizontal"
-                  className="mb-3 justify-content-between flex-wrap"
+                  className="justify-content-between flex-wrap mt-2"
                 >
+                  {/* stop btn propagation here  */}
                   <Button variant="success">Donate</Button>
                   <Button variant="primary">Contact</Button>
                 </Stack>

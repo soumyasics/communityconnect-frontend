@@ -32,6 +32,7 @@ const UserDonationRequest = () => {
       if (allReqs.length > 0) {
         // reverse the reqs for showing the last reqs top
         allReqs.reverse();
+        console.log("all reqq", allReqs);
         setAllDonationRequests(allReqs);
         const allAcceptedReqs = getAcceptedRequests(allReqs);
         setAllAcceptedReqs(allAcceptedReqs);

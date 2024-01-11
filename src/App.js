@@ -27,6 +27,7 @@ function App() {
 
         {/* orphnaage routes  */}
         <Route path="/orphanage" element={<OrphanageHome />} />
+        <Route path="/orphanage/orphanages-list" element={<UserOrphanagesList />} />
         <Route
           path="/orphanage/donation-request"
           element={<CreateDonationRequest />}

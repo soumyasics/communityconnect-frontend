@@ -6,18 +6,42 @@ import UserFooter from "../../Common/UserFooter/userFooter";
 import CommunityHeader from "../../Common/CommunityHeader/CommunityHeader";
 import userLandingAfterLogin from "../../../Assets/Images/user-landing-after-login.png";
 import axiosInstance from "../../../api/BaseUrl";
+import child4Img from "../../../Assets/Images/child-3.png";
 import "./userDonationRequest.css";
 import "./donationReqDetails.css";
 
 const DonationReqDetails = () => {
   const [donationReqData, setDonationReqData] = useState(null);
+  const [donationReqStatus, setDonationReqStatus] = useState("Active");
+
   const [loading, setLoading] = useState(true);
+  const [deadlineDate, setDeadlineData] = useState(null);
 
   const { id } = useParams();
-  console.log("id2", id);
   useEffect(() => {
     getDonationReqData();
   }, []);
+
+  function setRequestStatus(deadline) {
+    const deadlineDate = new Date(deadline);
+    const today = new Date();
+    if (today > deadlineDate) {
+      setDonationReqStatus("Request Expired");
+    } else {
+      setDonationReqStatus("Request Active");
+    }
+  }
+  const findDeadlineDate = (deadline) => {
+    const dateOnly = new Date(deadline).toISOString().split("T")[0];
+    setDeadlineData(dateOnly);
+  };
+
+  useEffect(() => {
+    if (donationReqData && donationReqData.deadline) {
+      findDeadlineDate(donationReqData.deadline);
+      setRequestStatus(donationReqData.deadline);
+    }
+  }, [donationReqData]);
   const getDonationReqData = async () => {
     try {
       const res = await axiosInstance.get(
@@ -36,6 +60,10 @@ const DonationReqDetails = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    console.log("f", donationReqData);
+  }, [donationReqData]);
   return (
     <Container fluid className="p-0">
       <UserNavbar />
@@ -46,38 +74,112 @@ const DonationReqDetails = () => {
           description=""
           heading="Donation Request Details"
         />
-        <Container fluid className="p-0">
+        <Container fluid className="p-0 mt-5">
           <h1 className="text-center text-dark">Donation Request Details</h1>
 
-          <div className="single-orp-container">
-            <div className="single-orp-img-container">
+          <div className="pb-5 single-orp-container">
+            <Container fluid className="single-orp-text-container">
+              <Container fluid>
+                <h2 className="text-primary font-weight-bold">
+                  {" "}
+                  Orphanage Name: {donationReqData?.orphanageId?.name}{" "}
+                </h2>
+                <h3 className="font-italic">
+                  {" "}
+                  Request for: {donationReqData?.title}{" "}
+                </h3>
+                <p className="orp-description">
+                  {" "}
+                  More about this request:
+                  {donationReqData?.description}{" "}
+                </p>
+              </Container>
+
+              {/* start  */}
+
+              <Container className="mt-3">
+                <h2 className="lead text-primary font-weight-bold">
+                  {" "}
+                  Request Details
+                </h2>
+                <Row>
+                  <Col>
+                    {" "}
+                    Target Amount ₹: {donationReqData?.targetAmount || 1000}
+                  </Col>
+                  <Col>
+                    {" "}
+                    Category:{donationReqData?.category ||
+                      "Orphanage Expenses"}{" "}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col> Last Date: {deadlineDate || "10/10/2024"}</Col>
+                  <Col>
+                    {" "}
+                    Request Urgency: &nbsp;
+                    <span
+                      className={`${
+                        donationReqData?.urgencyLevel === "high"
+                          ? "text-danger"
+                          : "text-warning"
+                      } font-weight-bold shadow`}
+                    >
+                      {donationReqData?.urgencyLevel.toUpperCase() || "Medium"}
+                    </span>
+                  </Col>
+                </Row>
+
+                {/* end */}
+                <h2 className="lead mt-4 text-primary font-weight-bold">
+                  Orphanage Details
+                </h2>
+                <Row>
+                  <Col>
+                    {" "}
+                    Phone Number: {donationReqData?.orphanageId?.phoneNumber}
+                  </Col>
+                  <Col> Email Id:{donationReqData?.orphanageId?.email} </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    {" "}
+                    Orphanage Address: {donationReqData?.orphanageId?.address}
+                  </Col>
+                  <Col>
+                    {" "}
+                    Orphanage City: {donationReqData?.orphanageId?.city}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    {" "}
+                    Orphanage City: {donationReqData?.orphanageId?.city}{" "}
+                  </Col>
+                  <Col> Pincode: {donationReqData?.orphanageId?.pincode}</Col>
+                </Row>
+                <Row>
+                  <Col>
+                    {" "}
+                    Bank Account Number:{" "}
+                    {donationReqData?.bankAcNumber || 6230_2121_4538}
+                  </Col>
+                </Row>
+
+                <Container
+                  fluid
+                  className="gap-3 mt-4 p-0 d-flex justify-content-between"
+                >
+                  <Button className="w-50 bg-success"> Contact </Button>
+                  <Button className="w-50 bg-primary"> Donate </Button>
+                </Container>
+              </Container>
+            </Container>
+            <div className="single-orp-img-container w-50">
               <img
-                src="https://img.freepik.com/free-vector/orphanage-concept-illustration_114360-8721.jpg"
+                src={child4Img}
                 alt="orphanage"
               />
-            </div>
-            <div className="single-orp-text-container">
-              <h2> Name </h2>
-              <p className="orp-description"> desc</p>
-              <Col> Started Year: </Col>
-              <Row>
-                <Col> Phone Number:</Col>
-                <Col> Email Id: </Col>
-              </Row>
-              <Row>
-                <Col> Orphanage Address:</Col>
-              </Row>
-              <Row>
-                <Col> Orphanage City: </Col>
-                <Col> Pincode: </Col>
-              </Row>
-              <Row>
-                <Col> Our Purpose:</Col>
-              </Row>
-
-              <Row>
-                <Button className="orp-requests-btn"> View Requests </Button>
-              </Row>
             </div>
           </div>
         </Container>

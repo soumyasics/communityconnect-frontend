@@ -3,6 +3,7 @@ import UserFooter from "../../../Components/Common/UserFooter/userFooter";
 import OrphanageNavbar from "../../../Components/Orphanage/OrphanageNavbar/orphanageNavbar";
 import OrphanageRequestForm from "../../../Components/Orphanage/OrphanageRequestForm/orphanageRequestForm";
 import "./createDonationRequest.css";
+import { Container } from "react-bootstrap";
 const CreateDonationRequest = () => {
   const [orpData, setOrpData] = useState(null);
 
@@ -22,7 +23,10 @@ const CreateDonationRequest = () => {
       {orpData ? (
         <OrphanageRequestForm orpData={orpData} />
       ) : (
-        <h1>Please login</h1>
+        <Container style={{minHeight: '400px'}} fluid className="p-0">
+
+          <h1>Please login</h1>
+        </Container>
       )}
       <div className="mt-5">
         <UserFooter />
