@@ -7,12 +7,14 @@ import CommunityHeader from "../../Common/CommunityHeader/CommunityHeader";
 import userLandingAfterLogin from "../../../Assets/Images/user-landing-after-login.png";
 import axiosInstance from "../../../api/BaseUrl";
 import child4Img from "../../../Assets/Images/child-3.png";
+import PaymentVerticalModal from "../../Common/VerticalModal/verticalModal.jsx";
 import "./userDonationRequest.css";
 import "./donationReqDetails.css";
 
 const DonationReqDetails = () => {
   const [donationReqData, setDonationReqData] = useState(null);
   const [donationReqStatus, setDonationReqStatus] = useState("Active");
+  const [paymentModal, setPaymentModal] = useState(false);
 
   const [loading, setLoading] = useState(true);
   const [deadlineDate, setDeadlineData] = useState(null);
@@ -61,11 +63,13 @@ const DonationReqDetails = () => {
     }
   };
 
-  useEffect(() => {
-    console.log("f", donationReqData);
-  }, [donationReqData]);
   return (
     <Container fluid className="p-0">
+      <PaymentVerticalModal
+        show={paymentModal}
+        onHide={() => setPaymentModal(false)}
+        
+      />
       <UserNavbar />
       <Container className="p-0" id="donation-req-details-container" fluid>
         <CommunityHeader
@@ -94,8 +98,6 @@ const DonationReqDetails = () => {
                   {donationReqData?.description}{" "}
                 </p>
               </Container>
-
-              {/* start  */}
 
               <Container className="mt-3">
                 <h2 className="lead text-primary font-weight-bold">
@@ -130,7 +132,6 @@ const DonationReqDetails = () => {
                   </Col>
                 </Row>
 
-                {/* end */}
                 <h2 className="lead mt-4 text-primary font-weight-bold">
                   Orphanage Details
                 </h2>
@@ -170,16 +171,21 @@ const DonationReqDetails = () => {
                   fluid
                   className="gap-3 mt-4 p-0 d-flex justify-content-between"
                 >
-                  <Button className="w-50 bg-success"> Contact </Button>
-                  <Button className="w-50 bg-primary"> Donate </Button>
+                  <Button className="w-50 bg-success"> Send a message </Button>
+                  <Button
+                    onClick={() => {
+                      setPaymentModal(true);
+                    }}
+                    className="w-50 bg-primary"
+                  >
+                    {" "}
+                    Donate{" "}
+                  </Button>
                 </Container>
               </Container>
             </Container>
             <div className="single-orp-img-container w-50">
-              <img
-                src={child4Img}
-                alt="orphanage"
-              />
+              <img src={child4Img} alt="orphanage" />
             </div>
           </div>
         </Container>

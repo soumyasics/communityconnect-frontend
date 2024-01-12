@@ -70,8 +70,42 @@ const UserLoginForm = ({ user }) => {
                   orpDataFromServer
                 );
               }
+            } else if (user === "user") {
+              const userDataFromServer = res?.data?.data;
+              if (userDataFromServer) {
+                if (userDataFromServer.password) {
+                  delete userDataFromServer.password;
+                }
+                localStorage.setItem(
+                  "user-data",
+                  JSON.stringify(userDataFromServer)
+                );
+                navigate("/");
+              } else {
+                console.log(
+                  "User data is not saved in local storage",
+                  userDataFromServer
+                );
+              }
+            } else if (user === "organization") {
+              const orgDataFromServer = res?.data?.data;
+              if (orgDataFromServer) {
+                if (orgDataFromServer.password) {
+                  delete orgDataFromServer.password;
+                }
+                localStorage.setItem(
+                  "organization-data",
+                  JSON.stringify(orgDataFromServer)
+                );
+                navigate("/");
+              } else {
+                console.log(
+                  "Organization data is not saved in local storage",
+                  orgDataFromServer
+                );
+              }
             } else {
-              navigate("/");
+              alert("Some issues.");
             }
           }, 1500);
         }
