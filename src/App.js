@@ -9,10 +9,10 @@ import AdminDashboard from "./Pages/Admin/AdminDashboard/adminDashboard";
 import CreateDonationRequest from "./Pages/Orphanages/CreateDonationRequest/createDonationRequest";
 import OrphanageHome from "./Pages/Orphanages/OrphanageHome/orphanageHome";
 import UserDonationRequest from "./Components/User/UserDonationRequest/userDonationRequest";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
 import DonationReqDetails from "./Components/User/UserDonationRequest/donationReqDetails";
 import LoginModalTest from "./Components/Common/LoginModal/loginModal";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 function App() {
   return (
     <BrowserRouter>

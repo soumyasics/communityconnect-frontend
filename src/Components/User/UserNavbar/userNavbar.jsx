@@ -44,8 +44,8 @@ const UserNavbar = () => {
         <div className="user-navbar-center">
           <Link to="/">Home</Link>
           <Link to="">About</Link>
-          <button onClick={handleRedirectOrpList}>Orphanages</button>
-          <button onClick={handleRedirectRequest}>Donate</button>
+          <button className="border-0 text-light bg-transparent" onClick={handleRedirectOrpList}>Orphanages</button>
+          <button className="border-0 text-light bg-transparent" onClick={handleRedirectRequest}>Donate</button>
         </div>
         <div className="user-navbar-right">
           {/* <img src="https://picsum.photos/200/300" alt="profile-icon" /> */}

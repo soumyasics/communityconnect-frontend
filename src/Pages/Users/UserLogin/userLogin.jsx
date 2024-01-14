@@ -3,15 +3,21 @@ import UserNavbar from "../../../Components/User/UserNavbar/userNavbar.jsx";
 import { useState } from "react";
 import UserLoginForm from "./userLoginForm.jsx";
 import CommunityHeader from "../../../Components/Common/CommunityHeader/CommunityHeader.jsx";
-import "./userLogin.css";
 import UserFooter from "../../../Components/Common/UserFooter/userFooter.jsx";
+import childrensImg from "../../../Assets/Images/childrens.jpg";
+import "./userLogin.css";
 const UserLogin = () => {
   const [activeUser, setActiveUser] = useState("user");
 
   return (
     <>
       <UserNavbar />
-      <CommunityHeader />
+      <CommunityHeader
+        imgPath={childrensImg}
+        heading="Give. Love. Repeat"
+        description=""
+        textColor="#a82927"
+      />
       <Container
         id="all-login-form-container"
         className="all-login-form-containers"

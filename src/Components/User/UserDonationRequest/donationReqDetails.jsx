@@ -7,7 +7,7 @@ import CommunityHeader from "../../Common/CommunityHeader/CommunityHeader";
 import userLandingAfterLogin from "../../../Assets/Images/user-landing-after-login.png";
 import axiosInstance from "../../../api/BaseUrl";
 import child4Img from "../../../Assets/Images/child-3.png";
-import PaymentVerticalModal from "../../Common/VerticalModal/verticalModal.jsx";
+import PaymentVerticalModal from "../../Common/PaymentVerticalModal/PaymentVerticalModal";
 import "./userDonationRequest.css";
 import "./donationReqDetails.css";
 

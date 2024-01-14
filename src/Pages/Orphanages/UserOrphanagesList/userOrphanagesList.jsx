@@ -13,7 +13,7 @@ const UserOrphanagesList = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (userContext && userContext.userType) {
-    console.log('user loggined already')
+      console.log("user loggined already");
     } else {
       navigate("/user/login");
     }
@@ -21,7 +21,11 @@ const UserOrphanagesList = () => {
   return (
     <div>
       <UserNavbar />
-      <CommunityHeader imgPath={doSomethingImg} textColor="black" />
+      <CommunityHeader
+        imgPath={doSomethingImg}
+        textColor="black"
+        description=""
+      />
       <OrphanagesTableList />
       <UserFooter />
     </div>

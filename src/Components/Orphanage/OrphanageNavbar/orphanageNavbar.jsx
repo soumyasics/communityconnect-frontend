@@ -46,15 +46,15 @@ const OrphanageNavbar = () => {
         <div className="user-navbar-center">
           <Link to="/orphanage">Home</Link>
           <Link to="">About</Link>
-          <button onClick={handleRedirectOrpList}>Orphanages</button>
-          <button onClick={handleRedirectRequest}>Request</button>
+          <button className="border-0 text-light bg-transparent" onClick={handleRedirectOrpList}>Orphanages</button>
+          <button className="border-0 text-light bg-transparent" onClick={handleRedirectRequest}>Request</button>
         </div>
         <div className="user-navbar-right">
           {/* <img src="https://picsum.photos/200/300" alt="profile-icon" /> */}
           {userContext?.userType ? (
-            <button onClick={handleLogout}> Logout </button>
+            <button  onClick={handleLogout}> Logout </button>
           ) : (
-            <button onClick={redirectUserLogin}>Login</button>
+            <button  onClick={redirectUserLogin}>Login</button>
           )}
         </div>
       </Container>

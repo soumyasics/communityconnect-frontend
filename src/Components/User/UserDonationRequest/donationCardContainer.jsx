@@ -14,13 +14,13 @@ const DonationCardContainer = ({ allAcceptedReqs }) => {
           return (
             <Card
               key={req._id}
-              className="shadow rounded pb-4"
+              className="shadow rounded pb-4 hover-shadow"
               onClick={() => {
                 navigate(req._id);
               }}
               style={{ width: "18rem", cursor: "pointer" }}
             >
-              <Card.Img variant="top" src={orpImg} />
+              <Card.Img className="hover-overlay hover-zoom hover-shadow" variant="top" src={orpImg} />
               <Card.Body className="h-50">
                 <Card.Title className="text-primary font-weight-bold">
                   {req?.title}
