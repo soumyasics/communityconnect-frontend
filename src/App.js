@@ -12,6 +12,7 @@ import UserDonationRequest from "./Components/User/UserDonationRequest/userDonat
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import DonationReqDetails from "./Components/User/UserDonationRequest/donationReqDetails";
+import LoginModalTest from "./Components/Common/LoginModal/loginModal";
 function App() {
   return (
     <BrowserRouter>
@@ -22,21 +23,36 @@ function App() {
         <Route path="/user/login" element={<UserLogin />} />
         <Route path="/user/orphanages-list" element={<UserOrphanagesList />} />
         <Route path="/user/orphanage/:id" element={<OrphanageDetails />} />
-        <Route path="/user/orphanage/request" element={<UserDonationRequest />} />
-        <Route path="/user/orphanage/request/:id" element={<DonationReqDetails />} />
+        <Route
+          path="/user/orphanage/request"
+          element={<UserDonationRequest />}
+        />
+        <Route
+          path="/user/orphanage/request/:id"
+          element={<DonationReqDetails />}
+        />
 
         {/* orphnaage routes  */}
         <Route path="/orphanage" element={<OrphanageHome />} />
-        <Route path="/orphanage/orphanages-list" element={<UserOrphanagesList />} />
+        <Route
+          path="/orphanage/orphanages-list"
+          element={<UserOrphanagesList />}
+        />
         <Route
           path="/orphanage/donation-request"
           element={<CreateDonationRequest />}
         />
-        <Route path="/orphanage/donation-request" element={<CreateDonationRequest />} />
+        <Route
+          path="/orphanage/donation-request"
+          element={<CreateDonationRequest />}
+        />
 
         {/* Admin Routes  */}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        {/* common routes */}
+        <Route path="/modal/test" element={<LoginModalTest />} />
+        <Route path="/*" element={<h1> 404 </h1>} />
       </Routes>
     </BrowserRouter>
   );

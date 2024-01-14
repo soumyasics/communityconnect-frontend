@@ -1,15 +1,17 @@
 import { Form, Button, Col, InputGroup, Row } from "react-bootstrap";
-import { useState } from "react";
-import axios from "axios";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../api/BaseUrl";
+import AuthContext from "../../../Context/authContext";
+
 import "./userLogin.css";
 const UserLoginForm = ({ user }) => {
   const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const { loginUserContext, logoutUserContext, userContext } =
+    useContext(AuthContext);
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
@@ -52,58 +54,71 @@ const UserLoginForm = ({ user }) => {
 
         if (res.status === 200) {
           alert("Login successful.");
+
+          if (user === "orphanage") {
+            const orpDataFromServer = res?.data?.data;
+
+            if (orpDataFromServer) {
+              if (orpDataFromServer.password) {
+                delete orpDataFromServer.password;
+              }
+
+              loginUserContext("orphanage", orpDataFromServer);
+              localStorage.setItem(
+                "orphanage-data",
+                JSON.stringify(orpDataFromServer)
+              );
+            } else {
+              console.log(
+                "Orphanage data is not saved in local storage",
+                orpDataFromServer
+              );
+            }
+          } else if (user === "user") {
+            const userDataFromServer = res?.data?.data;
+            if (userDataFromServer) {
+              if (userDataFromServer.password) {
+                delete userDataFromServer.password;
+              }
+              loginUserContext("user", userDataFromServer);
+              localStorage.setItem(
+                "user-data",
+                JSON.stringify(userDataFromServer)
+              );
+            } else {
+              console.log(
+                "User data is not saved in local storage",
+                userDataFromServer
+              );
+            }
+          } else if (user === "organization") {
+            const orgDataFromServer = res?.data?.data;
+            if (orgDataFromServer) {
+              if (orgDataFromServer.password) {
+                delete orgDataFromServer.password;
+              }
+              loginUserContext("organization", orgDataFromServer);
+              localStorage.setItem(
+                "organization-data",
+                JSON.stringify(orgDataFromServer)
+              );
+            } else {
+              console.log(
+                "Organization data is not saved in local storage",
+                orgDataFromServer
+              );
+            }
+          } else {
+          }
+
+          // created a delay for showing alert message
           setTimeout(() => {
             if (user === "orphanage") {
-              const orpDataFromServer = res?.data?.data;
-              if (orpDataFromServer) {
-                if (orpDataFromServer.password) {
-                  delete orpDataFromServer.password;
-                }
-                localStorage.setItem(
-                  "orphanage-data",
-                  JSON.stringify(orpDataFromServer)
-                );
-                navigate("/orphanage");
-              } else {
-                console.log(
-                  "Orphanage data is not saved in local storage",
-                  orpDataFromServer
-                );
-              }
+              navigate("/orphanage");
             } else if (user === "user") {
-              const userDataFromServer = res?.data?.data;
-              if (userDataFromServer) {
-                if (userDataFromServer.password) {
-                  delete userDataFromServer.password;
-                }
-                localStorage.setItem(
-                  "user-data",
-                  JSON.stringify(userDataFromServer)
-                );
-                navigate("/");
-              } else {
-                console.log(
-                  "User data is not saved in local storage",
-                  userDataFromServer
-                );
-              }
+              navigate("/");
             } else if (user === "organization") {
-              const orgDataFromServer = res?.data?.data;
-              if (orgDataFromServer) {
-                if (orgDataFromServer.password) {
-                  delete orgDataFromServer.password;
-                }
-                localStorage.setItem(
-                  "organization-data",
-                  JSON.stringify(orgDataFromServer)
-                );
-                navigate("/");
-              } else {
-                console.log(
-                  "Organization data is not saved in local storage",
-                  orgDataFromServer
-                );
-              }
+              navigate("/");
             } else {
               alert("Some issues.");
             }
