@@ -9,7 +9,7 @@ const DonationCardContainer = ({ allAcceptedReqs }) => {
     <Container fluid className="my-5">
       <h1 className="text-center text-dark">All Donation Requests</h1>
 
-      <Container className="d-flex flex-wrap justify-content-between gap-5 py-3">
+      <Container className="d-flex flex-wrap  gap-5 py-3">
         {allAcceptedReqs.map((req) => {
           return (
             <Card

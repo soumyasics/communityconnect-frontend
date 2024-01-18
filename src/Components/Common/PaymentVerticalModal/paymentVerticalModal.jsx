@@ -1,11 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Col, Form, Row, Button, Modal } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import axiosInstance from "../../../api/BaseUrl";
+import AuthContext from "../../../Context/authContext";
 
-export default function MyVerticallyCenteredModal(props) {
+export default function PaymentVerticalModal(props) {
+  const { userContext } = useContext(AuthContext);
+  const { id } = useParams();
+  const [donationReqData, setDonationReqData] = useState(null);
+  const [orphanageId, setOrphanageId] = useState(null);
+  const [validated, setValidated] = useState(false);
   const [paymentModalContent, setPaymentModalContent] = useState({
     heading: "Donate",
-    subHeading: "Pay 1000 rupees ",
-    content: "Pay 1000 rupees xyz orphnage to donate",
+    subHeading: "Amount needed 1000 rupees",
+    content: "Pay 1000 rupees to the orphanage ",
   });
 
   const [userAcDetails, setUserAcDetails] = useState({
@@ -15,13 +23,121 @@ export default function MyVerticallyCenteredModal(props) {
     cvv: "",
   });
 
-  const [validated, setValidated] = useState(false);
+  useEffect(() => {
+    getDonationReqData();
+  }, [id]);
+
+  const collectData = (userBankAcDetails) => {
+    if (donationReqData) {
+      const orphanageId = donationReqData.orphanageId._id || null;
+      const requestId = donationReqData._id || null;
+      const donatedAmount = donationReqData.targetAmount || 1000;
+      let donatedUserId = null;
+      let donatedOrganizationId = null;
+
+      if (userContext?.userType === "user") {
+        donatedUserId = userContext?.userData?._id;
+      }
+      if (userContext?.userType === "orphanage") {
+        donatedOrganizationId = userContext?.userData?._id;
+      }
+      if (
+        orphanageId &&
+        requestId &&
+        donatedAmount &&
+        (donatedUserId || donatedOrganizationId)
+      ) {
+        const allDonationData = {
+          orphanageId,
+          requestId,
+          donatedAmount,
+          donatedUserId,
+          donatedOrganizationId,
+          accountHolderName: userBankAcDetails.acHolderName,
+          cardNumber: userBankAcDetails.cardNumber,
+        };
+
+        console.log("all don", allDonationData);
+
+        sendDataToServer(allDonationData);
+      } else {
+        console.log(
+          "donation failed , please login again",
+          "orp id",
+          orphanageId,
+          "req id",
+          requestId,
+          "donated amt",
+          donatedAmount,
+          "donated user id",
+          donatedUserId,
+          "donated org id optionsl",
+          donatedOrganizationId
+        );
+        return;
+      }
+    } else {
+      console.log("Can't get donation request data");
+      return;
+    }
+  };
+
+  useEffect(() => {
+    if (donationReqData) {
+      setPaymentModalContent({
+        heading: `Donate to ${
+          donationReqData.orphanageId?.name || "Orphanage"
+        }`,
+        subHeading: `Amount needed: ${
+          donationReqData?.targetAmount || 1000
+        } rupees`,
+        content: `Pay ${donationReqData?.targetAmount || 1000} rupees to the ${
+          donationReqData?.orphanageId?.name
+        } orphanage`,
+      });
+    }
+  }, [donationReqData]);
+
+  const sendDataToServer = async (allDonationData) => {
+    const res = await axiosInstance.post("/donation/create", allDonationData);
+    console.log("donation res", res);
+    if (res.status === 201) {
+      alert("Donation successfull");
+      props.onHide();
+      setUserAcDetails({
+        acHolderName: "",
+        cardNumber: "",
+        expiryDate: "",
+        cvv: "",
+      });
+      setValidated(false);
+    } else {
+      alert("Donation failed");
+      console.log("failed respoonse", res);
+    }
+  };
+
+  const getDonationReqData = async () => {
+    try {
+      const res = await axiosInstance.get(
+        "donation-request/get-donation-request/" + id
+      );
+      const data = res?.data?.data || null;
+
+      if (!data) {
+        setDonationReqData(null);
+        return;
+      }
+      setDonationReqData(data);
+    } catch (err) {
+      console.log("err on get individual donation req", err);
+    }
+  };
 
   const handleSubmitPayment = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
 
-    console.log("curr tgt ", event.currentTarget);
     if (form.checkValidity() === false) {
       event.stopPropagation();
     }
@@ -30,11 +146,11 @@ export default function MyVerticallyCenteredModal(props) {
     const { acHolderName, cardNumber, expiryDate, cvv } = userAcDetails;
     if (!acHolderName || !cardNumber || !expiryDate || !cvv) {
       console.log("all fields are mandatory");
-      alert("all fields are mandatory");
       return;
     } else {
-      alert("payment successfull");
-      props.onHide();
+      // alert("payment successfull");
+      console.log("user entered data is valid", userAcDetails);
+      collectData(userAcDetails);
     }
   };
 

@@ -7,7 +7,7 @@ import CommunityHeader from "../../Common/CommunityHeader/CommunityHeader";
 import userLandingAfterLogin from "../../../Assets/Images/user-landing-after-login.png";
 import axiosInstance from "../../../api/BaseUrl";
 import child4Img from "../../../Assets/Images/child-3.png";
-import PaymentVerticalModal from "../../Common/PaymentVerticalModal/PaymentVerticalModal";
+import PaymentVerticalModal from "../../Common/PaymentVerticalModal/paymentVerticalModal";
 import "./userDonationRequest.css";
 import "./donationReqDetails.css";
 
@@ -22,7 +22,7 @@ const DonationReqDetails = () => {
   const { id } = useParams();
   useEffect(() => {
     getDonationReqData();
-  }, []);
+  }, [id]);
 
   function setRequestStatus(deadline) {
     const deadlineDate = new Date(deadline);
@@ -82,13 +82,13 @@ const DonationReqDetails = () => {
           <h1 className="text-center text-dark">Donation Request Details</h1>
 
           <div className="pb-5 single-orp-container">
-            <Container fluid className="single-orp-text-container">
-              <Container fluid>
-                <h2 className="text-primary font-weight-bold">
+            <Container fluid className="text-dark pl-5 single-orp-text-container w-50">
+              <Container fluid >
+                <h2 className="font-weight-bold">
                   {" "}
                   Orphanage Name: {donationReqData?.orphanageId?.name}{" "}
                 </h2>
-                <h3 className="font-italic">
+                <h3 className="font-italic ">
                   {" "}
                   Request for: {donationReqData?.title}{" "}
                 </h3>
@@ -100,12 +100,12 @@ const DonationReqDetails = () => {
               </Container>
 
               <Container className="mt-3">
-                <h2 className="lead text-primary font-weight-bold">
+                <h2 className="lead text-dark font-weight-bold">
                   {" "}
                   Request Details
                 </h2>
                 <Row>
-                  <Col>
+                  <Col className="h6">
                     {" "}
                     Target Amount ₹: {donationReqData?.targetAmount || 1000}
                   </Col>
@@ -132,7 +132,7 @@ const DonationReqDetails = () => {
                   </Col>
                 </Row>
 
-                <h2 className="lead mt-4 text-primary font-weight-bold">
+                <h2 className="lead mt-4 text-dark   font-weight-bold">
                   Orphanage Details
                 </h2>
                 <Row>
