@@ -144,7 +144,7 @@ export default function PaymentVerticalModal(props) {
 
     setValidated(true);
     const { acHolderName, cardNumber, expiryDate, cvv } = userAcDetails;
-    if (!acHolderName || !cardNumber || !expiryDate || !cvv) {
+    if (!acHolderName || !cardNumber || !expiryDate || !cvv || cvv.length !== 3 || cardNumber.length !== 16) {
       console.log("all fields are mandatory");
       return;
     } else {
@@ -155,6 +155,10 @@ export default function PaymentVerticalModal(props) {
   };
 
   const handleChange = (e) => {
+    if (e.target.name === "cvv"){
+      console.log("typ",Number(e.target.value))
+
+    }
     setUserAcDetails({
       ...userAcDetails,
       [e.target.name]: e.target.value,
@@ -199,9 +203,11 @@ export default function PaymentVerticalModal(props) {
             <Form.Control
               name="cardNumber"
               value={userAcDetails.cardNumber}
-              type="number"
+              type="text"
               placeholder="Card Number"
               pattern="[0-9]{16}"
+              minLength={16}
+              maxLength={16}
               onChange={handleChange}
               required
             />
@@ -241,8 +247,10 @@ export default function PaymentVerticalModal(props) {
                   placeholder="CVV"
                   name="cvv"
                   pattern="[0-9]{3}"
-                  type="number"
+                  type="text"
                   required
+                  minLength={3}
+                  maxLength={3}
                 />
                 <Form.Control.Feedback type="invalid">
                   Please provide CVV

@@ -197,6 +197,7 @@ const OrphanageSignupForm = () => {
             onChange={handleChange}
             value={orphanageData.phoneNumber}
             pattern="[0-9]{10}"
+            maxLength={10}
           />
           <Form.Control.Feedback type="invalid">
             Please provide 10 digits phone number.

@@ -191,6 +191,7 @@ const OrganizationSignupForm = () => {
             onChange={handleChange}
             value={orgData.phoneNumber}
             name="phoneNumber"
+    
           />
           <Form.Control.Feedback type="invalid">
             Please provide 10 digit Phone number.

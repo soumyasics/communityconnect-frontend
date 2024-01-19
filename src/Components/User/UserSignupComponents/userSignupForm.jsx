@@ -280,6 +280,7 @@ const UserSignupForm = () => {
             required
             type="text"
             minLength={10}
+            maxLength={10}
             placeholder="Phone Number"
             name="phoneNumber"
             onChange={handleChange}

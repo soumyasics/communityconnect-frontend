@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import axiosMultipartInstance from "../../../api/axiosMultipartInstance";
 import axiosInstance from "../../../api/BaseUrl";
 const OrphanageRequestForm = ({ orpData }) => {
- 
   const [donationReqData, setDonationReqData] = useState({
     orphanageId: "",
     title: "",
@@ -25,7 +24,6 @@ const OrphanageRequestForm = ({ orpData }) => {
   const handleChange = (e) => {
     setDonationReqData({ ...donationReqData, [e.target.name]: e.target.value });
   };
-  
 
   // form validation
   const handleSubmit = (event) => {
@@ -43,7 +41,7 @@ const OrphanageRequestForm = ({ orpData }) => {
       !donationReqData.deadline ||
       !donationReqData.category ||
       !donationReqData.urgencyLevel ||
-      !donationReqData.description 
+      !donationReqData.description
     ) {
       console.log("Please fill all the fields");
       return;
@@ -58,8 +56,11 @@ const OrphanageRequestForm = ({ orpData }) => {
 
   const sendDataToServer = async (data) => {
     try {
-      const response = await axiosInstance.post("donation-request/create-donation-request", data);
-     
+      const response = await axiosInstance.post(
+        "donation-request/create-donation-request",
+        data
+      );
+
       if (response.status === 201) {
         console.log("user created successfully");
         alert("Request successful.");
@@ -117,6 +118,29 @@ const OrphanageRequestForm = ({ orpData }) => {
           <Form.Group>
             <Form.Control
               required
+              type="text"
+              placeholder="Bank Name"
+              name="bank-name"
+            />
+            <Form.Control.Feedback type="invalid">
+              Please specify the bank name.
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group>
+            <Form.Control
+              required
+              type="number"
+              placeholder="Bank IFSC Number"
+            />
+            <Form.Control.Feedback type="invalid">
+              Please enter your bank IFSC
+            </Form.Control.Feedback>
+          </Form.Group>
+        </div>
+        <div className="signup-form-flex-div">
+          <Form.Group>
+            <Form.Control
+              required
               type="number"
               name="bankAcNumber"
               placeholder="Bank Account Number"
@@ -136,7 +160,7 @@ const OrphanageRequestForm = ({ orpData }) => {
               onChange={handleChange}
             />
             <Form.Control.Feedback type="invalid">
-              Please provide the  deadline of this request.
+              Please provide the deadline of this request.
             </Form.Control.Feedback>
           </Form.Group>
         </div>
@@ -193,7 +217,8 @@ const OrphanageRequestForm = ({ orpData }) => {
             required
           />
           <Form.Control.Feedback type="invalid">
-            Please provide more details about this request so we can assist you.  <br/>
+            Please provide more details about this request so we can assist you.{" "}
+            <br />
             Minimum 30 characters are required.
           </Form.Control.Feedback>
         </Form.Group>
