@@ -14,9 +14,25 @@ const UserNavbar = () => {
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user-data")) || null;
-    console.log("usr dta", userData);
     if (userData) {
       loginUserContext("user", userData);
+      if (localStorage.getItem("organization-data")){
+        localStorage.removeItem("organization-data");
+      }
+      if (localStorage.getItem("orphanage-data")){
+        localStorage.removeItem("orphanage-data");
+      }
+    }
+
+    const orgData = JSON.parse(localStorage.getItem("organization-data")) || null;
+    if (orgData) {
+      loginUserContext("organization", orgData);
+      if (localStorage.getItem("orphanage-data")){
+        localStorage.removeItem("orphanage-data");
+      }
+      if (localStorage.getItem("user-data")) {
+        localStorage.removeItem("user-data");
+      }
     }
   }, []);
 

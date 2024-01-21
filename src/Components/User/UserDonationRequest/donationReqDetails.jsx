@@ -50,6 +50,7 @@ const DonationReqDetails = () => {
         "donation-request/get-donation-request/" + id
       );
       const data = res?.data?.data || null;
+      console.log("dd", data);
 
       if (!data) {
         setDonationReqData(null);
@@ -68,7 +69,6 @@ const DonationReqDetails = () => {
       <PaymentVerticalModal
         show={paymentModal}
         onHide={() => setPaymentModal(false)}
-        
       />
       <UserNavbar />
       <Container className="p-0" id="donation-req-details-container" fluid>
@@ -82,16 +82,19 @@ const DonationReqDetails = () => {
           <h1 className="text-center text-dark">Donation Request Details</h1>
 
           <div className="pb-5 single-orp-container">
-            <Container fluid className="text-dark pl-5 single-orp-text-container w-50">
-              <Container fluid >
+            <Container
+              fluid
+              className="text-dark pl-5 single-orp-text-container w-50"
+            >
+              <Container fluid>
                 <h2 className="font-weight-bold">
                   {" "}
                   Orphanage Name: {donationReqData?.orphanageId?.name}{" "}
                 </h2>
-                <h3 className="font-italic ">
+                <h4 className="font-italic ">
                   {" "}
-                  Request for: {donationReqData?.title}{" "}
-                </h3>
+                  Request for: {donationReqData?.title}{" "} ({donationReqData?.status.toUpperCase() || "PENDING"})
+                </h4>
                 <p className="orp-description">
                   {" "}
                   More about this request:
@@ -107,16 +110,21 @@ const DonationReqDetails = () => {
                 <Row>
                   <Col className="h6">
                     {" "}
-                    Target Amount ₹: {donationReqData?.targetAmount || 1000}
+                    Total Amount ₹: {donationReqData?.targetAmount || 1000}
                   </Col>
+
                   <Col>
-                    {" "}
-                    Category:{donationReqData?.category ||
-                      "Orphanage Expenses"}{" "}
+                    Amount Received:{" "}
+                    {donationReqData?.totallyCollectedAmount || 0}{" "}
                   </Col>
                 </Row>
                 <Row>
-                  <Col> Last Date: {deadlineDate || "10/10/2024"}</Col>
+                  <Col className="h6">
+                    {" "}
+                    Pending Amount ₹:{" "}
+                    {donationReqData?.targetAmount -
+                      donationReqData?.totallyCollectedAmount || 0}
+                  </Col>
                   <Col>
                     {" "}
                     Request Urgency: &nbsp;
@@ -131,7 +139,15 @@ const DonationReqDetails = () => {
                     </span>
                   </Col>
                 </Row>
+         
 
+                <Row>
+                  <Col>
+                    Category:
+                    {donationReqData?.category || "Orphanage Expenses"}{" "}
+                  </Col>
+                  <Col> Last Date: {deadlineDate || "10/10/2024"}</Col>
+                </Row>
                 <h2 className="lead mt-4 text-dark   font-weight-bold">
                   Orphanage Details
                 </h2>
@@ -171,12 +187,13 @@ const DonationReqDetails = () => {
                   fluid
                   className="gap-3 mt-4 p-0 d-flex justify-content-between"
                 >
-                  <Button className="w-50 bg-success"> Send a message </Button>
+                  {/* <Button className="w-50 bg-success"> Send a message </Button> */}
                   <Button
                     onClick={() => {
                       setPaymentModal(true);
                     }}
                     className="w-50 bg-primary"
+                    disabled={donationReqData?.status === "fulfilled"}
                   >
                     {" "}
                     Donate{" "}

@@ -19,6 +19,19 @@ const UserLoginForm = ({ user }) => {
     setEmail(event.target.value);
   };
 
+  // removing localstorage data before login, one time a single user can access this app
+  const removeLSData = () => {
+    if (localStorage.getItem("user-data")) {
+      localStorage.removeItem("user-data");
+    }
+    if (localStorage.getItem("orphanage-data")) {
+      localStorage.removeItem("orphanage-data");
+    }
+    if (localStorage.getItem("organization-data")) {
+      localStorage.removeItem("organization-data");
+    }
+  };
+
   function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -50,11 +63,10 @@ const UserLoginForm = ({ user }) => {
           email,
           password,
         });
-        console.log("response", res);
 
         if (res.status === 200) {
           alert("Login successful.");
-
+          removeLSData();
           if (user === "orphanage") {
             const orpDataFromServer = res?.data?.data;
 
