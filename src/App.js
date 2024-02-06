@@ -13,6 +13,7 @@ import DonationReqDetails from "./Components/User/UserDonationRequest/donationRe
 import LoginModalTest from "./Components/Common/LoginModal/loginModal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import LeaderBoard from "./Pages/Leaderboard/leaderboard";
 function App() {
   return (
     <BrowserRouter>
@@ -21,7 +22,10 @@ function App() {
         <Route path="/" element={<UserHome />} />
         <Route path="/user/signup" element={<UserSignup />} />
         <Route path="/user/login" element={<UserLogin />} />
-        <Route path="/user/orphanages-list" element={<UserOrphanagesList activeUser="user"/>} />
+        <Route
+          path="/user/orphanages-list"
+          element={<UserOrphanagesList activeUser="user" />}
+        />
         <Route path="/user/orphanage/:id" element={<OrphanageDetails />} />
         <Route
           path="/user/orphanage/request"
@@ -31,12 +35,16 @@ function App() {
           path="/user/orphanage/request/:id"
           element={<DonationReqDetails />}
         />
+        <Route
+          path="/user/leaderboard"
+          element={<LeaderBoard activeUser="user" />}
+        />
 
         {/* orphnaage routes  */}
         <Route path="/orphanage" element={<OrphanageHome />} />
         <Route
           path="/orphanage/orphanages-list"
-          element={<UserOrphanagesList activeUser="orphanage"/>}
+          element={<UserOrphanagesList activeUser="orphanage" />}
         />
         <Route
           path="/orphanage/donation-request"
@@ -45,6 +53,10 @@ function App() {
         <Route
           path="/orphanage/donation-request"
           element={<CreateDonationRequest />}
+        />
+        <Route
+          path="/orphanage/leaderboard"
+          element={<LeaderBoard activeUser="orphanage" />}
         />
 
         {/* Admin Routes  */}
@@ -52,6 +64,7 @@ function App() {
         <Route path="/admin" element={<AdminDashboard />} />
         {/* common routes */}
         <Route path="/modal/test" element={<LoginModalTest />} />
+
         <Route path="/*" element={<h1> 404 </h1>} />
       </Routes>
     </BrowserRouter>

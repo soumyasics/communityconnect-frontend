@@ -50,7 +50,6 @@ const DonationReqDetails = () => {
         "donation-request/get-donation-request/" + id
       );
       const data = res?.data?.data || null;
-      console.log("dd", data);
 
       if (!data) {
         setDonationReqData(null);
@@ -93,7 +92,8 @@ const DonationReqDetails = () => {
                 </h2>
                 <h4 className="font-italic ">
                   {" "}
-                  Request for: {donationReqData?.title}{" "} ({donationReqData?.status.toUpperCase() || "PENDING"})
+                  Request for: {donationReqData?.title} (
+                  {donationReqData?.status.toUpperCase() || "PENDING"})
                 </h4>
                 <p className="orp-description">
                   {" "}
@@ -139,7 +139,6 @@ const DonationReqDetails = () => {
                     </span>
                   </Col>
                 </Row>
-         
 
                 <Row>
                   <Col>

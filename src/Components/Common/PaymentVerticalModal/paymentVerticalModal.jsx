@@ -89,31 +89,41 @@ export default function PaymentVerticalModal(props) {
           donationReqData.orphanageId?.name || "Orphanage"
         }`,
         subHeading: `Amount needed: ${
-          donationReqData?.targetAmount - donationReqData.totallyCollectedAmount
-          || 1000
+          donationReqData?.targetAmount -
+            donationReqData.totallyCollectedAmount || 1000
         } rupees`,
-        content: `Pay ${donationReqData?.targetAmount  - donationReqData.totallyCollectedAmount|| 1000} rupees to the ${
-          donationReqData?.orphanageId?.name
-        } orphanage`,
+        content: `Pay ${
+          donationReqData?.targetAmount -
+            donationReqData.totallyCollectedAmount || 1000
+        } rupees to the ${donationReqData?.orphanageId?.name} orphanage`,
       });
     }
   }, [donationReqData]);
 
   const sendDataToServer = async (allDonationData) => {
-    const res = await axiosInstance.post("/donation/create", allDonationData);
-    if (res.status === 201) {
-      alert("Donation successfull");
-      props.onHide();
-      setUserAcDetails({
-        acHolderName: "",
-        cardNumber: "",
-        expiryDate: "",
-        cvv: "",
-      });
-      setValidated(false);
-    } else {
-      alert("Donation failed");
-      console.log("failed respoonse", res);
+    try {
+      const res = await axiosInstance.post("/donation/create", allDonationData);
+      if (res.status === 201) {
+        alert("Donation successfull");
+        props.onHide();
+        setUserAcDetails({
+          acHolderName: "",
+          cardNumber: "",
+          expiryDate: "",
+          cvv: "",
+        });
+        setValidated(false);
+      } else {
+        alert("Donation failed");
+        console.log("failed respoonse", res);
+      }
+    } catch (error) {
+      console.error(error);
+      const errMsg = error.response?.data?.message;
+      if (errMsg) {
+        console.log(error.response.data.message);
+        alert(errMsg);
+      }
     }
   };
 
@@ -239,9 +249,7 @@ export default function PaymentVerticalModal(props) {
               </Form.Group>
             </Col>
             <Col>
-              <Form.Group
-                className="mb-3"
-              >
+              <Form.Group className="mb-3">
                 <Form.Label>Amount</Form.Label>
                 <Form.Control
                   name="amount"

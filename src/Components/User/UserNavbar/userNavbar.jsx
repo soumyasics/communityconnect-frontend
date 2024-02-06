@@ -81,7 +81,7 @@ const UserNavbar = () => {
         </div>
         <div className="user-navbar-center">
           <Link to="/">Home</Link>
-          <Link to="">About</Link>
+          <Link to="/user/leaderboard">Leader Board</Link>
           <button
             className="border-0 text-light bg-transparent"
             onClick={handleRedirectOrpList}

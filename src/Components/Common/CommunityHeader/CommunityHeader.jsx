@@ -37,14 +37,14 @@ const CommunityHeader = ({
     >
       <Container className="community-header-content">
         <InputGroup className="mb-3 header-search-input">
-          <FormControl
+          {/* <FormControl
             className="header-search-input"
             placeholder="Search"
             type="text"
-          />
-          <InputGroup.Text id="basic-addon1">
+          /> */}
+          {/* <InputGroup.Text id="basic-addon1">
             <IoSearchOutline />
-          </InputGroup.Text>
+          </InputGroup.Text> */}
         </InputGroup>
 
         <Container
