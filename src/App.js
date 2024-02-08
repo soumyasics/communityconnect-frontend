@@ -11,9 +11,10 @@ import OrphanageHome from "./Pages/Orphanages/OrphanageHome/orphanageHome";
 import UserDonationRequest from "./Components/User/UserDonationRequest/userDonationRequest";
 import DonationReqDetails from "./Components/User/UserDonationRequest/donationReqDetails";
 import LoginModalTest from "./Components/Common/LoginModal/loginModal";
+import LeaderBoard from "./Pages/Leaderboard/leaderboard";
+import UserProfile from "./Pages/Users/Profile/userProfile";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import LeaderBoard from "./Pages/Leaderboard/leaderboard";
 function App() {
   return (
     <BrowserRouter>
@@ -39,6 +40,12 @@ function App() {
           path="/user/leaderboard"
           element={<LeaderBoard activeUser="user" />}
         />
+        <Route
+          path="/profile"
+          element={<UserProfile activeUser="user" />}
+        />
+
+        
 
         {/* orphnaage routes  */}
         <Route path="/orphanage" element={<OrphanageHome />} />

@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../Context/authContext";
 import { useContext, useState, useEffect } from "react";
-
-import "./userNavbar.css";
 import LoginModal from "../../Common/LoginModal/loginModal";
+import "./userNavbar.css";
 
 const UserNavbar = () => {
   const [loginModalShow, setLoginModalShow] = useState(false);
@@ -16,18 +15,19 @@ const UserNavbar = () => {
     const userData = JSON.parse(localStorage.getItem("user-data")) || null;
     if (userData) {
       loginUserContext("user", userData);
-      if (localStorage.getItem("organization-data")){
+      if (localStorage.getItem("organization-data")) {
         localStorage.removeItem("organization-data");
       }
-      if (localStorage.getItem("orphanage-data")){
+      if (localStorage.getItem("orphanage-data")) {
         localStorage.removeItem("orphanage-data");
       }
     }
 
-    const orgData = JSON.parse(localStorage.getItem("organization-data")) || null;
+    const orgData =
+      JSON.parse(localStorage.getItem("organization-data")) || null;
     if (orgData) {
       loginUserContext("organization", orgData);
-      if (localStorage.getItem("orphanage-data")){
+      if (localStorage.getItem("orphanage-data")) {
         localStorage.removeItem("orphanage-data");
       }
       if (localStorage.getItem("user-data")) {
@@ -36,9 +36,6 @@ const UserNavbar = () => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log("user cont", userContext);
-  }, [userContext]);
 
   const navigate = useNavigate();
   const redirectUserLogin = () => {
@@ -55,7 +52,7 @@ const UserNavbar = () => {
     if (localStorage.getItem("organization-data")) {
       localStorage.removeItem("organization-data");
     }
-    
+
     logoutUserContext();
     navigate("/user/login");
   };
@@ -81,7 +78,8 @@ const UserNavbar = () => {
         </div>
         <div className="user-navbar-center">
           <Link to="/">Home</Link>
-          <Link to="/user/leaderboard">Leader Board</Link>
+          <Link to="/user/leaderboard">Leaderboard</Link>
+
           <button
             className="border-0 text-light bg-transparent"
             onClick={handleRedirectOrpList}
@@ -94,6 +92,7 @@ const UserNavbar = () => {
           >
             Donate
           </button>
+          <Link to="/profile">Profile</Link>
         </div>
         <div className="user-navbar-right">
           {/* <img src="https://picsum.photos/200/300" alt="profile-icon" /> */}
