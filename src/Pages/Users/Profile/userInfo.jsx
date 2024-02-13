@@ -25,35 +25,29 @@ const UserInfo = () => {
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTy4moKlTUfDqvfHcx32l_RfRL779U0dakfE-Cys3Qudw&s",
   });
 
-  // useEffect(() => {
-  //   const { name, email, phoneNumber, role } = JSON.parse(
-  //     localStorage.getItem("user-data")
-  //   );
-  //   let newObj = { name, email, phoneNumber, role };
-
-  //   setuserInfo({
-  //     ...userInfo,
-  //     ...newObj,
-  //   });
-  // }, []);
-
   useEffect(() => {
-    
     getUserData();
-
   }, []);
   const getUserData = () => {
     if (userContext?.userData) {
+      let name = "";
+      let phoneNumber = "";
+      if (userContext.userType === "user") {
+        name = userContext.userData.firstName;
+        phoneNumber = userContext.userData.contact;
+      } else {
+        name = userContext.userData.name;
+        phoneNumber = userContext.userData.phoneNumber;
+      }
 
-      const { name, email, phoneNumber } = userContext.userData;
+      let { email } = userContext.userData;
       const role = userContext.userType;
       let newObj = { name, email, phoneNumber, role };
-      console.log("new obj", newObj);
       setuserInfo({
         ...userInfo,
         ...newObj,
       });
-    }else {
+    } else {
       console.log("user data not found");
     }
   };
@@ -99,6 +93,12 @@ const UserInfo = () => {
           <p className="user-data">{userInfo.name}</p>
         </div>
         <div>
+          <p className="user-title">Total Donated Amount</p>
+          <p className="user-data">
+          <span> ₹ </span> {userContext?.userData?.totalDonatedAmt || 0} 
+          </p>
+        </div>
+        <div>
           <p className="user-title">Role</p>
           <p className="user-data">{userInfo.role}</p>
         </div>
@@ -112,7 +112,7 @@ const UserInfo = () => {
                 <p>Mail ID:</p>
                 <p>{userInfo.email}</p>
               </div>
-              <button onClick={removeEmail}>Remove</button>
+              {/* <button onClick={removeEmail}>Remove</button> */}
             </div>
             <div>
               <div className="contact">
@@ -120,9 +120,9 @@ const UserInfo = () => {
                 <p>Phone Number:</p>
                 <p>{userInfo.phoneNumber}</p>
               </div>
-              <button onClick={removePhonenumber}>Remove</button>
+              {/* <button onClick={removePhonenumber}>Remove</button> */}
             </div>
-            <button id="edit-profile-btn">Edit Profile</button>
+            {/* <button id="edit-profile-btn">Edit Profile</button> */}
           </div>
         </div>
       </div>

@@ -36,7 +36,6 @@ const UserNavbar = () => {
     }
   }, []);
 
-
   const navigate = useNavigate();
   const redirectUserLogin = () => {
     navigate("/user/login");
@@ -70,6 +69,9 @@ const UserNavbar = () => {
       setLoginModalShow(true);
     }
   };
+  const redirectProfile = () => {
+    navigate("/profile");
+  };
   return (
     <>
       <Container fluid className="user-navbar-container">
@@ -92,12 +94,11 @@ const UserNavbar = () => {
           >
             Donate
           </button>
-          <Link to="/profile">Profile</Link>
         </div>
         <div className="user-navbar-right">
           {/* <img src="https://picsum.photos/200/300" alt="profile-icon" /> */}
           {userContext?.userType ? (
-            <button onClick={handleLogout}> Logout </button>
+            <button onClick={redirectProfile}>Profile </button>
           ) : (
             <button onClick={redirectUserLogin}>Login</button>
           )}
