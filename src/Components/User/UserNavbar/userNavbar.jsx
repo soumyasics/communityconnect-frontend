@@ -81,6 +81,7 @@ const UserNavbar = () => {
         <div className="user-navbar-center">
           <Link to="/">Home</Link>
           <Link to="/user/leaderboard">Leaderboard</Link>
+          <Link to="/blood-camp">Camp</Link>
 
           <button
             className="border-0 text-light bg-transparent"

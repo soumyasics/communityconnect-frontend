@@ -15,6 +15,7 @@ import LeaderBoard from "./Pages/Leaderboard/leaderboard";
 import UserProfile from "./Pages/Users/Profile/userProfile";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import BloodCamp from "./Pages/BloodCamp/bloodCamp";
 function App() {
   return (
     <BrowserRouter>
@@ -40,12 +41,9 @@ function App() {
           path="/user/leaderboard"
           element={<LeaderBoard activeUser="user" />}
         />
-        <Route
-          path="/profile"
-          element={<UserProfile activeUser="user" />}
-        />
-
-        
+        <Route path="/profile" element={<UserProfile activeUser="user" />} />
+        <Route path="/blood-camp" element={<BloodCamp />} />
+        {/* organizations  */}
 
         {/* orphnaage routes  */}
         <Route path="/orphanage" element={<OrphanageHome />} />
