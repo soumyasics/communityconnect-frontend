@@ -3,6 +3,7 @@ import { Container, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../Context/authContext";
+
 import LoginModal from "../../Common/LoginModal/loginModal";
 import "./orphanageNavbar.css";
 
@@ -24,6 +25,10 @@ const OrphanageNavbar = () => {
     navigate("/user/login");
   };
 
+  const navigateHome = () => {
+    navigate("/orphanage");
+  };
+
   const handleLogout = () => {
     if (localStorage.getItem("user-data")) {
       localStorage.removeItem("user-data");
@@ -34,7 +39,7 @@ const OrphanageNavbar = () => {
     if (localStorage.getItem("organization-data")) {
       localStorage.removeItem("organization-data");
     }
-    
+
     logoutUserContext();
     navigate("/user/login");
   };
@@ -62,11 +67,13 @@ const OrphanageNavbar = () => {
             navigate("/orphanage");
           }}
         >
-          <p> COMMUNITY CONNECT</p>
+          <p style={{ cursor: "pointer" }} onClick={navigateHome}>
+            {" "}
+            COMMUNITY CONNECT
+          </p>
         </div>
         <div className="user-navbar-center">
           <Link to="/orphanage">Home</Link>
-          <Link to="">About</Link>
           <button
             className="border-0 text-light bg-transparent"
             onClick={handleRedirectOrpList}

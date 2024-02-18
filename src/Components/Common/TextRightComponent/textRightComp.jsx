@@ -23,7 +23,7 @@ const TextRightComponent = ({ imgPath, content, heading, buttonContent }) => {
         navigate("/view-blood-camps");
       }
     } else {
-      showToast("Loggin First");
+      showToast("Log in First");
       console.log("User is not logged in.");
     }
   };
@@ -37,7 +37,10 @@ const TextRightComponent = ({ imgPath, content, heading, buttonContent }) => {
         <div className="text-right-section">
           <h3> {heading}</h3>
           <p> {content}</p>
-          <button onClick={redirectToCamp}>{buttonContent}</button>
+
+          {buttonContent !== null && (
+            <button onClick={redirectToCamp}>{buttonContent}</button>
+          )}
         </div>
       </div>
     </>

@@ -46,7 +46,7 @@ const UserHome = () => {
         buttonContent={donationBtnContent}
       />
 
-      <HomeViewDonations />
+      {/* <HomeViewDonations /> */}
       <TextCenterQuote />
       <UserFooter />
     </>

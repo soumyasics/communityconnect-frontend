@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AuthContext from "../Context/authContext.js";
 
 const AuthProvider = ({ children }) => {
@@ -6,6 +6,10 @@ const AuthProvider = ({ children }) => {
     userType: "",
     userData: null,
   });
+
+  useEffect(() => {
+    console.log("userContext", userContext);
+  }, [userContext]);
   const loginUserContext = (userType, userData) => {
     setUserContext({
       userType,
@@ -19,7 +23,9 @@ const AuthProvider = ({ children }) => {
     });
   };
   return (
-    <AuthContext.Provider value={{ userContext, loginUserContext, logoutUserContext }}>
+    <AuthContext.Provider
+      value={{ userContext, loginUserContext, logoutUserContext }}
+    >
       {children}
     </AuthContext.Provider>
   );

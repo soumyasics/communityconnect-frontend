@@ -16,10 +16,9 @@ import TextCenterQuote from "../../../Components/Common/TextCenterQuote/textCent
 import UserFooter from "../../../Components/Common/UserFooter/userFooter";
 const OrphanageHome = () => {
   const contributeHeading = "Making a Meaningful Impact";
-  const contributeContent =
-    "Charity is a powerful force that brings positive change to both individuals and communities. By engaging in acts of kindness and generosity, we not only uplift those in need but also contribute to building a more compassionate and harmonious society. ";
+  const contributeContent = `Charity is a powerful force that brings positive change to both individual     By engaging in acts of kindness and generosity, we not only uplift those in need but also contribute to building a more compassionate and harmonious society. `;
 
-  const btnContent = "View More";
+  const btnContent = null;
   const childContentHeading = "Nurturing Dreams, Inspiring Futures";
   const childContent =
     "Each child is a unique story of resilience and hope. Surrounded by love and support, these young souls embark on a journey of healing and growth.";
@@ -32,6 +31,7 @@ const OrphanageHome = () => {
       <TextCenterComponent
         heading={contributeHeading}
         textContent={contributeContent}
+        buttonContent={null}
       />
       <TextRightComponent
         imgPath={childImg}
@@ -46,7 +46,6 @@ const OrphanageHome = () => {
         heading={communityContentHeading}
         buttonContent={btnContent}
       />
-      <HomeViewDonations />
       <TextCenterQuote />
       <UserFooter />
     </div>

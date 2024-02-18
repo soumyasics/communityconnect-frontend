@@ -10,14 +10,16 @@ const TextCenterComponent = ({
     <div className="text-center-comp">
       <h1>{heading}</h1>
       <p>{textContent}</p>
-      <button
-        onClick={() => {
-          navigate("user/leaderboard");
-        }}
-      >
-        {" "}
-        {buttonContent}
-      </button>
+      {buttonContent !== null && (
+        <button
+          onClick={() => {
+            navigate("user/leaderboard");
+          }}
+        >
+          {" "}
+          {buttonContent}
+        </button>
+      )}
     </div>
   );
 };

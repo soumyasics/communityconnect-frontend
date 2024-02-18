@@ -12,6 +12,15 @@ import { useContext } from "react";
 import "./blood-camp.css";
 const ViewBloodCamps = () => {
   const [campData, setCampData] = useState([]);
+  const [showBookSlot, setShowBookSlot] = useState(false);
+
+  const { userContext } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (userContext.userType === "user") {
+      setShowBookSlot(true);
+    }
+  }, [userContext]);
 
   useEffect(() => {
     getAllCamps();
@@ -30,6 +39,9 @@ const ViewBloodCamps = () => {
       .catch((error) => {
         console.log("camps data not found", error);
       });
+  };
+  const handleBookSlot = () => {
+    console.log("slot booked");
   };
   return (
     <div>
@@ -56,12 +68,11 @@ const ViewBloodCamps = () => {
                 <th>Camp Place </th>
                 <th>Camp Date</th>
                 <th>Total Registrations</th>
-                <th>Book Slot</th>
+                {showBookSlot && <th>Book Slot</th>}
               </tr>
             </thead>
             <tbody>
               {campData.map((camp, index) => {
-                console.log("cam", camp);
                 return (
                   <tr key={index} className="text-center">
                     <td>{index + 1}</td>
@@ -69,9 +80,15 @@ const ViewBloodCamps = () => {
                     <td>{camp.campPlace}</td>
                     <td>{camp.campDate}</td>
                     <td>{camp.campRegistrations.length}</td>
-                    <td>
-                      <Button> Book Slot</Button>
-                    </td>
+                    {showBookSlot && (
+                      <td>
+                        {" "}
+                        <Button onClick={handleBookSlot}>
+                          {" "}
+                          Book Slot
+                        </Button>{" "}
+                      </td>
+                    )}
                   </tr>
                 );
               })}
