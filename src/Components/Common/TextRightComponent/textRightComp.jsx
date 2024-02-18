@@ -7,7 +7,6 @@ const TextRightComponent = ({ imgPath, content, heading, buttonContent }) => {
   const { userContext } = useContext(AuthContext);
   const { showToast, ToastComponent } = useToast();
 
-  console.log("uss", userContext);
   const navigate = useNavigate();
 
   const isUserLoggedIn = () => {

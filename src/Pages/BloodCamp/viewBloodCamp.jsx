@@ -8,23 +8,41 @@ import axiosInstance from "../../api/BaseUrl";
 import { Button, Form, Table } from "react-bootstrap";
 import AuthContext from "../../Context/authContext";
 import { useContext } from "react";
+import useUserData from "../../hooks/useUserData.js";
 
 import "./blood-camp.css";
 const ViewBloodCamps = () => {
   const [campData, setCampData] = useState([]);
   const [showBookSlot, setShowBookSlot] = useState(false);
+  const [isSlotAlreadyBooked, setIsSlotAlreadyBooked] = useState(false);
+  const [bookedCampId, setBookedCampId] = useState(null);
 
+  const { getUserData } = useUserData();
   const { userContext } = useContext(AuthContext);
 
   useEffect(() => {
     if (userContext.userType === "user") {
       setShowBookSlot(true);
+      // console.log("use con", userContext.userData.);
+      const isAlreadyBooked =
+        userContext?.userData?.bloodDonation?.isSlotBookedOrDonated || false;
+      if (isAlreadyBooked) {
+        setIsSlotAlreadyBooked(true);
+      } else {
+        setIsSlotAlreadyBooked(false);
+      }
+
+      setBookedCampId(
+        userContext?.userData?.bloodDonation?.bookedCampId || null
+      );
+    }else {
+      console.log("user type is not user")
     }
   }, [userContext]);
 
   useEffect(() => {
     getAllCamps();
-  }, []);
+  }, [userContext]);
   const getAllCamps = () => {
     axiosInstance
       .get("/camp/get-all-camps")
@@ -40,8 +58,55 @@ const ViewBloodCamps = () => {
         console.log("camps data not found", error);
       });
   };
-  const handleBookSlot = () => {
-    console.log("slot booked");
+  const handleBookSlot = (campId) => {
+    const userId = userContext?.userData?._id;
+    if (!userId) {
+      console.log("user not logged in");
+      return;
+    }
+
+    bookCampSlot(campId, userId);
+  };
+  const bookCampSlot = async (id, userId) => {
+    try {
+      let res = await axiosInstance.post(`/camp/participate/${id}`, { userId });
+      console.log("res camp", res);
+      if (res.status === 200) {
+        alert("Slot booked successfully");
+        getUserData(userId);
+      } else if (res.status === 400) {
+        console.log("already booked");
+      } else {
+        console.error("Something wrong", res);
+      }
+    } catch (error) {
+      console.log("error on book slot", error);
+    }
+  };
+
+  const handleCancelSlot = (campId) => {
+    const userId = userContext?.userData?._id;
+    if (!userId) {
+      console.log("user not logged in");
+      return;
+    }
+    cancelCampSlot(campId, userId);
+  };
+  const cancelCampSlot = async (id, userId) => {
+    try {
+      let res = await axiosInstance.post(`/camp/cancel-participation/${id}`, {
+        userId,
+      });
+      console.log("res camp", res);
+      if (res.status === 200) {
+        alert("Slot cancelled successfully");
+        getUserData(userId);
+      } else {
+        console.error("Something wrong", res);
+      }
+    } catch (error) {
+      console.log("error on book slot", error);
+    }
   };
   return (
     <div>
@@ -73,6 +138,7 @@ const ViewBloodCamps = () => {
             </thead>
             <tbody>
               {campData.map((camp, index) => {
+                const isCurrentSlotBooked = camp?._id === bookedCampId;
                 return (
                   <tr key={index} className="text-center">
                     <td>{index + 1}</td>
@@ -83,10 +149,30 @@ const ViewBloodCamps = () => {
                     {showBookSlot && (
                       <td>
                         {" "}
-                        <Button onClick={handleBookSlot}>
-                          {" "}
-                          Book Slot
-                        </Button>{" "}
+                        {isCurrentSlotBooked ? (
+                          <Button
+                            onClick={() => {
+                              handleCancelSlot(camp?._id);
+                            }}
+                            variant="danger"
+                          >
+                            Cancel Booking{" "}
+                          </Button>
+                        ) : isSlotAlreadyBooked ? (
+                          <Button className="px-4" disabled={true}>
+                            {" "}
+                            Not Available
+                          </Button>
+                        ) : (
+                          <Button
+                            onClick={() => {
+                              handleBookSlot(camp?._id);
+                            }}
+                          >
+                            {" "}
+                            Book Slot
+                          </Button>
+                        )}
                       </td>
                     )}
                   </tr>
