@@ -16,6 +16,7 @@ import UserProfile from "./Pages/Users/Profile/userProfile";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import BloodCamp from "./Pages/BloodCamp/bloodCamp";
+import ViewBloodCamps from "./Pages/BloodCamp/viewBloodCamp";
 function App() {
   return (
     <BrowserRouter>
@@ -43,6 +44,7 @@ function App() {
         />
         <Route path="/profile" element={<UserProfile activeUser="user" />} />
         <Route path="/blood-camp" element={<BloodCamp />} />
+        <Route path="/view-blood-camps" element={<ViewBloodCamps />} />
         {/* organizations  */}
 
         {/* orphnaage routes  */}

@@ -6,9 +6,8 @@ const TextLeftComponent = ({ imgPath, heading, content, buttonContent }) => {
       <div className="text-left-section">
         <h3> {heading}</h3>
         <p> {content}</p>
-        <button>{buttonContent}</button>
       </div>
-  
+
       <img src={imgPath} alt="path" />
     </div>
   );

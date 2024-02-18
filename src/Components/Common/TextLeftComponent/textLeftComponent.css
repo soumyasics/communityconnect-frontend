@@ -2,7 +2,6 @@
   display: flex;
   background-color: #fcdfff;
   color: #3c0241;
-  font-weight: 800;
 }
 
 .text-left-comp > img {
@@ -25,4 +24,3 @@
   height: 39px;
   font-size: 18px;
 }
-

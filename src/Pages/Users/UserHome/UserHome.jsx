@@ -12,18 +12,18 @@ import TextCenterQuote from "../../../Components/Common/TextCenterQuote/textCent
 import ambulanceImg from "../../../Assets/Images/ambulance-img.png";
 
 const UserHome = () => {
-  const bloodDonationHeading = "Blood Camp";
+  const bloodDonationHeading = "Blood Camps";
   const bloodDonationContent =
-    "Where your donation  Becomes Poetry and Movements Tell Tales We need 1000K";
-  const bloodDonationBtnContent = "View";
+    "Blood donation is the real act of humanity. It is a simple gesture that can make a huge difference in someone’s life.";
+  const bloodDonationBtnContent = "View Camps";
   const contributeHeading = "How Can you contribute us";
   const contributeContent =
-    "We are a humanitarian initiative committed to making a positive impact on the world. Based on the principles of empathy, solidarity, andsustainable development, we strive to address the most pressingchallenges facing communities around the globe";
+    "We are a humanitarian initiative committed to making a positive impact on the world. Based on the principles of empathy, solidarity, and sustainable development, we strive to address the most pressing challenges facing communities in Trivandrum";
 
-  const donationHeading = "Donate";
+  const donationHeading = "Donate Money";
   const donationContent =
-    "Where your donation becomes poetry and movements tell tales";
-  const donationBtnContent = "View Charity";
+    "Here you can view various donation requests from orphanages located in Trivandrum. You can contribute by donating money through our platform";
+  const donationBtnContent = "View Requests";
   return (
     <>
       <UserNavbar />

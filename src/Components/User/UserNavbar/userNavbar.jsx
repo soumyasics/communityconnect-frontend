@@ -76,12 +76,16 @@ const UserNavbar = () => {
     <>
       <Container fluid className="user-navbar-container">
         <div className="user-navbar-left">
-          <p> COMMUNITY CONNECT</p>
+          <p style={{ cursor: "pointer" }} onClick={() => navigate("/")}>
+            {" "}
+            COMMUNITY CONNECT
+          </p>
         </div>
         <div className="user-navbar-center">
           <Link to="/">Home</Link>
           <Link to="/user/leaderboard">Leaderboard</Link>
           <Link to="/blood-camp">Camp</Link>
+          <Link to="/view-blood-camps">ViewCamp</Link>
 
           <button
             className="border-0 text-light bg-transparent"

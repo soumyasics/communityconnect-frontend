@@ -1,18 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UserNavbar from "../../Components/User/UserNavbar/userNavbar";
 import CommunityHeader from "../../Components/Common/CommunityHeader/CommunityHeader";
 import bloodCamp from "../../Assets/Images/blood-donation-camp.jpg";
 import UserFooter from "../../Components/Common/UserFooter/userFooter";
 import styles from "./bloodCamp.module.css";
+import axiosInstance from "../../api/BaseUrl";
 import { Button, Form } from "react-bootstrap";
+import AuthContext from "../../Context/authContext";
+import { useContext } from "react";
+
 import "./blood-camp.css";
+
 const BloodCamp = () => {
   const [validated, setValidated] = useState(false);
   const [campName, setCampName] = useState("");
   const [campPlace, setCampPlace] = useState("");
   const [campDate, setCampDate] = useState("");
   const [campCapacity, setCampCapacity] = useState("");
+  const [orgId, setOrgId] = useState("");
+  const { userContext } = useContext(AuthContext);
+  console.log("use con", userContext);
+  useEffect(() => {
+    if (userContext.userData) {
+      setOrgId(userContext.userData._id);
+    }
+  }, [userContext]);
 
+  console.log("orgi d", orgId);
   const handleChanges = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -34,6 +48,7 @@ const BloodCamp = () => {
       console.log("Please fill all the fields");
     } else {
       console.log("Thank you for registering with us");
+      sendDataToServer();
     }
 
     const form = event.currentTarget;
@@ -43,12 +58,39 @@ const BloodCamp = () => {
     setValidated(true);
   };
 
+  const resetData = () => {
+    setCampName("");
+    setCampPlace("");
+    setCampDate("");
+    setCampCapacity("");
+  };
+
+  const sendDataToServer = async () => {
+    const campData = {
+      campName: campName,
+      campPlace: campPlace,
+      campDate: campDate,
+      campCapacity: campCapacity,
+      ownerId: orgId,
+    };
+    try {
+      const res = await axiosInstance.post("/camp/create", campData);
+
+      if (res.status === 200) {
+        alert("Camp created successfully");
+        resetData();
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
   return (
     <div>
       <UserNavbar />
       <CommunityHeader heading="" description="" imgPath={bloodCamp} />
       <div>
-        <h3 className="font-weight-bold text-center mt-5"> Blood Camp</h3>
+        <h3 className="font-weight-bold text-center mt-5"> Blood Camp Registration</h3>
         <Form
           noValidate
           validated={validated}
