@@ -24,7 +24,7 @@ const UserOrphanagesList = ({ activeUser }) => {
         textColor="black"
         description=""
       />
-      <OrphanagesTableList />
+      <OrphanagesTableList activeUser={activeUser}/>
       <UserFooter />
     </div>
   );

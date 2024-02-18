@@ -30,6 +30,7 @@ function App() {
           element={<UserOrphanagesList activeUser="user" />}
         />
         <Route path="/user/orphanage/:id" element={<OrphanageDetails />} />
+        
         <Route
           path="/user/orphanage/request"
           element={<UserDonationRequest />}
@@ -45,6 +46,7 @@ function App() {
         <Route path="/profile" element={<UserProfile activeUser="user" />} />
         <Route path="/blood-camp" element={<BloodCamp />} />
         <Route path="/view-blood-camps" element={<ViewBloodCamps />} />
+        <Route path="/orphanage/orphanage/:id" element={<OrphanageDetails />} />
         {/* organizations  */}
 
         {/* orphnaage routes  */}

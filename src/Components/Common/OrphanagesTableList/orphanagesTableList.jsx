@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axiosInstance from "../../../api/BaseUrl";
 import { useNavigate } from "react-router-dom";
 import "./orphanagesTableList.css";
-const OrphanagesTableList = () => {
+const OrphanagesTableList = ({ activeUser }) => {
   const [orphanagesList, setOrphanagesList] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
@@ -23,7 +23,11 @@ const OrphanagesTableList = () => {
   };
 
   const redirectOrphanageDetails = (id) => {
-    navigate("/user/orphanage/" + id);
+    if (activeUser === "orphanage") {
+      navigate("/orphanage/orphanage/" + id);
+    } else {
+      navigate("/user/orphanage/" + id);
+    }
   };
 
   if (orphanagesList.length === 0) {
@@ -31,7 +35,7 @@ const OrphanagesTableList = () => {
       <div className="m-5 p-5">
         <h1>No orphanages found.</h1>
       </div>
-    )
+    );
   }
 
   return (

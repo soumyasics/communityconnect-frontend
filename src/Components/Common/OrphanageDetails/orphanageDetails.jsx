@@ -6,14 +6,33 @@ import { useState, useEffect } from "react";
 import axiosInstance from "../../../api/BaseUrl";
 import { Row, Col, Button } from "react-bootstrap";
 import "./orphanageDetails.css";
+import OrphanageNavbar from "../../Orphanage/OrphanageNavbar/orphanageNavbar";
+import { useContext } from "react";
+import AuthContext from "../../../Context/authContext";
 
 const OrphanageDetails = () => {
+  const { userContext } = useContext(AuthContext);
   const [orphanageData, setOrphanageData] = useState(null);
   const { id } = useParams();
+  const [activeUser, setActiveUser] = useState(null);
 
   useEffect(() => {
     getOrphanageData();
   }, []);
+
+  useEffect(() => {
+    const userType = userContext?.userType || "";
+    setActiveUser(userType);
+  }, [userContext]);
+
+  const renderNavbar = () => {
+    switch (activeUser) {
+      case "orphanage":
+        return <OrphanageNavbar />;
+      default:
+        return <UserNavbar />;
+    }
+  };
 
   const getOrphanageData = async () => {
     try {
@@ -34,7 +53,7 @@ const OrphanageDetails = () => {
 
   return (
     <div>
-      <UserNavbar />
+      {renderNavbar()}
       <CommunityHeader />
       <div className="single-orp-container">
         <div className="single-orp-img-container">
@@ -63,7 +82,7 @@ const OrphanageDetails = () => {
           </Row>
 
           <Row>
-                <Button className="orp-requests-btn"> View Requests </Button> 
+            {/* <Button className="orp-requests-btn"> View Requests </Button>  */}
           </Row>
         </div>
       </div>
