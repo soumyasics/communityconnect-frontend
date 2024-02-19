@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AiOutlineSetting } from "react-icons/ai";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import OrphanageNavbar from "../../../Components/Orphanage/OrphanageNavbar/orphanageNavbar.jsx";
 import UserInfo from "./userInfo.jsx";
 // import ListBookings from "../Components/List-Bookings/list-bookings.jsx";
 import "./userProfile.css";
@@ -11,13 +12,17 @@ import { useContext } from "react";
 import MyActivity from "./activities.jsx";
 import AuthContext from "../../../Context/authContext.js";
 
-const UserProfile = () => {
+const UserProfile = ({ activeUser }) => {
   const { logoutUserContext } = useContext(AuthContext);
 
   const [renderdItem, setRenderdItem] = useState("UserInfo");
   const navigate = useNavigate();
   const redirectHome = () => {
-    navigate("/");
+    if (activeUser === "orphanage") {
+      navigate("/orphanage");
+    } else {
+      navigate("/");
+    }
   };
 
   const handleLogout = () => {
@@ -34,9 +39,19 @@ const UserProfile = () => {
     logoutUserContext();
     navigate("/user/login");
   };
+
+  const renderNavbar = () => {
+    switch (activeUser) {
+      case "orphanage":
+        return <OrphanageNavbar />;
+      default:
+        return <UserNavbar />;
+    }
+  };
+
   return (
     <>
-      <UserNavbar />
+      {renderNavbar()}
       <div className="profile-container">
         <div className="profile-info-container">
           <div className="sidebar-options">
@@ -55,14 +70,15 @@ const UserProfile = () => {
               >
                 My Profile
               </div>
-
-              <div
-                onClick={() => {
-                  setRenderdItem("activity");
-                }}
-              >
-                My Activity
-              </div>
+              {activeUser !== "orphanage" && (
+                <div
+                  onClick={() => {
+                    setRenderdItem("activity");
+                  }}
+                >
+                  My Activity
+                </div>
+              )}
 
               <div
                 className="text-danger font-weight-bold"
@@ -76,8 +92,8 @@ const UserProfile = () => {
             </div>
           </div>
           <>
-            {renderdItem === "UserInfo" && <UserInfo />}
-            {renderdItem === "activity" && <MyActivity />}
+            {renderdItem === "UserInfo" && <UserInfo activeUser={activeUser} />}
+            {/* {renderdItem === "activity" && <MyActivity />} */}
           </>
         </div>
       </div>

@@ -30,7 +30,7 @@ function App() {
           element={<UserOrphanagesList activeUser="user" />}
         />
         <Route path="/user/orphanage/:id" element={<OrphanageDetails />} />
-        
+
         <Route
           path="/user/orphanage/request"
           element={<UserDonationRequest />}
@@ -51,6 +51,10 @@ function App() {
 
         {/* orphnaage routes  */}
         <Route path="/orphanage" element={<OrphanageHome />} />
+        <Route
+          path="/orphanage/profile"
+          element={<UserProfile activeUser="orphanage" />}
+        />
         <Route
           path="/orphanage/orphanages-list"
           element={<UserOrphanagesList activeUser="orphanage" />}

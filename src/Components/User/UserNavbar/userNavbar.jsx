@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../Context/authContext";
 import { useContext, useState, useEffect } from "react";
+import { CgProfile } from "react-icons/cg";
 import LoginModal from "../../Common/LoginModal/loginModal";
 import "./userNavbar.css";
 
@@ -103,7 +104,10 @@ const UserNavbar = () => {
         <div className="user-navbar-right">
           {/* <img src="https://picsum.photos/200/300" alt="profile-icon" /> */}
           {userContext?.userType ? (
-            <button onClick={redirectProfile}>Profile </button>
+            <button onClick={redirectProfile}>
+              {" "}
+              <CgProfile /> Profile{" "}
+            </button>
           ) : (
             <button onClick={redirectUserLogin}>Login</button>
           )}

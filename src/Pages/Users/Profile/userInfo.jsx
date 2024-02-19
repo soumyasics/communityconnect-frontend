@@ -7,7 +7,7 @@ import { useContext } from "react";
 import AuthContext from "../../../Context/authContext";
 import "./userInfo.css";
 import { useNavigate } from "react-router-dom";
-const UserInfo = () => {
+const UserInfo = ({ activeUser }) => {
   const navigate = useNavigate();
   const { userContext } = useContext(AuthContext);
   if (userContext.userType == "") {
@@ -92,15 +92,25 @@ const UserInfo = () => {
           <p className="user-title">Full Name</p>
           <p className="user-data">{userInfo.name}</p>
         </div>
-        <div>
-          <p className="user-title">Total Donated Amount</p>
-          <p className="user-data">
-          <span> ₹ </span> {userContext?.userData?.totalDonatedAmt || 0} 
-          </p>
-        </div>
+        {activeUser === "orphanage" ? (
+          <div>
+            <p className="user-title">Total Received Amount </p>
+            <p className="user-data">
+              <span> ₹ </span> {userContext?.userData?.totalReceivedAmt || 0}
+            </p>
+          </div>
+        ) : (
+          <div>
+            <p className="user-title">Total Donated Amount</p>
+            <p className="user-data">
+              <span> ₹ </span> {userContext?.userData?.totalDonatedAmt || 0}
+            </p>
+          </div>
+        )}
+
         <div>
           <p className="user-title">Role</p>
-          <p className="user-data">{userInfo.role}</p>
+          <p className="user-data">{userInfo?.role}</p>
         </div>
 
         <div>
@@ -110,7 +120,7 @@ const UserInfo = () => {
               <div className="contact">
                 <AiOutlineMail />
                 <p>Mail ID:</p>
-                <p>{userInfo.email}</p>
+                <p>{userInfo?.email}</p>
               </div>
               {/* <button onClick={removeEmail}>Remove</button> */}
             </div>
@@ -118,7 +128,7 @@ const UserInfo = () => {
               <div className="contact">
                 <BiPhoneCall />
                 <p>Phone Number:</p>
-                <p>{userInfo.phoneNumber}</p>
+                <p>{userInfo?.phoneNumber}</p>
               </div>
               {/* <button onClick={removePhonenumber}>Remove</button> */}
             </div>

@@ -3,7 +3,7 @@ import { Container, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../Context/authContext";
-
+import { CgProfile } from "react-icons/cg";
 import LoginModal from "../../Common/LoginModal/loginModal";
 import "./orphanageNavbar.css";
 
@@ -58,6 +58,13 @@ const OrphanageNavbar = () => {
       setLoginModalShow(true);
     }
   };
+  const redirectProfile = () => {
+    if (userContext && userContext.userType === "orphanage") {
+      navigate("/orphanage/profile");
+    } else {
+      setLoginModalShow(true);
+    }
+  };
   return (
     <>
       <Container fluid className="user-navbar-container">
@@ -90,7 +97,10 @@ const OrphanageNavbar = () => {
         <div className="user-navbar-right">
           {/* <img src="https://picsum.photos/200/300" alt="profile-icon" /> */}
           {userContext?.userType ? (
-            <button onClick={handleLogout}> Logout </button>
+            <button onClick={redirectProfile}>
+              {" "}
+              <CgProfile /> Profile{" "}
+            </button>
           ) : (
             <button onClick={redirectUserLogin}>Login</button>
           )}
