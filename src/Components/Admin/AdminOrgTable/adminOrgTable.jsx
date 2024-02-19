@@ -59,7 +59,6 @@ const AdminOrgTable = ({ searchUserName }) => {
   const getAllUsers = async () => {
     try {
       const res = await axiosInstance.get("organization/get-all-organizations");
-      console.log("res", res);
       const allUsers = res?.data?.data;
       if (allUsers.length > 0) {
         setUsersData(allUsers);

@@ -39,7 +39,6 @@ const OrphanageDetails = () => {
       const res = await axiosInstance.get(
         "/orphanage/get-orphanage-by-id/" + id
       );
-      console.log("res", res);
       const orpData = res?.data?.data;
       if (orpData) {
         setOrphanageData(orpData);

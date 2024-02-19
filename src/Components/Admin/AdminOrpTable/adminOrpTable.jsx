@@ -60,7 +60,6 @@ const AdminOrpTable = ({ searchUserName }) => {
   const getAllUsers = async () => {
     try {
       const res = await axiosInstance.get("orphanage/get-all-orphanages");
-      console.log("res", res);
       const allUsers = res?.data?.data;
       if (allUsers.length > 0) {
         setUsersData(allUsers);

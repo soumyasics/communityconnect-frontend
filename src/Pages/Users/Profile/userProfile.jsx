@@ -86,9 +86,6 @@ const UserProfile = ({ activeUser }) => {
               >
                 Logout
               </div>
-              {/* <div>Privacy & Security</div> */}
-              {/* <div>Notifications</div> */}
-              {/* <div>Help & Support</div> */}
             </div>
           </div>
           <>
