@@ -184,7 +184,6 @@ const UserLoginForm = ({ user }) => {
         </Form.Control.Feedback>
       </Form.Group>
       <div className="user-login-btn-container-2">
-        <span className="user-forgot-password mb-3">Forgot Password?</span>
         <p>
           Don’t have an account?{" "}
           <span className="user-forgot-password" onClick={redirectUserSignup}>

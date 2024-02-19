@@ -93,7 +93,8 @@ const UserProfile = ({ activeUser }) => {
           </div>
           <>
             {renderdItem === "UserInfo" && <UserInfo activeUser={activeUser} />}
-            {/* {renderdItem === "activity" && <MyActivity />} */}
+
+            {renderdItem === "activity" && <MyActivity />}
           </>
         </div>
       </div>

@@ -14,20 +14,30 @@ const UserInfo = ({ activeUser }) => {
     console.log("user data not found login first");
     navigate("/");
   }
-
-  console.log("use context", userContext);
+  const [userImgPath, setUserImgPath] = useState("");
   const [userInfo, setuserInfo] = useState({
     name: "",
     email: "",
     phoneNumber: "",
     role: "",
     profilePicture:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTy4moKlTUfDqvfHcx32l_RfRL779U0dakfE-Cys3Qudw&s",
+      "https://img.freepik.com/premium-vector/account-icon-user-icon-vector-graphics_292645-552.jpg",
   });
 
   useEffect(() => {
     getUserData();
   }, []);
+
+  const BASE_URL =
+    process.env.REACT_APP_BACKEND_BASE_URL || "http://localhost:5000/";
+
+  useEffect(() => {
+    const imgPath = userContext?.userData?.img?.filename || null;
+    if (imgPath) {
+      setUserImgPath(imgPath);
+    }
+    console.log("img pat", imgPath);
+  }, [userContext]);
   const getUserData = () => {
     if (userContext?.userData) {
       let name = "";
@@ -76,15 +86,11 @@ const UserInfo = ({ activeUser }) => {
       <h5> Personal Profile </h5>
       <div className="profile-img-section">
         <div className="item-1">
-          <img src={userInfo.profilePicture} alt="profile-img" />
-        </div>
-        <div className="item-2">
-          <GrFormUpload />
-          <h6>Upload a new one </h6>
-        </div>
-        <div onClick={removeProfilePicture} className="item-3">
-          <MdOutlineDeleteOutline />
-          <h6>Remove</h6>
+          {userImgPath ? (
+            <img src={`${BASE_URL}${userImgPath}`} alt="profile-img" />
+          ) : (
+            <img src={`${userInfo?.profilePicture}`} alt="profile-img" />
+          )}
         </div>
       </div>
       <div className="user-details">
