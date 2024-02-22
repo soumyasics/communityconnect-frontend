@@ -22,7 +22,10 @@ const LoginModal = (props) => {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title className="font-weight-bold" id="contained-modal-title-vcenter">
+        <Modal.Title
+          className="font-weight-bold"
+          id="contained-modal-title-vcenter"
+        >
           Community Connect
         </Modal.Title>
       </Modal.Header>
@@ -40,28 +43,19 @@ const LoginModal = (props) => {
             />
           </Col>
           <Col xs={6}>
-            <h4 className="font-weight-bold">Join the movement.</h4>
-            <p>
+            <h4 className="font-weight-bold text-center">Join the movement.</h4>
+            <p className="text-center">
               There is no exercise better for the heart than reaching down and
-              lifting people up. 
+              lifting people up.
             </p>
-            <Container className="text-center mt-4">
+            <Container className="text-center mt-3">
               <div className="d-flex flex-column align-items-center">
                 <Button
                   variant="info"
-                  className="center w-50 text-light"
+                  className="mt-2 center w-50 text-light"
                   onClick={redirectSignup}
                 >
                   Signup
-                </Button>
-                <Button
-                  variant="outline-info"
-                  className="center mt-3 w-50"
-                  style={{
-                    hover: { color: "white" },
-                  }}
-                >
-                  More Info
                 </Button>
               </div>
               <h6 className="text-center mt-4">
@@ -75,7 +69,9 @@ const LoginModal = (props) => {
         </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Button className="bg-info" onClick={props.onHide}>Close</Button>
+        <Button className="bg-info" onClick={props.onHide}>
+          Close
+        </Button>
       </Modal.Footer>
     </Modal>
   );

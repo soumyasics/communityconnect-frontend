@@ -11,7 +11,7 @@ const UserNavbar = () => {
   const [loginModalShow, setLoginModalShow] = useState(false);
   const { userContext, logoutUserContext, loginUserContext } =
     useContext(AuthContext);
-
+  console.log("urr", userContext.userType === "user");
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user-data")) || null;
     if (userData) {
@@ -85,7 +85,10 @@ const UserNavbar = () => {
         <div className="user-navbar-center">
           <Link to="/">Home</Link>
           <Link to="/user/leaderboard">Leaderboard</Link>
-          <Link to="/blood-camp">Camp</Link>
+          {userContext.userType === "organization" && (
+            <Link to="/blood-camp">Camp</Link>
+          )}
+
           <Link to="/view-blood-camps">ViewCamp</Link>
 
           <button

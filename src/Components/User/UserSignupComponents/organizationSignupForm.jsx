@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { FaRegEye } from "react-icons/fa6";
+import { FaRegEyeSlash } from "react-icons/fa6";
 import axiosMultipartInstance from "../../../api/axiosMultipartInstance";
 import "./signupForm.css";
 const OrganizationSignupForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const [orgData, setOrgData] = useState({
     name: "",
     ownerName: "",
     email: "",
     password: "",
     address: "",
-    state: "",
+    state: "Kerala",
+    license: "",
     pincode: "",
     phoneNumber: "",
     img: null,
@@ -50,6 +54,7 @@ const OrganizationSignupForm = () => {
       !orgData.password ||
       !orgData.address ||
       !orgData.state ||
+      !orgData.license ||
       !orgData.pincode ||
       !orgData.phoneNumber
     ) {
@@ -108,7 +113,7 @@ const OrganizationSignupForm = () => {
           <Form.Control
             required
             type="text"
-            placeholder="Organization Name"
+            placeholder="Organization Name2"
             name="name"
             onChange={handleChange}
             value={orgData.name}
@@ -147,10 +152,30 @@ const OrganizationSignupForm = () => {
             Please Enter valid email.
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group>
+
+        <Form.Group
+          style={{
+            position: "relative",
+          }}
+        >
+          <div
+            style={{
+              display: "inline-block",
+              cursor: "pointer",
+              position: "absolute",
+              top: "25px",
+              right: "10px",
+            }}
+            onClick={() => {
+              setShowPassword(!showPassword);
+            }}
+          >
+            {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
+          </div>
+
           <Form.Control
             required
-            type="password"
+            type={showPassword ? "text" : "password"}
             minLength={8}
             placeholder="Password"
             name="password"
@@ -173,6 +198,7 @@ const OrganizationSignupForm = () => {
             placeholder="Address"
             required
             name="address"
+            minLength={3}
             onChange={handleChange}
             value={orgData.address}
           />
@@ -191,7 +217,6 @@ const OrganizationSignupForm = () => {
             onChange={handleChange}
             value={orgData.phoneNumber}
             name="phoneNumber"
-    
           />
           <Form.Control.Feedback type="invalid">
             Please provide 10 digit Phone number.
@@ -203,14 +228,17 @@ const OrganizationSignupForm = () => {
         <Form.Group>
           <Form.Control
             type="text"
-            placeholder="State"
-            name="state"
-            onChange={handleChange}
-            value={orgData.state}
+            placeholder="Organization License No"
             required
+            name="license"
+            onChange={handleChange}
+            value={orgData.license}
+            minLength={10}
+            maxLength={10}
+            pattern="[0-9]{10}"
           />
           <Form.Control.Feedback type="invalid">
-            Please provide your state name.
+            Please provide 10 digit organization License No
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>

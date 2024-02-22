@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { FaRegEye } from "react-icons/fa6";
+import { FaRegEyeSlash } from "react-icons/fa6";
 import axiosMultipartInstance from "../../../api/axiosMultipartInstance";
 import "./signupForm.css";
 const UserSignupForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
     firstName: "",
@@ -15,8 +18,8 @@ const UserSignupForm = () => {
     phoneNumber: "",
     street: "",
     city: "",
-    state: "",
-    nationality: "",
+    state: "Kerala",
+    nationality: "India",
     pincode: "",
     img: null,
   });
@@ -98,8 +101,8 @@ const UserSignupForm = () => {
       console.log(error);
       if (error.response?.status === 400) {
         alert(error.response.data.message);
-      }else {
-        alert(error.message)
+      } else {
+        alert(error.message);
       }
     }
   };
@@ -118,7 +121,7 @@ const UserSignupForm = () => {
             placeholder="First name"
             name="firstName"
             onChange={handleChange}
-            value={userData.firstName}
+            value={userData?.firstName}
           />
           <Form.Control.Feedback type="invalid">
             Please enter your first name!
@@ -128,7 +131,7 @@ const UserSignupForm = () => {
           <Form.Control
             required
             type="text"
-            value={userData.lastName}
+            value={userData?.lastName}
             placeholder="Last name"
             name="lastName"
             onChange={handleChange}
@@ -147,7 +150,7 @@ const UserSignupForm = () => {
             type="select"
             name="gender"
             onChange={handleChange}
-            value={userData.gender}
+            value={userData?.gender}
           >
             <option value="">Select your gender</option>
             <option value="male">Male</option>
@@ -162,7 +165,7 @@ const UserSignupForm = () => {
           <Form.Control
             onChange={handleChange}
             name="age"
-            value={userData.age}
+            value={userData?.age}
             type="number"
             placeholder="Your age"
             required
@@ -179,7 +182,7 @@ const UserSignupForm = () => {
             required
             type="email"
             placeholder="Email"
-            value={userData.email}
+            value={userData?.email}
             name="email"
             onChange={handleChange}
           />
@@ -187,10 +190,25 @@ const UserSignupForm = () => {
             Please Enter valid email.
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group>
+        <Form.Group style={{ position: "relative" }}>
+          <div
+            style={{
+              display: "inline-block",
+              cursor: "pointer",
+              position: "absolute",
+              top: "25px",
+              right: "10px",
+              zIndex: "100",
+            }}
+            onClick={() => {
+              setShowPassword(!showPassword);
+            }}
+          >
+            {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
+          </div>
           <Form.Control
             required
-            type="password"
+            type={showPassword ? "text" : "password"}
             minLength={8}
             placeholder="Password"
             name="password"
@@ -221,7 +239,7 @@ const UserSignupForm = () => {
           <Form.Control
             name="city"
             onChange={handleChange}
-            value={userData.city}
+            value={userData?.city}
             type="text"
             placeholder="City"
             required
@@ -235,43 +253,15 @@ const UserSignupForm = () => {
       <div className="signup-form-flex-div">
         <Form.Group>
           <Form.Control
-            name="state"
-            onChange={handleChange}
-            value={userData.state}
-            type="text"
-            placeholder="State"
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            Please provide your state name.
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group>
-          <Form.Control
             name="pincode"
             onChange={handleChange}
-            value={userData.pincode}
+            value={userData?.pincode}
             type="number"
             placeholder="Pincode"
             required
           />
           <Form.Control.Feedback type="invalid">
             Please provide your pincode.
-          </Form.Control.Feedback>
-        </Form.Group>
-      </div>
-      <div className="signup-form-flex-div">
-        <Form.Group>
-          <Form.Control
-            name="nationality"
-            onChange={handleChange}
-            value={userData.nationality}
-            type="text"
-            placeholder="Nationality"
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            Please provide your Nationality
           </Form.Control.Feedback>
         </Form.Group>
 
@@ -284,7 +274,7 @@ const UserSignupForm = () => {
             placeholder="Phone Number"
             name="phoneNumber"
             onChange={handleChange}
-            value={userData.phoneNumber}
+            value={userData?.phoneNumber}
             pattern="[0-9]{10}"
           />
           <Form.Control.Feedback type="invalid">

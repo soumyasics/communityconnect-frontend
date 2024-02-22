@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../api/BaseUrl";
 import AuthContext from "../../../Context/authContext";
 import "./userLogin.css";
-
+import { FaRegEye } from "react-icons/fa6";
+import { FaRegEyeSlash } from "react-icons/fa6";
 const UserLoginForm = ({ user }) => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
   const [email, setEmail] = useState("");
@@ -168,11 +170,25 @@ const UserLoginForm = ({ user }) => {
           Please provide a valid email.
         </Form.Control.Feedback>
       </Form.Group>
-      <Form.Group>
+      <Form.Group style={{ position: "relative" }}>
+        <div
+          style={{
+            display: "inline-block",
+            cursor: "pointer",
+            position: "absolute",
+            top: "7px",
+            right: "55px",
+          }}
+          onClick={() => {
+            setShowPassword(!showPassword);
+          }}
+        >
+          {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
+        </div>
         <Form.Control
           required
           className="user-login-input"
-          type="password"
+          type={showPassword ? "text" : "password"}
           minLength={8}
           placeholder="Password"
           name="password"

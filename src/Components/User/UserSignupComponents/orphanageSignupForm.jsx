@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import axiosInstance from "../../../api/BaseUrl.js";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./signupForm.css";
+import { FaRegEye } from "react-icons/fa6";
+import { FaRegEyeSlash } from "react-icons/fa6";
 import axiosMultipartInstance from "../../../api/axiosMultipartInstance.js";
 const OrphanageSignupForm = () => {
   const [orphanageData, setOrphanageData] = useState({
@@ -14,12 +16,14 @@ const OrphanageSignupForm = () => {
     purpose: "",
     address: "",
     city: "",
-    state: "",
+    state: "Kerala",
+    license: "",
     pincode: "",
     phoneNumber: "",
     description: "",
     img: null,
   });
+  const [showPassword, setShowPassword] = useState(false);
   const [validated, setValidated] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const navigate = useNavigate();
@@ -35,12 +39,10 @@ const OrphanageSignupForm = () => {
     setAgreedToTerms(e.target.checked);
   };
 
-
   function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -60,7 +62,8 @@ const OrphanageSignupForm = () => {
       !orphanageData.state ||
       !orphanageData.pincode ||
       !orphanageData.phoneNumber ||
-      !orphanageData.description
+      !orphanageData.description ||
+      !orphanageData.license
     ) {
       console.log("Please fill all the fields");
       return;
@@ -82,7 +85,10 @@ const OrphanageSignupForm = () => {
   };
   const sendDataToServer = async (data) => {
     try {
-      const response = await axiosMultipartInstance.post("/orphanage/signup", data);
+      const response = await axiosMultipartInstance.post(
+        "/orphanage/signup",
+        data
+      );
       if (response.status === 201) {
         console.log("orphange registratio successful");
         alert("Registration successful.");
@@ -94,8 +100,8 @@ const OrphanageSignupForm = () => {
       console.log(error);
       if (error.response?.status === 400) {
         alert(error.response.data.message);
-      }else {
-        alert(error.message)
+      } else {
+        alert(error.message);
       }
     }
   };
@@ -124,7 +130,7 @@ const OrphanageSignupForm = () => {
         <Form.Group>
           <Form.Control
             type="number"
-            placeholder="Your Of Establishment"
+            placeholder="Year Of Establishment"
             required
             name="yearOfEstablishment"
             onChange={handleChange}
@@ -150,10 +156,25 @@ const OrphanageSignupForm = () => {
             Please Enter valid email.
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group>
+        <Form.Group style={{ position: "relative" }}>
+        <div
+            style={{
+              display: "inline-block",
+              cursor: "pointer",
+              position: "absolute",
+              top: "25px",
+              right: "10px",
+            }}
+            onClick={() => {
+              setShowPassword(!showPassword);
+            }}
+          >
+            {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
+          </div>
+
           <Form.Control
             required
-            type="password"
+            type={showPassword ? "text" : "password"}
             minLength={8}
             placeholder="Password"
             name="password"
@@ -237,14 +258,17 @@ const OrphanageSignupForm = () => {
         <Form.Group>
           <Form.Control
             type="text"
-            placeholder="State"
+            placeholder="Orphanage License No."
             required
-            name="state"
+            name="license"
             onChange={handleChange}
-            value={orphanageData.state}
+            value={orphanageData.license}
+            minLength={10}
+            maxLength={10}
+            pattern="[0-9]{10}"
           />
           <Form.Control.Feedback type="invalid">
-            Please provide your state name.
+            Please provide 10 digit orphanage license number.
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>

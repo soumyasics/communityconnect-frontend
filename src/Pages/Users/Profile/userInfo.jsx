@@ -43,9 +43,11 @@ const UserInfo = ({ activeUser }) => {
       let name = "";
       let phoneNumber = "";
       if (userContext.userType === "user") {
+        console.log("user usercontext", userContext);
         name = userContext.userData.firstName;
-        phoneNumber = userContext.userData.contact;
+        phoneNumber = userContext.userData.phoneNumber;
       } else {
+        console.log("orp or org usercontext", userContext);
         name = userContext.userData.name;
         phoneNumber = userContext.userData.phoneNumber;
       }
@@ -61,26 +63,7 @@ const UserInfo = ({ activeUser }) => {
       console.log("user data not found");
     }
   };
-  const removePhonenumber = () => {
-    setuserInfo({
-      ...userInfo,
-      phoneNumber: "",
-    });
-  };
-  const removeEmail = () => {
-    setuserInfo({
-      ...userInfo,
-      email: "",
-    });
-  };
 
-  const removeProfilePicture = () => {
-    setuserInfo({
-      ...userInfo,
-      profilePicture:
-        "https://img.freepik.com/premium-vector/account-icon-user-icon-vector-graphics_292645-552.jpg",
-    });
-  };
   return (
     <div className="userinfo-container">
       <h5> Personal Profile </h5>
@@ -95,7 +78,7 @@ const UserInfo = ({ activeUser }) => {
       </div>
       <div className="user-details">
         <div>
-          <p className="user-title">Full Name</p>
+          <p className="user-title"> Name</p>
           <p className="user-data">{userInfo.name}</p>
         </div>
         {activeUser === "orphanage" ? (
@@ -116,7 +99,7 @@ const UserInfo = ({ activeUser }) => {
 
         <div>
           <p className="user-title">Role</p>
-          <p className="user-data">{userInfo?.role}</p>
+          <p className="user-data">{userContext?.userType}</p>
         </div>
 
         <div>
@@ -126,7 +109,7 @@ const UserInfo = ({ activeUser }) => {
               <div className="contact">
                 <AiOutlineMail />
                 <p>Mail ID:</p>
-                <p>{userInfo?.email}</p>
+                <p>{userContext?.userData?.email}</p>
               </div>
               {/* <button onClick={removeEmail}>Remove</button> */}
             </div>
@@ -134,7 +117,7 @@ const UserInfo = ({ activeUser }) => {
               <div className="contact">
                 <BiPhoneCall />
                 <p>Phone Number:</p>
-                <p>{userInfo?.phoneNumber}</p>
+                <p>{userContext?.userData?.phoneNumber}</p>
               </div>
               {/* <button onClick={removePhonenumber}>Remove</button> */}
             </div>
