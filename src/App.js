@@ -13,6 +13,7 @@ import DonationReqDetails from "./Components/User/UserDonationRequest/donationRe
 import LoginModalTest from "./Components/Common/LoginModal/loginModal";
 import LeaderBoard from "./Pages/Leaderboard/leaderboard";
 import UserProfile from "./Pages/Users/Profile/userProfile";
+import TermsConditions from "./Components/Common/OrphanageDetails/terms-conditions/terms";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import BloodCamp from "./Pages/BloodCamp/bloodCamp";
@@ -59,10 +60,7 @@ function App() {
           path="/orphanage/orphanages-list"
           element={<UserOrphanagesList activeUser="orphanage" />}
         />
-        <Route
-          path="/orphanage/donation-request"
-          element={<CreateDonationRequest />}
-        />
+        
         <Route
           path="/orphanage/donation-request"
           element={<CreateDonationRequest />}
@@ -77,7 +75,7 @@ function App() {
         <Route path="/admin" element={<AdminDashboard />} />
         {/* common routes */}
         <Route path="/modal/test" element={<LoginModalTest />} />
-
+        <Route path="/terms" element={<TermsConditions />} />
         <Route path="/*" element={<h1> 404 </h1>} />
       </Routes>
     </BrowserRouter>

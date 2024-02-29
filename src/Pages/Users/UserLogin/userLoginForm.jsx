@@ -177,7 +177,7 @@ const UserLoginForm = ({ user }) => {
             cursor: "pointer",
             position: "absolute",
             top: "7px",
-            right: "55px",
+            right: "75px",
           }}
           onClick={() => {
             setShowPassword(!showPassword);

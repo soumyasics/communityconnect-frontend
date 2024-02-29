@@ -197,7 +197,7 @@ const UserSignupForm = () => {
               cursor: "pointer",
               position: "absolute",
               top: "25px",
-              right: "10px",
+              right: "34px",
               zIndex: "100",
             }}
             onClick={() => {

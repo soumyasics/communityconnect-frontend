@@ -4,17 +4,21 @@ import { Button, Form, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axiosMultipartInstance from "../../../api/axiosMultipartInstance";
 import axiosInstance from "../../../api/BaseUrl";
+import { AiOutlineConsoleSql } from "react-icons/ai";
 const OrphanageRequestForm = ({ orpData }) => {
   const [donationReqData, setDonationReqData] = useState({
     orphanageId: "",
     title: "",
     targetAmount: "",
     bankAcNumber: "",
+    ifscCode: "",
     deadline: "",
     category: "",
     urgencyLevel: "",
     description: "",
   });
+  const [regExpPassed, setRegExpPassed] = useState(false);
+
   const [validated, setValidated] = useState(false);
   useEffect(() => {
     if (orpData) {
@@ -46,13 +50,38 @@ const OrphanageRequestForm = ({ orpData }) => {
       console.log("Please fill all the fields");
       return;
     } else {
-      sendDataToServer(donationReqData);
+      if (regExpCheck()) {
+        sendDataToServer(donationReqData);
+      } else {
+        console.log("ifsc code is not valid");
+        return;
+      }
     }
   };
 
-  const redirectLogin = () => {
-    alert("request success ful");
+  useEffect(() => {
+    console.log("ifsc", donationReqData.ifscCode);
+    if (regExpCheck()) {
+      console.log("reg exp ifsc passed");
+    } else {
+      console.log("reg exp ifsc failed");
+    }
+  }, [donationReqData?.ifscCode]);
+
+  const regExpCheck = () => {
+    const ifscCode = donationReqData?.ifscCode;
+    if (!ifscCode) return false;
+    const ifscRegex = new RegExp(/^[A-Z]{4}0[A-Z0-9]{6}$/);
+    if (ifscRegex.test(ifscCode)) {
+      setRegExpPassed(true);
+      return true;
+    } else {
+      setRegExpPassed(false);
+      return false;
+    }
   };
+
+
 
   const sendDataToServer = async (data) => {
     try {
@@ -129,7 +158,10 @@ const OrphanageRequestForm = ({ orpData }) => {
           <Form.Group>
             <Form.Control
               required
-              type="number"
+              type="text"
+              name="ifscCode"
+              onChange={handleChange}
+              value={donationReqData.ifscCode}
               placeholder="Bank IFSC Number"
             />
             <Form.Control.Feedback type="invalid">

@@ -163,7 +163,7 @@ const OrphanageSignupForm = () => {
               cursor: "pointer",
               position: "absolute",
               top: "25px",
-              right: "10px",
+              right: "34px",
             }}
             onClick={() => {
               setShowPassword(!showPassword);

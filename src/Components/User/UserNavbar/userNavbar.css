@@ -30,6 +30,17 @@
   text-decoration: none;
   color: white;
 }
+.user-navbar-center > a:hover {
+  /* color: red; */
+  cursor: pointer;
+  font-weight: bold;
+}
+.user-navbar-center > button:hover {
+  /* color: red; */
+  cursor: pointer;
+  font-weight: bold;
+}
+
 .user-navbar-right > img {
   width: 40px;
   height: 40px;

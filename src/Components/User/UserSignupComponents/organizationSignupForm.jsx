@@ -113,7 +113,7 @@ const OrganizationSignupForm = () => {
           <Form.Control
             required
             type="text"
-            placeholder="Organization Name2"
+            placeholder="Organization Name"
             name="name"
             onChange={handleChange}
             value={orgData.name}
@@ -164,7 +164,7 @@ const OrganizationSignupForm = () => {
               cursor: "pointer",
               position: "absolute",
               top: "25px",
-              right: "10px",
+              right: "34px",
             }}
             onClick={() => {
               setShowPassword(!showPassword);
