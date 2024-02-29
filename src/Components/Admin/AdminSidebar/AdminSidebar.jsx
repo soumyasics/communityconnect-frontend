@@ -54,7 +54,7 @@ const AdminSidebar = ({ activePage, changeActivePage }) => {
           <FcImport />
           <h5>Donation Requests</h5>
         </div>
-        <div
+        {/* <div
           className="admin-sidebar-link"
           onClick={() => changeActivePage("donations")}
         >
@@ -68,13 +68,7 @@ const AdminSidebar = ({ activePage, changeActivePage }) => {
           <FcCollaboration />
           <h5>Events</h5>
         </div>
-        <div
-          className="admin-sidebar-link"
-          onClick={() => changeActivePage("settings")}
-        >
-          <FcServices />
-          <h5>Settings</h5>
-        </div>
+        */}
       </div>
     </div>
   );
