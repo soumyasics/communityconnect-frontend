@@ -8,10 +8,10 @@ import axiosInstance from "../../../api/BaseUrl.js";
 import AuthContext from "../../../Context/authContext.js";
 import { useContext } from "react";
 import "./activities.css";
+import BASE_URL from "../../../api/Backend-url.js";
 
 const Activities = () => {
   const [allDonations, setAllDonations] = useState([]);
-  const BASE_URL = "https://localhost:3000";
   const { userContext } = useContext(AuthContext);
 
   useEffect(() => {

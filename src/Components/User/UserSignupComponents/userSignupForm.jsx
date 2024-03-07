@@ -72,6 +72,7 @@ const UserSignupForm = () => {
         return;
       }
       if (!isValidEmail(userData.email)) {
+        alert("Invalid Email Address");
         console.log("Invalid email");
         return;
       }

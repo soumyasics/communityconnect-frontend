@@ -5,6 +5,7 @@ import { AiOutlineMail } from "react-icons/ai";
 import { BiPhoneCall } from "react-icons/bi";
 import { useContext } from "react";
 import AuthContext from "../../../Context/authContext";
+import BASE_URL from "../../../api/Backend-url";
 import "./userInfo.css";
 import { useNavigate } from "react-router-dom";
 const UserInfo = ({ activeUser }) => {
@@ -28,8 +29,6 @@ const UserInfo = ({ activeUser }) => {
     getUserData();
   }, []);
 
-  const BASE_URL =
-    process.env.REACT_APP_BACKEND_BASE_URL || "http://localhost:5000/";
 
   useEffect(() => {
     const imgPath = userContext?.userData?.img?.filename || null;
@@ -37,7 +36,7 @@ const UserInfo = ({ activeUser }) => {
       setUserImgPath(imgPath);
     }
     console.log("img pat", imgPath);
-  }, [userContext]);
+}, [userContext]);
   const getUserData = () => {
     if (userContext?.userData) {
       let name = "";
