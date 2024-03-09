@@ -28,7 +28,6 @@ const OrgLeaderBoardTable = ({ orgData }) => {
             <th>Address</th>
             <th>Phone Number</th>
             <th>Email</th>
-            <th>View</th>
           </tr>
         </thead>
         <tbody>
@@ -42,9 +41,7 @@ const OrgLeaderBoardTable = ({ orgData }) => {
                 <td>{org.address}</td>
                 <td>{org.phoneNumber}</td>
                 <td>{org.email}</td>
-                <td>
-                  <Button> View </Button>
-                </td>
+                
               </tr>
             );
           })}
