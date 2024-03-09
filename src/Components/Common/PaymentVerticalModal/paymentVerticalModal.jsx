@@ -3,6 +3,7 @@ import { Col, Form, Row, Button, Modal } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axiosInstance from "../../../api/BaseUrl";
 import AuthContext from "../../../Context/authContext";
+import PaymentReceipt from "../../User/UserDonationRequest/paymentReceipt";
 
 export default function PaymentVerticalModal(props) {
   const { userContext } = useContext(AuthContext);
@@ -15,12 +16,11 @@ export default function PaymentVerticalModal(props) {
     subHeading: "",
     content: " ",
   });
-
   const [userAcDetails, setUserAcDetails] = useState({
-    acHolderName: "",
-    cardNumber: "",
-    expiryDate: "",
-    cvv: "",
+    acHolderName: "Bill Gats",
+    cardNumber: "1234567890123456",
+    expiryDate: "31-04-2024",
+    cvv: "555",
     amount: 0,
   });
 
@@ -104,6 +104,10 @@ export default function PaymentVerticalModal(props) {
     try {
       const res = await axiosInstance.post("/donation/create", allDonationData);
       if (res.status === 201) {
+        console.log("res data =>", res.data);
+        console.log("res data =>", res.data.data);
+        localStorage.setItem("lastDonation", JSON.stringify(res.data.data));
+        console.log("res data =>", res.data.donationRequest);
         alert("Donation successfull");
         props.onHide();
         setUserAcDetails({
@@ -199,6 +203,7 @@ export default function PaymentVerticalModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
+     
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           {paymentModalContent.heading}

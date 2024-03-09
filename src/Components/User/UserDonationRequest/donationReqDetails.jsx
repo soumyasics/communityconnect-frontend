@@ -10,14 +10,34 @@ import child4Img from "../../../Assets/Images/child-3.png";
 import PaymentVerticalModal from "../../Common/PaymentVerticalModal/paymentVerticalModal";
 import "./userDonationRequest.css";
 import "./donationReqDetails.css";
+import PaymentReceipt from "./paymentReceipt";
 
 const DonationReqDetails = () => {
   const [donationReqData, setDonationReqData] = useState(null);
   const [donationReqStatus, setDonationReqStatus] = useState("Active");
   const [paymentModal, setPaymentModal] = useState(false);
 
+  const [receipt, setReceipt] = useState(false);
   const [loading, setLoading] = useState(true);
   const [deadlineDate, setDeadlineData] = useState(null);
+
+  useEffect(() => {
+    let data = JSON.parse(localStorage.getItem("lastDonation")) || null;
+    if (data) {
+      setTimeout(() => {
+        setReceipt(true);
+      }, 1000);
+
+      setTimeout(() => {
+        setReceipt(false);
+        if (localStorage.getItem("lastDonation")) {
+          localStorage.removeItem("lastDonation");
+        }
+      }, 7000);
+    } else {
+      console.log("Last donation not available ");
+    }
+  }, [paymentModal]);
 
   const { id } = useParams();
   useEffect(() => {
@@ -69,6 +89,8 @@ const DonationReqDetails = () => {
         show={paymentModal}
         onHide={() => setPaymentModal(false)}
       />
+      <PaymentReceipt show={receipt} onHide={() => setReceipt(false)} />
+
       <UserNavbar />
       <Container className="p-0" id="donation-req-details-container" fluid>
         <CommunityHeader
@@ -139,7 +161,6 @@ const DonationReqDetails = () => {
                     </span>
                   </Col>
                 </Row>
-
                 <Row>
                   <Col>
                     Category:
@@ -181,7 +202,6 @@ const DonationReqDetails = () => {
                     {donationReqData?.bankAcNumber || 6230_2121_4538}
                   </Col>
                 </Row>
-
                 <Container
                   fluid
                   className="gap-3 mt-4 p-0 d-flex justify-content-between"
@@ -197,7 +217,7 @@ const DonationReqDetails = () => {
                     {" "}
                     Donate{" "}
                   </Button>
-                </Container>
+                </Container>{" "}
               </Container>
             </Container>
             <div className="single-orp-img-container w-50">
