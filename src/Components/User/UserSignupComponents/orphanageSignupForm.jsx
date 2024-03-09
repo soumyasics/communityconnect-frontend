@@ -157,7 +157,7 @@ const OrphanageSignupForm = () => {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group style={{ position: "relative" }}>
-        <div
+          <div
             style={{
               display: "inline-block",
               cursor: "pointer",
@@ -265,7 +265,6 @@ const OrphanageSignupForm = () => {
             value={orphanageData.license}
             minLength={10}
             maxLength={10}
-            pattern="[0-9]{10}"
           />
           <Form.Control.Feedback type="invalid">
             Please provide 10 digit orphanage license number.

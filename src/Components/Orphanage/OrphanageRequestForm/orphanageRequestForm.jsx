@@ -6,6 +6,7 @@ import axiosMultipartInstance from "../../../api/axiosMultipartInstance";
 import axiosInstance from "../../../api/BaseUrl";
 import { AiOutlineConsoleSql } from "react-icons/ai";
 const OrphanageRequestForm = ({ orpData }) => {
+  const navigate = useNavigate();
   const [donationReqData, setDonationReqData] = useState({
     orphanageId: "",
     title: "",
@@ -54,6 +55,10 @@ const OrphanageRequestForm = ({ orpData }) => {
         sendDataToServer(donationReqData);
       } else {
         console.log("ifsc code is not valid");
+        if (!regExpPassed) {
+          alert("IFSC code is not valid");
+          return;
+        }
         return;
       }
     }
@@ -65,6 +70,8 @@ const OrphanageRequestForm = ({ orpData }) => {
       console.log("reg exp ifsc passed");
     } else {
       console.log("reg exp ifsc failed");
+
+      return;
     }
   }, [donationReqData?.ifscCode]);
 
@@ -81,8 +88,6 @@ const OrphanageRequestForm = ({ orpData }) => {
     }
   };
 
-
-
   const sendDataToServer = async (data) => {
     try {
       const response = await axiosInstance.post(
@@ -91,10 +96,9 @@ const OrphanageRequestForm = ({ orpData }) => {
       );
 
       if (response.status === 201) {
-        console.log("user created successfully");
         alert("Request successful.");
         setTimeout(() => {
-          // navigate("/user/login");
+          navigate("/orphanage/orphanages-list");
         }, 1500);
       }
     } catch (error) {
@@ -165,7 +169,7 @@ const OrphanageRequestForm = ({ orpData }) => {
               placeholder="Bank IFSC Number"
             />
             <Form.Control.Feedback type="invalid">
-              Please enter your bank IFSC
+              Please enter a valid IFSC code
             </Form.Control.Feedback>
           </Form.Group>
         </div>
@@ -177,6 +181,9 @@ const OrphanageRequestForm = ({ orpData }) => {
               name="bankAcNumber"
               placeholder="Bank Account Number"
               onChange={handleChange}
+              minLength={12}
+              maxLength={12}
+              pattern="[0-9]{10}"
               value={donationReqData.bankAcNumber}
             />
             <Form.Control.Feedback type="invalid">

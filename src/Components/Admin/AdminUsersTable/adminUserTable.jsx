@@ -108,7 +108,7 @@ const AdminUserTable = ({ searchUserName }) => {
                   <td>{user?.firstName}</td>
                   <td>{user?.age}</td>
                   <td>{user?.street}</td>
-                  <td>{user?.contact}</td>
+                  <td>{user?.phoneNumber}</td>
                   <td>{user?.email}</td>
                 </tr>
               );

@@ -8,7 +8,7 @@ import axiosInstance from "../../api/BaseUrl";
 import { Button, Form } from "react-bootstrap";
 import AuthContext from "../../Context/authContext";
 import { useContext } from "react";
-
+import { useNavigate } from "react-router-dom";
 import "./blood-camp.css";
 
 const BloodCamp = () => {
@@ -19,7 +19,7 @@ const BloodCamp = () => {
   const [campCapacity, setCampCapacity] = useState("");
   const [orgId, setOrgId] = useState("");
   const { userContext } = useContext(AuthContext);
-  console.log("use con", userContext);
+  const navigate = useNavigate();
   useEffect(() => {
     if (userContext.userData) {
       setOrgId(userContext.userData._id);
@@ -79,6 +79,7 @@ const BloodCamp = () => {
       if (res.status === 200) {
         alert("Camp created successfully");
         resetData();
+        navigate("/view-blood-camps");
       }
     } catch (error) {
       console.log("error", error);
@@ -90,7 +91,10 @@ const BloodCamp = () => {
       <UserNavbar />
       <CommunityHeader heading="" description="" imgPath={bloodCamp} />
       <div>
-        <h3 className="font-weight-bold text-center mt-5"> Blood Camp Registration</h3>
+        <h3 className="font-weight-bold text-center mt-5">
+          {" "}
+          Blood Camp Registration
+        </h3>
         <Form
           noValidate
           validated={validated}

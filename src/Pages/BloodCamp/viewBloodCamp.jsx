@@ -108,6 +108,11 @@ const ViewBloodCamps = () => {
       console.log("error on book slot", error);
     }
   };
+  const isPastDate = (dateString) => {
+    const today = new Date();
+    const campDate = new Date(dateString);
+    return campDate < today;
+  };
   return (
     <div>
       <UserNavbar />
@@ -139,6 +144,9 @@ const ViewBloodCamps = () => {
             <tbody>
               {campData.map((camp, index) => {
                 const isCurrentSlotBooked = camp?._id === bookedCampId;
+                if (isPastDate(camp.campDate)) {
+                  return null; 
+                }
                 return (
                   <tr key={index} className="text-center">
                     <td>{index + 1}</td>

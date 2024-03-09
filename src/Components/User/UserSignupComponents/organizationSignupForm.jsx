@@ -235,7 +235,7 @@ const OrganizationSignupForm = () => {
             value={orgData.license}
             minLength={10}
             maxLength={10}
-            pattern="[0-9]{10}"
+            // pattern="[0-9]{10}"
           />
           <Form.Control.Feedback type="invalid">
             Please provide 10 digit organization License No
