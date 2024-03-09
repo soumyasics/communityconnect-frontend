@@ -51,6 +51,7 @@ const UserSignupForm = () => {
       !userData.lastName ||
       !userData.email ||
       !userData.password ||
+      
       !userData.gender ||
       !userData.phoneNumber ||
       !userData.age ||
@@ -89,6 +90,11 @@ const UserSignupForm = () => {
     navigate("/user/login");
   };
   const sendDataToServer = async (data) => {
+
+    if (userData.password.length < 8) {
+      alert("Password must be atleast 8 characters long");
+      return;
+    }
     try {
       const response = await axiosMultipartInstance.post("/user/signup", data);
       if (response.status === 201) {
@@ -316,7 +322,7 @@ const UserSignupForm = () => {
 
       <div className="signup-form-flex-div">
         <Button id="user-signup-btn" type="submit">
-          Sign UP
+          Sign Up
         </Button>
       </div>
     </Form>
