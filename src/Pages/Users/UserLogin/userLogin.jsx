@@ -18,6 +18,10 @@ const UserLogin = () => {
         description=""
         textColor="#a82927"
       />
+      <div className="text-center mt-3">
+        <h3> Log in to Community connect</h3>
+      </div>
+
       <Container
         id="all-login-form-container"
         className="all-login-form-containers"

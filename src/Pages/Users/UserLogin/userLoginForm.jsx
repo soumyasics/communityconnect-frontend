@@ -46,8 +46,13 @@ const UserLoginForm = ({ user }) => {
     }
     setValidated(true);
 
-    if (!email || !password || password.length < 8) {
+    if (!email || !password ) {
       console.log("Please fill all the fields");
+      return;
+    }
+
+    if (password.length < 8) {
+      alert ("Invalid password");
       return;
     }
 

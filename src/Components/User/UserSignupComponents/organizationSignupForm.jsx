@@ -265,15 +265,26 @@ const OrganizationSignupForm = () => {
           onChange={handleFilechange}
         />
       </Form.Group>
-      <Form.Group className="mt-3">
+      <Form.Group className="mt-3 ms-4">
         <Form.Check
           required
-          className="signup-check-box"
-          label="Agree to our terms and conditions"
+          className="signup-check-box "
           feedbackType="invalid"
           checked={agreedToTerms}
           onChange={handleCheckboxChange}
         />
+        <label htmlFor="" className="ms-3">
+          Agree to our{" "}
+          <span
+            className="text-primary"
+            onClick={() => {
+              navigate("../terms");
+            }}
+          >
+            {" "}
+            terms and conditions{" "}
+          </span>
+        </label>
       </Form.Group>
 
       <div className="signup-form-flex-div">
