@@ -20,7 +20,7 @@ import BloodCamp from "./Pages/BloodCamp/bloodCamp";
 import ViewBloodCamps from "./Pages/BloodCamp/viewBloodCamp";
 function App() {
   return (
-    <BrowserRouter basename="/community_connect_tvm">
+    <BrowserRouter>
       <Routes>
         {/* user  */}
         <Route path="/" element={<UserHome />} />

@@ -43,7 +43,8 @@ const UserInfo = ({ activeUser }) => {
       let phoneNumber = "";
       if (userContext.userType === "user") {
         console.log("user usercontext", userContext);
-        name = userContext.userData.firstName;
+        
+        name = userContext.userData?.firstName + " " + userContext.userData?.lastName;
         phoneNumber = userContext.userData.phoneNumber;
       } else {
         console.log("orp or org usercontext", userContext);

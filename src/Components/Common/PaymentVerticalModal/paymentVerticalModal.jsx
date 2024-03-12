@@ -17,10 +17,10 @@ export default function PaymentVerticalModal(props) {
     content: " ",
   });
   const [userAcDetails, setUserAcDetails] = useState({
-    acHolderName: "Bill Gats",
-    cardNumber: "1234567890123456",
-    expiryDate: "31-04-2024",
-    cvv: "555",
+    acHolderName: "",
+    cardNumber: "",
+    expiryDate: "",
+    cvv: "",
     amount: 0,
   });
 
@@ -203,7 +203,6 @@ export default function PaymentVerticalModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-     
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           {paymentModalContent.heading}
@@ -319,7 +318,19 @@ export default function PaymentVerticalModal(props) {
           </Row>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onHide}>Close</Button>
+          <Button
+            onClick={() => {
+              setUserAcDetails({
+                acHolderName: "",
+                cardNumber: "",
+                expiryDate: "",
+                cvv: "",
+              });
+              // props.onHide();
+            }}
+          >
+            Clear
+          </Button>
           <Button type="submit">Donate Now</Button>
         </Modal.Footer>
       </Form>

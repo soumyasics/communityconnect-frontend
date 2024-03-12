@@ -8,8 +8,8 @@ const AdminLoginForm = () => {
   const email = "admin@gmail.com";
   const password = "admin@123";
   const navigate = useNavigate();
-  const [inputEmail, setInputEmail] = useState("admin@gmail.com");
-  const [inputPassword, setInputPassword] = useState("admin@123");
+  const [inputEmail, setInputEmail] = useState("");
+  const [inputPassword, setInputPassword] = useState("");
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -21,6 +21,7 @@ const AdminLoginForm = () => {
     setValidated(true);
 
     if (email === inputEmail && password === inputPassword) {
+      localStorage.setItem("cc-admin", true);
       alert("login successfull");
       setTimeout(() => {
         navigate("/admin");

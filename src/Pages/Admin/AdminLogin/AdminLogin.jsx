@@ -6,8 +6,10 @@ const AdminLogin = () => {
   return (
     <div className="admin-login-container">
       <AdminNavbar />
-      <AdminLoginForm/>
-      <AdminFooter />
+      <AdminLoginForm />
+      <div style={{ position: "absolute", bottom: "0" }} className="w-100">
+        <AdminFooter />
+      </div>
     </div>
   );
 };
