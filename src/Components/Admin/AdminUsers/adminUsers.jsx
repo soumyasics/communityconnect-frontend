@@ -16,18 +16,18 @@ const AdminUsers = () => {
       handleSearch(e.target.value);
     }, 1500);
   };
-  
+
   const handleSearch = (searchInput) => {
-    setSearchedItem(searchInput)
-  }
- 
+    setSearchedItem(searchInput);
+  };
+
   return (
     <div className="admin-users-container">
       <div className="admin-user-title-container">
         <h1 className="admin-users-title"> All Users</h1>
-        <button>
+        {/* <button>
           <CiExport /> &nbsp; Export
-        </button>
+        </button> */}
       </div>
       <div className="admin-users-search-container">
         <InputGroup className="mt-5">
@@ -45,7 +45,7 @@ const AdminUsers = () => {
       </div>
 
       <div className="mt-5">
-        <AdminUserTable searchUserName={searchedItem}/>
+        <AdminUserTable searchUserName={searchedItem} />
       </div>
     </div>
   );

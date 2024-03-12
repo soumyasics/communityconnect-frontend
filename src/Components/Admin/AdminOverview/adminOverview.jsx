@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axiosInstance from "../../../api/BaseUrl";
 import BarChart from "../../Charts/BarChart/barChart";
 import PieChart from "../../Charts/PieChart/pieChart";
+import Doughnut from "../../Charts/Doughnut/doughnut";
 import LineChart from "../../Charts/LineChart/lineChart";
 import "./adminOverview.css";
 const AdminOverview = () => {
@@ -19,6 +20,7 @@ const AdminOverview = () => {
         data: allUsersDataLength,
       },
     ],
+    hoverOffset: 3,
     backgroundColor: ["red", "green", "blue"],
   });
   const [donationDataSet, setDonationDataSet] = useState({
@@ -144,16 +146,22 @@ const AdminOverview = () => {
     <>
       <h1 className="ml-4"> Admin overview</h1>
       <div className="d-flex gap-5 justify-content-around mt-5">
-        <div className="admin-overview-barchart-container w-25">
-          <h3> Donation Requests</h3>
+        <div
+          style={{ width: "35%" }}
+          className="admin-overview-barchart-container "
+        >
+          <h2> Donation Requests</h2>
           <p>Total Requests {totalDonationRequests()} </p>
           <PieChart chartData={donationDataSet} />
         </div>
 
-        <div className="admin-overview-barchart-container">
-          <h3> Total Number of Users</h3>
+        <div
+          style={{ width: "35%" }}
+          className="admin-overview-barchart-container"
+        >
+          <h2> Total Number of Users</h2>
           <p className="mb-5">Total Users {totalUsers()} </p>
-          <BarChart chartData={dataSet} />
+          <Doughnut chartData={dataSet} />
         </div>
       </div>
     </>
