@@ -27,7 +27,7 @@ const AdminOverview = () => {
     labels: ["pending", "fullfilled"],
     datasets: [
       {
-        label: "Total Donation Requests",
+        label: "Donation status",
         data: donationReqCount,
       },
     ],
@@ -68,7 +68,7 @@ const AdminOverview = () => {
       labels: ["pending", "fullfilled"],
       datasets: [
         {
-          label: "Total Donation Requests",
+          label: "Count",
           data: donationReqCount,
           backgroundColor: ["#36a2eb", "#ff6384"],
           borderColor: "black",
@@ -92,18 +92,23 @@ const AdminOverview = () => {
       const res = await axiosInstance.get("donation-request/get-all-requests");
       const data = res?.data?.data;
 
-      const totalReq = data.length;
-      let totalPending = 0;
+      let totalReq = 0;
 
       data.forEach((elem) => {
-        console.log(elem.status === "pending");
-        if (elem.status === "pending") {
-          totalPending++;
+        if (elem.isAdminApproved == "approved") {
+          totalReq++;
         }
       });
-      const totalApproved = totalReq - totalPending;
+      let totalFulfilled = 0;
 
-      setDonationReqCount([totalPending, totalApproved]);
+      data.forEach((elem) => {
+        if (elem.status === "fulfilled" && elem.isAdminApproved == "approved") {
+          totalFulfilled++;
+        }
+      });
+      console.log("total req", totalReq);
+
+      setDonationReqCount([totalReq - totalFulfilled, totalFulfilled]);
     } catch (error) {
       console.log("error on get all users", error?.message);
     }
@@ -150,8 +155,10 @@ const AdminOverview = () => {
           style={{ width: "35%" }}
           className="admin-overview-barchart-container "
         >
-          <h2> Donation Requests</h2>
-          <p>Total Requests {totalDonationRequests()} </p>
+          <h2> Donations Pending & Fullfilled</h2>
+          <p>
+            Total Admin Approved Donation Requests are {totalDonationRequests()}{" "}
+          </p>
           <PieChart chartData={donationDataSet} />
         </div>
 

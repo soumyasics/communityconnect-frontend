@@ -10,6 +10,8 @@ import "./userDonationRequest.css";
 const UserDonationRequest = () => {
   const [allDonationRequests, setAllDonationRequests] = useState([]);
   const [allAcceptedReqs, setAllAcceptedReqs] = useState([]);
+  const [allFullFilledReqs, setAllFullFilledReqs] = useState([]);
+  const [allPendingReqs, setAllPendingReqs] = useState([]);
 
   const desc =
     "Join Us in Supporting the Little Hearts . Together, let's make a difference in the lives. Your support is a beacon of hope, guiding them towards a path of joy and fulfillment. Explore the impact of your kindness";
@@ -33,13 +35,30 @@ const UserDonationRequest = () => {
         // reverse the reqs for showing the last reqs top
         allReqs.reverse();
         setAllDonationRequests(allReqs);
-        const allAcceptedReqs = getAcceptedRequests(allReqs);
-        setAllAcceptedReqs(allAcceptedReqs);
+        const allAdminAcceptedReqs = getAcceptedRequests(allReqs);
+        const fullfilledReqs = getFullFilledReqs(allAdminAcceptedReqs);
+        const pendingReqs = getPendingReqs(allAdminAcceptedReqs);
+        setAllFullFilledReqs(fullfilledReqs);
+        setAllPendingReqs(pendingReqs);
+        setAllAcceptedReqs(allAdminAcceptedReqs);
       }
     } catch (error) {
       console.log("error on get all donation request", error);
     }
   };
+  function getPendingReqs(acceptedReqs) {
+    const allPendingReqs = acceptedReqs.filter(
+      (req) => req.status === "pending"
+    );
+    return allPendingReqs;
+  }
+
+  function getFullFilledReqs(acceptedReqs) {
+    const allFullFilledReqs = acceptedReqs.filter(
+      (req) => req.status === "fulfilled"
+    );
+    return allFullFilledReqs;
+  }
   return (
     <Container className="p-0" fluid>
       <UserNavbar />
@@ -50,7 +69,18 @@ const UserDonationRequest = () => {
       />
       <Container id="orphanage-request-container" fluid className="bg-light">
         {allAcceptedReqs.length > 0 && (
-          <DonationCardContainer allAcceptedReqs={allAcceptedReqs} />
+          <DonationCardContainer
+            allAcceptedReqs={allPendingReqs}
+            title="Pending Donation Requests"
+            isPending={true}
+          />
+        )}
+        {allAcceptedReqs.length > 0 && (
+          <DonationCardContainer
+            allAcceptedReqs={allFullFilledReqs}
+            title="Fullfilled Donation Requests"
+            isPending={false}
+          />
         )}
         {allAcceptedReqs.length === 0 && (
           <h1 className="text-center text-dark"> No requests found</h1>

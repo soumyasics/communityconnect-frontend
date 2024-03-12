@@ -2,12 +2,12 @@ import { Button, Card, Col, Container, Row, Stack } from "react-bootstrap";
 import orpImg from "../../../Assets/Images/orp-teady-bear.png";
 import { useNavigate } from "react-router-dom";
 import "./userDonationRequest.css";
-const DonationCardContainer = ({ allAcceptedReqs }) => {
+const DonationCardContainer = ({ allAcceptedReqs, title, isPending }) => {
   const navigate = useNavigate();
 
   return (
     <Container fluid className="my-5">
-      <h1 className="text-center text-dark">All Donation Requests</h1>
+      <h1 className="text-center text-dark">{title}</h1>
 
       <Container className="d-flex flex-wrap  gap-5 py-3">
         {allAcceptedReqs.map((req) => {
@@ -41,7 +41,11 @@ const DonationCardContainer = ({ allAcceptedReqs }) => {
 
                 {/* stop btn propagation here  */}
                 <div className="d-flex align-items-center justify-content-center">
-                  <Button variant="success mx-auto">Donate</Button>
+                  {isPending ? (
+                    <Button variant="success mx-auto">Donate</Button>
+                  ) : (
+                    <Button variant="primary mx-auto">View</Button>
+                  )}
                 </div>
               </Card.Body>
             </Card>
