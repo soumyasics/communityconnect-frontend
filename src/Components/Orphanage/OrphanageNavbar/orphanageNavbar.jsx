@@ -65,6 +65,14 @@ const OrphanageNavbar = () => {
       setLoginModalShow(true);
     }
   };
+
+  const redirectView = () => {
+    if (userContext && userContext.userType) {
+      navigate("../orphanage/view-requests");
+    } else {
+      setLoginModalShow(true);
+    }
+  };
   return (
     <>
       <Container fluid className="user-navbar-container">
@@ -92,6 +100,12 @@ const OrphanageNavbar = () => {
             onClick={handleRedirectRequest}
           >
             Request
+          </button>
+          <button
+            className="border-0 text-light bg-transparent"
+            onClick={redirectView}
+          >
+            View
           </button>
         </div>
         <div className="user-navbar-right">

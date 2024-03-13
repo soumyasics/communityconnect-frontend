@@ -18,6 +18,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import BloodCamp from "./Pages/BloodCamp/bloodCamp";
 import ViewBloodCamps from "./Pages/BloodCamp/viewBloodCamp";
+import ViewRequests from "./Pages/Orphanages/ViewRequests/viewRequests";
 function App() {
   return (
     <BrowserRouter>
@@ -64,6 +65,10 @@ function App() {
         <Route
           path="/orphanage/donation-request"
           element={<CreateDonationRequest />}
+        />
+        <Route
+          path="/orphanage/view-requests"
+          element={<ViewRequests />}
         />
         <Route
           path="/orphanage/leaderboard"
