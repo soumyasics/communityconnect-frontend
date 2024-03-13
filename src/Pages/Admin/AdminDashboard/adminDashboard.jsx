@@ -11,7 +11,7 @@ import AdminSettings from "../../../Components/Admin/AdminSettings/adminSettings
 import AdminDashboardNav from "../../../Components/Admin/AdminDashboardNav/adminDashboardNav";
 import AdminDonationRequests from "../../../Components/Admin/AdminDonationRequests/adminDonationRequests";
 import AdminCamp from "../../../Components/Admin/AdminCamp/adminCamp";
-
+import AdminLeaderboard from "../../../Components/Admin/AdminLeaderboard/adminLeaderboard"
 import "./adminDashboard.css";
 
 const AdminDashboard = () => {
@@ -39,6 +39,7 @@ const AdminDashboard = () => {
           {activePage === "events" && <AdminEvents />}
           {activePage === "settings" && <AdminSettings />}
           {activePage === "camps" && <AdminCamp />}
+          {activePage === "leaderboard" && <AdminLeaderboard />}
         </div>
       </div>
     </Fragment>

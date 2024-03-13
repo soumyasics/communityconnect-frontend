@@ -8,6 +8,7 @@ import AuthContext from "../../../Context/authContext";
 import BASE_URL from "../../../api/Backend-url";
 import "./userInfo.css";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../../api/BaseUrl";
 const UserInfo = ({ activeUser }) => {
   const navigate = useNavigate();
   const { userContext } = useContext(AuthContext);
@@ -24,27 +25,27 @@ const UserInfo = ({ activeUser }) => {
     profilePicture:
       "https://img.freepik.com/premium-vector/account-icon-user-icon-vector-graphics_292645-552.jpg",
   });
-
+  const [commonMan, setCommonMan] = useState(null);
   useEffect(() => {
     getUserData();
   }, []);
-
 
   useEffect(() => {
     const imgPath = userContext?.userData?.img?.filename || null;
     if (imgPath) {
       setUserImgPath(imgPath);
     }
-    console.log("img pat", imgPath);
-}, [userContext]);
+  }, [userContext]);
   const getUserData = () => {
     if (userContext?.userData) {
       let name = "";
       let phoneNumber = "";
       if (userContext.userType === "user") {
         console.log("user usercontext", userContext);
-        
-        name = userContext.userData?.firstName + " " + userContext.userData?.lastName;
+        name =
+          userContext.userData?.firstName +
+          " " +
+          userContext.userData?.lastName;
         phoneNumber = userContext.userData.phoneNumber;
       } else {
         console.log("orp or org usercontext", userContext);
@@ -64,6 +65,48 @@ const UserInfo = ({ activeUser }) => {
     }
   };
 
+  useEffect(() => {
+    const activeUserId = userContext?.userData?._id || null;
+    console.log("us sss", userContext);
+    if (activeUserId) {
+      if (userContext.userType == "user") {
+        getActiveUserData(activeUserId);
+      } else if (userContext.userType == "organization") {
+        getActiveOrgData(activeUserId);
+      }
+    } else {
+      console.log("Active User id is invalid.");
+    }
+  }, [userContext]);
+
+  async function getActiveUserData(id) {
+    try {
+      let res = await axiosInstance.get("user/get-user-by-id/" + id);
+
+      let data = res?.data?.data || null;
+      if (data) {
+        setCommonMan(data);
+      }
+    } catch (error) {
+      console.log("error on get active user id", error);
+    }
+  }
+  async function getActiveOrgData(id) {
+    try {
+      let res = await axiosInstance.get("organization/get-org-by-id/" + id);
+
+      let data = res?.data?.data || null;
+      if (data) {
+        setCommonMan(data);
+      }
+    } catch (error) {
+      console.log("error on get active user id", error);
+    }
+  }
+
+  useEffect(() => {
+    console.log("com", commonMan);
+  }, [commonMan]);
   return (
     <div className="userinfo-container">
       <h5> Personal Profile </h5>
@@ -92,7 +135,7 @@ const UserInfo = ({ activeUser }) => {
           <div>
             <p className="user-title">Total Donated Amount</p>
             <p className="user-data">
-              <span> ₹ </span> {userContext?.userData?.totalDonatedAmt || 0}
+              <span> ₹ </span> {commonMan?.totalDonatedAmt || 0}
             </p>
           </div>
         )}

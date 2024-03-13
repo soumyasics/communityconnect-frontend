@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import axiosInstance from "../../../api/BaseUrl";
 import { Table } from "react-bootstrap";
-import "./adminCampTable.css";
+import "./adminLeaderboard.css";
 
-const AdminCampTable = ({ searchUserName }) => {
+const AdminLeaderboardTable = ({ searchUserName }) => {
   const [usersData, setUsersData] = useState(null);
   const [allUsersData, setAllUsersData] = useState(null);
   // pagination
@@ -12,7 +12,7 @@ const AdminCampTable = ({ searchUserName }) => {
 
   const [lastIndex, setLastIndex] = useState(currentPage * recordPerPage);
   const [firstIndex, setFirstIndex] = useState(lastIndex - recordPerPage);
-
+  const [sortedLeaderboard, setSortedLeaderboard] = useState([]);
   const [currentPageUsers, setCurrentPageUsers] = useState(null);
   const [totalPages, setTotalPages] = useState(1);
   const [pageNumbers, setPageNumbers] = useState(
@@ -59,11 +59,16 @@ const AdminCampTable = ({ searchUserName }) => {
 
   const getAllUsers = async () => {
     try {
-      const res = await axiosInstance.get("camp/get-all-camps");
+      const res = await axiosInstance.get("organization/get-all-organizations");
       const allUsers = res?.data?.data;
-      if (allUsers.length > 0) {
-        setUsersData(allUsers);
-        setAllUsersData(allUsers);
+
+      let sortedByDonatedAmt = [...allUsers].sort(
+        (a, b) => b.totalDonatedAmt - a.totalDonatedAmt
+      );
+
+      if (sortedByDonatedAmt.length > 0) {
+        setUsersData(sortedByDonatedAmt);
+        setAllUsersData(sortedByDonatedAmt);
       }
     } catch (error) {
       console.log("error on get all orphnages", error);
@@ -91,11 +96,10 @@ const AdminCampTable = ({ searchUserName }) => {
         <thead>
           <tr>
             <th>No</th>
-            <th>Camp Name</th>
-            <th>Owner Name</th>
-            <th>Camp Place</th>
-            <th>Camp Total Capacity</th>
-            <th>Camp Conducting Date</th>
+            <th>Organization Name</th>
+            <th>Total Donated Amount</th>
+            <th>Phone Number</th>
+            <th>Organization Address</th>
           </tr>
         </thead>
         <tbody>
@@ -104,11 +108,10 @@ const AdminCampTable = ({ searchUserName }) => {
               return (
                 <tr key={user?._id}>
                   <td>{index + firstIndex + 1}</td>
-                  <td>{user?.campName}</td>
-                  <td>{user?.ownerId?.name}</td>
-                  <td>{user?.campPlace}</td>
-                  <td>{user?.campCapacity}</td>
-                  <td>{user?.campDate}</td>
+                  <td>{user?.name}</td>
+                  <td>{user?.totalDonatedAmt}</td>
+                  <td>{user?.phoneNumber}</td>
+                  <td>{user?.address}</td>
                 </tr>
               );
             })
@@ -157,4 +160,4 @@ const AdminCampTable = ({ searchUserName }) => {
     </>
   );
 };
-export default AdminCampTable;
+export default AdminLeaderboardTable;
