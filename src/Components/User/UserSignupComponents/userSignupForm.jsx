@@ -64,6 +64,7 @@ const UserSignupForm = () => {
       return;
     } else {
       if (!agreedToTerms) {
+        alert("Please agree to the terms and conditions");
         console.log("Not checked");
         return;
       }

@@ -14,7 +14,11 @@ import TextLeftComponent from "../../../Components/Common/TextLeftComponent/text
 import HomeViewDonations from "../../../Components/Common/HomeViewDonations/homeViewDonation";
 import TextCenterQuote from "../../../Components/Common/TextCenterQuote/textCenterQuote";
 import UserFooter from "../../../Components/Common/UserFooter/userFooter";
+import { useEffect } from "react";
 const OrphanageHome = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const contributeHeading = "Making a Meaningful Impact";
   const contributeContent = `Charity is a powerful force that brings positive change to both individual     By engaging in acts of kindness and generosity, we not only uplift those in need but also contribute to building a more compassionate and harmonious society. `;
 

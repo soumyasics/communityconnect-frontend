@@ -10,8 +10,11 @@ import HomeViewDonations from "../../../Components/Common/HomeViewDonations/home
 import UserFooter from "../../../Components/Common/UserFooter/userFooter";
 import TextCenterQuote from "../../../Components/Common/TextCenterQuote/textCenterQuote";
 import ambulanceImg from "../../../Assets/Images/ambulance-img.png";
-
+import { useEffect } from "react";
 const UserHome = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const bloodDonationHeading = "Blood Camps";
   const bloodDonationContent =
     "Blood donation is the real act of humanity. It is a simple gesture that can make a huge difference in someone’s life.";

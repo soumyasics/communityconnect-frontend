@@ -70,6 +70,7 @@ const OrphanageSignupForm = () => {
     } else {
       if (!agreedToTerms) {
         console.log("Not checked");
+        alert("Please agree to the terms and conditions");
         return;
       }
       if (orphanageData.phoneNumber.length !== 10) {

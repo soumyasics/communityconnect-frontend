@@ -63,6 +63,7 @@ const OrganizationSignupForm = () => {
     } else {
       if (!agreedToTerms) {
         console.log("Not checked");
+        alert("Please agree to the terms and conditions");
         return;
       }
       if (orgData.phoneNumber.length !== 10) {
@@ -228,17 +229,17 @@ const OrganizationSignupForm = () => {
         <Form.Group>
           <Form.Control
             type="text"
-            placeholder="Organization License No"
+            placeholder="Organization CIN Number"
             required
             name="license"
             onChange={handleChange}
             value={orgData.license}
-            minLength={10}
-            maxLength={10}
-            // pattern="[0-9]{10}"
+            minLength={21}
+            maxLength={21}
+            pattern="[A-Z0-9]{21}"
           />
           <Form.Control.Feedback type="invalid">
-            Please provide 10 digit organization License No
+            Please provide CIN Number - 21 letters (Capital) and numbers.
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
