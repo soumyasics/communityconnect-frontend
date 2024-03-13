@@ -59,6 +59,11 @@ export default function PaymentVerticalModal(props) {
           cardNumber: userBankAcDetails.cardNumber,
         };
 
+        if (donatedAmount < 0) {
+          alert("Donated amount cannot be negative");
+          return;
+        }
+
         sendDataToServer(allDonationData);
       } else {
         console.log(
@@ -169,6 +174,7 @@ export default function PaymentVerticalModal(props) {
         console.log("Check your cvv");
         return false;
       }
+
       return true;
     };
 
@@ -241,14 +247,14 @@ export default function PaymentVerticalModal(props) {
                   value={userAcDetails.cardNumber}
                   type="text"
                   placeholder="Card Number"
-                  pattern="[0-9]{16}"
-                  minLength={16}
+                  pattern="[0-9]{12,16}"
+                  minLength={12}
                   maxLength={16}
                   onChange={handleChange}
                   required
                 />
                 <Form.Control.Feedback type="invalid">
-                  Please provide 16 digits card number
+                  Please provide card number
                 </Form.Control.Feedback>
               </Form.Group>
             </Col>

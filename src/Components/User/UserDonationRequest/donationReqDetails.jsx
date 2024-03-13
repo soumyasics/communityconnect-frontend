@@ -11,16 +11,25 @@ import PaymentVerticalModal from "../../Common/PaymentVerticalModal/paymentVerti
 import "./userDonationRequest.css";
 import "./donationReqDetails.css";
 import PaymentReceipt from "./paymentReceipt";
+import BASE_URL from "../../../api/Backend-url";
 
 const DonationReqDetails = () => {
   const [donationReqData, setDonationReqData] = useState(null);
   const [donationReqStatus, setDonationReqStatus] = useState("Active");
   const [paymentModal, setPaymentModal] = useState(false);
-
+  const [displayPicture, setDisplayPicture] = useState(child4Img);
   const [receipt, setReceipt] = useState(false);
   const [loading, setLoading] = useState(true);
   const [deadlineDate, setDeadlineData] = useState(null);
 
+  useEffect(() => {
+    if (donationReqData) {
+      let filename = donationReqData?.orphanageId?.img?.filename || null;
+      if (filename) {
+        setDisplayPicture(BASE_URL + filename);
+      }
+    }
+  }, [donationReqData]);
   useEffect(() => {
     let data = JSON.parse(localStorage.getItem("lastDonation")) || null;
     if (data) {
@@ -221,7 +230,7 @@ const DonationReqDetails = () => {
               </Container>
             </Container>
             <div className="single-orp-img-container w-50">
-              <img src={child4Img} alt="orphanage" />
+              <img src={displayPicture} alt="orphanage" />
             </div>
           </div>
         </Container>

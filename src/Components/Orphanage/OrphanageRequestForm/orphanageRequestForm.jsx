@@ -98,7 +98,7 @@ const OrphanageRequestForm = ({ orpData }) => {
       if (response.status === 201) {
         alert("Request successful.");
         setTimeout(() => {
-          navigate("/orphanage/orphanages-list");
+          navigate("/orphanage/view-requests");
         }, 1500);
       }
     } catch (error) {
@@ -167,6 +167,9 @@ const OrphanageRequestForm = ({ orpData }) => {
               onChange={handleChange}
               value={donationReqData.ifscCode}
               placeholder="Bank IFSC Number"
+              pattern="[A-Z]{4}0[A-Z0-9]{6}"
+              minLength={11}
+              maxLength={11}
             />
             <Form.Control.Feedback type="invalid">
               Please enter a valid IFSC code
@@ -177,13 +180,13 @@ const OrphanageRequestForm = ({ orpData }) => {
           <Form.Group>
             <Form.Control
               required
-              type="number"
+              type="text"
               name="bankAcNumber"
               placeholder="Bank Account Number"
               onChange={handleChange}
               minLength={12}
               maxLength={12}
-              pattern="[0-9]{10}"
+              pattern="[0-9]{12}"
               value={donationReqData.bankAcNumber}
             />
             <Form.Control.Feedback type="invalid">

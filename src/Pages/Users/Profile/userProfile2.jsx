@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineSetting } from "react-icons/ai";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
@@ -12,18 +12,16 @@ import { useContext } from "react";
 import MyActivity from "./activities.jsx";
 import AuthContext from "../../../Context/authContext.js";
 
-const UserProfile = ({ activeUser }) => {
+const UserProfile2 = ({ activeUser }) => {
   const { logoutUserContext } = useContext(AuthContext);
 
   const [renderdItem, setRenderdItem] = useState("UserInfo");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem("user-data")) || null;
-    const orgData =
-      JSON.parse(localStorage.getItem("organization-data")) || null;
-
-    if (!userData && !orgData) {
+    const orpData = JSON.parse(localStorage.getItem("orphanage-data")) || null;
+    console.log("orp data22", orpData);
+    if (!orpData) {
       alert("Please login");
       navigate("/user/login");
     }
@@ -114,4 +112,4 @@ const UserProfile = ({ activeUser }) => {
     </>
   );
 };
-export default UserProfile;
+export default UserProfile2;

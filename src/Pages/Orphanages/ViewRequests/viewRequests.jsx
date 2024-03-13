@@ -57,11 +57,10 @@ const ViewRequests = () => {
                   <th> Title</th>
                   <th>Category</th>
                   <th>Target </th>
-                  <th>Deadline</th>
                   <th>Urgency </th>
-                  <th>Description</th>
                   <th>Admin Status</th>
                   <th>Donation Status</th>
+                  <th>Description</th>
                 </tr>
               </thead>
               <tbody>
@@ -71,11 +70,10 @@ const ViewRequests = () => {
                       <td>{req.title}</td>
                       <td>{req.category}</td>
                       <td>{req.targetAmount}</td>
-                      <td>{req.deadline}</td>
                       <td>{req.urgencyLevel}</td>
-                      <td>{req.description}</td>
                       <td>{req.isAdminApproved}</td>
                       <td>{req.status}</td>
+                      <td>{req.description}</td>
                     </tr>
                   );
                 })}

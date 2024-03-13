@@ -19,6 +19,7 @@ import "./App.css";
 import BloodCamp from "./Pages/BloodCamp/bloodCamp";
 import ViewBloodCamps from "./Pages/BloodCamp/viewBloodCamp";
 import ViewRequests from "./Pages/Orphanages/ViewRequests/viewRequests";
+import UserProfile2 from "./Pages/Users/Profile/userProfile2";
 function App() {
   return (
     <BrowserRouter>
@@ -55,7 +56,7 @@ function App() {
         <Route path="/orphanage" element={<OrphanageHome />} />
         <Route
           path="/orphanage/profile"
-          element={<UserProfile activeUser="orphanage" />}
+          element={<UserProfile2 activeUser="orphanage" />}
         />
         <Route
           path="/orphanage/orphanages-list"

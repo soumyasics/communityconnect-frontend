@@ -2,20 +2,23 @@ import UserNavbar from "../../User/UserNavbar/userNavbar";
 import CommunityHeader from "../CommunityHeader/CommunityHeader";
 import UserFooter from "../UserFooter/userFooter";
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axiosInstance from "../../../api/BaseUrl";
 import { Row, Col, Button } from "react-bootstrap";
 import "./orphanageDetails.css";
 import OrphanageNavbar from "../../Orphanage/OrphanageNavbar/orphanageNavbar";
 import { useContext } from "react";
 import AuthContext from "../../../Context/authContext";
+import BASE_URL from "../../../api/Backend-url";
 
 const OrphanageDetails = () => {
   const { userContext } = useContext(AuthContext);
   const [orphanageData, setOrphanageData] = useState(null);
   const { id } = useParams();
   const [activeUser, setActiveUser] = useState(null);
-
+  const [displayPicture, setDisplayPicture] = useState(
+    "https://img.freepik.com/free-vector/orphanage-concept-illustration_114360-8721.jpg"
+  );
   useEffect(() => {
     getOrphanageData();
   }, []);
@@ -50,14 +53,23 @@ const OrphanageDetails = () => {
     }
   };
 
+  useEffect(() => {
+    if (orphanageData) {
+      const imgPath = orphanageData?.img?.filename || null;
+      if (imgPath) {
+        setDisplayPicture(BASE_URL + imgPath);
+      }
+    }
+  }, [orphanageData]);
   return (
     <div>
       {renderNavbar()}
       <CommunityHeader />
       <div className="single-orp-container">
-        <div className="single-orp-img-container">
+        <div className="single-orp-img-container w-50">
           <img
-            src="https://img.freepik.com/free-vector/orphanage-concept-illustration_114360-8721.jpg"
+            style={{ maxWidth: "400px" }}
+            src={displayPicture}
             alt="orphanage"
           />
         </div>

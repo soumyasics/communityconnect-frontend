@@ -67,6 +67,7 @@ const Activities = () => {
                   <th> No </th>
                   <th> Orphanage Name </th>
                   <th> Donated Amount </th>
+                  <th> Donation Category</th>
                   <th> Date </th>
                   <th> Time</th>
                 </tr>
@@ -82,6 +83,10 @@ const Activities = () => {
                         <td>{index + 1}</td>
                         <td>{donation.orphanageId.name || "Orphanage Name"}</td>
                         <td>{donation?.donatedAmount || 0}</td>
+                        <td>
+                          {donation?.requestId?.category ||
+                            "Orphanage expenses"}
+                        </td>
                         <td>{formattedDate}</td>
                         <td>{formattedTime}</td>
                       </tr>

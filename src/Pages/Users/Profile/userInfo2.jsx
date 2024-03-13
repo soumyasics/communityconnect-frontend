@@ -9,7 +9,7 @@ import BASE_URL from "../../../api/Backend-url";
 import "./userInfo.css";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../api/BaseUrl";
-const UserInfo = ({ activeUser }) => {
+const UserInfo2 = ({ activeUser }) => {
   const navigate = useNavigate();
   const { userContext } = useContext(AuthContext);
   console.log("us inf", userContext);
@@ -172,4 +172,4 @@ const UserInfo = ({ activeUser }) => {
     </div>
   );
 };
-export default UserInfo;
+export default UserInfo2;
