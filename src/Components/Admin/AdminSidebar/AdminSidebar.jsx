@@ -5,9 +5,13 @@ import { FcCollaboration } from "react-icons/fc";
 import { FcBusinessman } from "react-icons/fc";
 import { FcInTransit } from "react-icons/fc";
 import { FcServices } from "react-icons/fc";
+import { FcPositiveDynamic } from "react-icons/fc";
+import { MdLeaderboard } from "react-icons/md";
 import { FcOrganization } from "react-icons/fc";
+import { FcPlus } from "react-icons/fc";
 import { FcImport } from "react-icons/fc";
 import { LuLogOut } from "react-icons/lu";
+import { FcDepartment } from "react-icons/fc";
 import "./AdminSidebar.css";
 import { useNavigate } from "react-router-dom";
 const AdminSidebar = ({ activePage, changeActivePage }) => {
@@ -63,25 +67,25 @@ const AdminSidebar = ({ activePage, changeActivePage }) => {
           <FcImport />
           <h5>Donation Requests</h5>
         </div>
+        <div
+          className="admin-sidebar-link"
+          onClick={() => changeActivePage("camps")}
+        >
+          <FcPlus />
+          <h5>Camps</h5>
+        </div>
+        <div
+          className="admin-sidebar-link"
+          onClick={() => changeActivePage("leaderboard")}
+        >
+          <FcPositiveDynamic />
+          <h5>Leaderboard</h5>
+        </div>
         <div className="admin-sidebar-link" onClick={handleLogout}>
           <LuLogOut />
           <h5 className="text-danger">Logout</h5>
         </div>
-        {/* <div
-          className="admin-sidebar-link"
-          onClick={() => changeActivePage("donations")}
-        >
-          <FcInTransit />
-          <h5>Donations</h5>
-        </div>
-        <div
-          className="admin-sidebar-link"
-          onClick={() => changeActivePage("events")}
-        >
-          <FcCollaboration />
-          <h5>Events</h5>
-        </div>
-        */}
+       
       </div>
     </div>
   );
