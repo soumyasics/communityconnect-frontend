@@ -13,7 +13,9 @@ import { Button } from "react-bootstrap";
 const UserInfo = ({ activeUser }) => {
   const navigate = useNavigate();
   const { userContext } = useContext(AuthContext);
-  console.log("us inf", userContext);
+  const [myUser, setMyUser] = useState(null);
+  const [myOrp, setMyOrp] = useState(null);
+  const [myOrg, setMyOrg] = useState(null);
   if (userContext.userType == "") {
     console.log("user data not found login first");
     navigate("/");
@@ -50,6 +52,12 @@ const UserInfo = ({ activeUser }) => {
           " " +
           userContext.userData?.lastName;
         phoneNumber = userContext.userData.phoneNumber;
+
+        if (userContext?.userData?._id) {
+          getMyUserData(userContext?.userData?._id);
+        } else {
+          console.log("My user id not found.");
+        }
       } else {
         console.log("orp or org usercontext", userContext);
         name = userContext.userData.name;
@@ -68,9 +76,26 @@ const UserInfo = ({ activeUser }) => {
     }
   };
 
+  async function getMyUserData(id) {
+    try {
+      let res = await axiosInstance.get("user/get-user-by-id/" + id);
+      let data = res?.data?.data || null;
+      if (data) {
+        setMyUser(data);
+      }
+    } catch (error) {
+      console.log("error on get my user data", error);
+      if (error.response.status === 404 || error.response.status === 500) {
+        console.log("User not found");
+      }
+    }
+  }
+  useEffect(() => {
+    console.log("my user", myUser);
+  }, [myUser]);
+
   useEffect(() => {
     const activeUserId = userContext?.userData?._id || null;
-    console.log("us sss", userContext);
     if (activeUserId) {
       if (userContext.userType == "user") {
         getActiveUserData(activeUserId);
@@ -107,14 +132,12 @@ const UserInfo = ({ activeUser }) => {
     }
   }
 
-  useEffect(() => {
-    console.log("com", commonMan);
-  }, [commonMan]);
   const saveProfile = () => {
     console.log("new obj", userInfo);
     setEditView(false);
     let filterObj = {
-      name: userInfo.name,
+      firstName: userInfo.name,
+      lastName: userInfo.name.split(" ")[1],
       email: userInfo.email,
       phoneNumber: userInfo.phoneNumber,
     };
@@ -124,6 +147,9 @@ const UserInfo = ({ activeUser }) => {
         .patch("user/edit-user-by-id/" + userContext.userData._id, filterObj)
         .then((res) => {
           console.log("res edit", res);
+          if (res.status === 200) {
+            alert("Updated successfully");
+          }
         })
         .catch((err) => {
           console.log("err", err);
@@ -136,6 +162,9 @@ const UserInfo = ({ activeUser }) => {
         )
         .then((res) => {
           console.log("res", res);
+          if (res.status === 200) {
+            alert("Updated successfully");
+          }
         })
         .catch((err) => {
           console.log("err", err);
@@ -148,6 +177,9 @@ const UserInfo = ({ activeUser }) => {
         )
         .then((res) => {
           console.log("res", res);
+          if (res.status === 200) {
+            alert("Updated successfully");
+          }
         })
         .catch((err) => {
           console.log("err", err);
@@ -203,7 +235,9 @@ const UserInfo = ({ activeUser }) => {
         ) : (
           <div>
             <p className="user-title"> Name</p>
-            <p className="user-data">{userInfo.name}</p>
+            <p className="user-data">
+              {myUser?.firstName + "" + myUser?.lastName}
+            </p>
           </div>
         )}
 
@@ -249,7 +283,7 @@ const UserInfo = ({ activeUser }) => {
                 ) : (
                   <>
                     <p>Mail ID:</p>
-                    <p>{userContext?.userData?.email}</p>
+                    <p>{myUser?.email}</p>
                   </>
                 )}
               </div>

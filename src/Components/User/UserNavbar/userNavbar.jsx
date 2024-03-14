@@ -11,7 +11,6 @@ const UserNavbar = () => {
   const [loginModalShow, setLoginModalShow] = useState(false);
   const { userContext, logoutUserContext, loginUserContext } =
     useContext(AuthContext);
-  console.log("urr", userContext.userType === "user");
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user-data")) || null;
     if (userData) {
@@ -71,7 +70,11 @@ const UserNavbar = () => {
     }
   };
   const redirectProfile = () => {
-    navigate("/profile");
+    if (userContext && userContext.userType == "user") {
+      navigate("../user/profile");
+    } else if (userContext && userContext.userType == "organization") {
+      navigate("../organization/profile");
+    }
   };
   return (
     <>

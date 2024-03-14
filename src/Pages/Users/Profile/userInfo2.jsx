@@ -12,7 +12,6 @@ import axiosInstance from "../../../api/BaseUrl";
 const UserInfo2 = ({ activeUser }) => {
   const navigate = useNavigate();
   const { userContext } = useContext(AuthContext);
-  console.log("us inf", userContext);
   if (userContext.userType == "") {
     console.log("user data not found login first");
     navigate("/");
@@ -68,7 +67,6 @@ const UserInfo2 = ({ activeUser }) => {
 
   useEffect(() => {
     const activeUserId = userContext?.userData?._id || null;
-    console.log("us sss", userContext);
     if (activeUserId) {
       if (userContext.userType == "user") {
         getActiveUserData(activeUserId);
@@ -105,9 +103,7 @@ const UserInfo2 = ({ activeUser }) => {
     }
   }
 
-  useEffect(() => {
-    console.log("com", commonMan);
-  }, [commonMan]);
+  useEffect(() => {}, [commonMan]);
   return (
     <div className="userinfo-container">
       <h5> Personal Profile </h5>

@@ -20,6 +20,8 @@ import BloodCamp from "./Pages/BloodCamp/bloodCamp";
 import ViewBloodCamps from "./Pages/BloodCamp/viewBloodCamp";
 import ViewRequests from "./Pages/Orphanages/ViewRequests/viewRequests";
 import UserProfile2 from "./Pages/Users/Profile/userProfile2";
+import NewUserProfile from "./Pages/Users/newProfile/newUserProfile";
+import OrganizationProfile from "./Pages/Users/newProfile2/newUserProfile"
 function App() {
   return (
     <BrowserRouter>
@@ -47,6 +49,8 @@ function App() {
           element={<LeaderBoard activeUser="user" />}
         />
         <Route path="/profile" element={<UserProfile activeUser="user" />} />
+        <Route path="/user/profile" element={<NewUserProfile activeUser="user" />} />
+        <Route path="/organization/profile" element={<OrganizationProfile activeUser="organization" />} />
         <Route path="/blood-camp" element={<BloodCamp />} />
         <Route path="/view-blood-camps" element={<ViewBloodCamps />} />
         <Route path="/orphanage/orphanage/:id" element={<OrphanageDetails />} />

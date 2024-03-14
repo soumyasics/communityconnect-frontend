@@ -4,7 +4,7 @@ import { Table } from "react-bootstrap";
 import axiosInstance from "../../../api/BaseUrl.js";
 import AuthContext from "../../../Context/authContext.js";
 import { useContext } from "react";
-import "./activities.css";
+import "./newActivity.css";
 
 const Activities = () => {
   const [allDonations, setAllDonations] = useState([]);
