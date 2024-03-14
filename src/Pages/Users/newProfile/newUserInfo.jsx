@@ -140,7 +140,7 @@ const NewUserInfo = ({ activeUser }) => {
         <div>
           <p className="user-title">Total Donated Amount</p>
           <p className="user-data">
-            <span> ₹ </span> 0
+            <span> ₹ </span> {activeUserData?.totalDonatedAmt || 0}
           </p>
         </div>
 

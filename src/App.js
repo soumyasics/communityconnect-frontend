@@ -21,6 +21,7 @@ import ViewBloodCamps from "./Pages/BloodCamp/viewBloodCamp";
 import ViewRequests from "./Pages/Orphanages/ViewRequests/viewRequests";
 import UserProfile2 from "./Pages/Users/Profile/userProfile2";
 import NewUserProfile from "./Pages/Users/newProfile/newUserProfile";
+import OrphangeProfile from "./Pages/Users/orpProfile/newUserProfile";
 import OrganizationProfile from "./Pages/Users/newProfile2/newUserProfile"
 function App() {
   return (
@@ -48,7 +49,7 @@ function App() {
           path="/user/leaderboard"
           element={<LeaderBoard activeUser="user" />}
         />
-        <Route path="/profile" element={<UserProfile activeUser="user" />} />
+        {/* <Route path="/profile" element={<UserProfile activeUser="user" />} /> */}
         <Route path="/user/profile" element={<NewUserProfile activeUser="user" />} />
         <Route path="/organization/profile" element={<OrganizationProfile activeUser="organization" />} />
         <Route path="/blood-camp" element={<BloodCamp />} />
@@ -60,7 +61,7 @@ function App() {
         <Route path="/orphanage" element={<OrphanageHome />} />
         <Route
           path="/orphanage/profile"
-          element={<UserProfile2 activeUser="orphanage" />}
+          element={<OrphangeProfile activeUser="orphanage" />}
         />
         <Route
           path="/orphanage/orphanages-list"

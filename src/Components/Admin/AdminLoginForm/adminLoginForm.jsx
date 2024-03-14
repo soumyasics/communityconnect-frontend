@@ -27,7 +27,7 @@ const AdminLoginForm = () => {
         navigate("/admin");
       }, 1500);
     } else {
-      console.log("please check your email and password");
+     alert("Please check your email and password");
     }
   };
   const handleChange = (e) => {

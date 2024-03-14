@@ -11,6 +11,7 @@ import AuthContext from "../../../Context/authContext";
 import "./newUserInfo.css";
 const NewUserInfo = ({ activeUser }) => {
   const [editView, setEditView] = useState(false);
+  const { loginUserContext, logoutUserContext } = useContext(AuthContext);
   const [userProfilePicture, setUserProfilePicture] = useState(
     "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png"
   );
@@ -24,10 +25,15 @@ const NewUserInfo = ({ activeUser }) => {
 
   useEffect(() => {
     let activeUserId = userContext?.userData?._id || null;
-    if (activeUserId) {
-      getActiveUserData(activeUserId);
+    let orpData = JSON.parse(localStorage.getItem("orphanage-data")) || null;
+
+    if (orpData && orpData._id) {
+      getActiveUserData(orpData._id);
+      loginUserContext("orphanage", orpData);
+    } else {
+      console.log("Orphanage id not found");
     }
-  }, [userContext]);
+  }, []);
 
   useEffect(() => {
     if (activeUserData) {
@@ -45,7 +51,7 @@ const NewUserInfo = ({ activeUser }) => {
   }, [activeUserData]);
   async function getActiveUserData(id) {
     try {
-      let res = await axiosInstance.get("organization/get-org-by-id/" + id);
+      let res = await axiosInstance.get("orphanage/get-orphanage-by-id/" + id);
       let data = res?.data?.data || null;
       if (data) {
         setActiveUserData(data);
@@ -56,6 +62,7 @@ const NewUserInfo = ({ activeUser }) => {
   }
   async function saveProfile() {
     console.log("save profile", userInfo);
+
     let id = userContext?.userData?._id || null;
     if (id) {
       editProfile(id, userInfo);
@@ -66,11 +73,11 @@ const NewUserInfo = ({ activeUser }) => {
 
   async function editProfile(id, userInfo) {
     axiosInstance
-      .patch("organization/edit-org-by-id/" + id, userInfo)
+      .patch("orphanage/edit-orphanage-by-id/" + id, userInfo)
       .then((res) => {
         console.log("res edit", res);
         if (res.status === 200) {
-          alert("Organization data Updated successfully");
+          alert("Orphanage data Updated successfully");
         }
       })
       .catch((err) => {
@@ -90,7 +97,7 @@ const NewUserInfo = ({ activeUser }) => {
   return (
     <div className="userinfo-container">
       <div className="d-flex justify-content-between">
-        <h5> Personal Profile </h5>
+        <h5> Orphanage Profile </h5>
         {!editView ? (
           <Button
             onClick={() => {
@@ -134,15 +141,15 @@ const NewUserInfo = ({ activeUser }) => {
         )}
 
         <div>
-          <p className="user-title">Total Donated Amount</p>
+          <p className="user-title">Total Received Amount</p>
           <p className="user-data">
-            <span> ₹ </span> {activeUserData?.totalDonatedAmt}
+            <span> ₹ </span> {activeUserData?.totalReceivedAmt}
           </p>
         </div>
 
         <div>
           <p className="user-title">Role</p>
-          <p className="user-data">Organization</p>
+          <p className="user-data">Orphanage</p>
         </div>
 
         <div>

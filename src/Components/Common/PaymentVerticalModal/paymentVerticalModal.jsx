@@ -184,7 +184,7 @@ export default function PaymentVerticalModal(props) {
       !expiryDate ||
       !cvv ||
       cvv.length !== 3 ||
-      cardNumber.length !== 16
+      cardNumber.length < 12
     ) {
       console.log("all fields are mandatory");
       return;

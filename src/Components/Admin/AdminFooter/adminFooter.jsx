@@ -1,12 +1,12 @@
-import {Row, Col, Container } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 import "./adminFooter.css";
 const AdminFooter = () => {
   return (
     <Container fluid className="admin-footer">
       <Row>
         <Col>
-         <p> Copyright © 2023</p>
-         <p>All rights reserved by Community Connect</p>
+          <p> Copyright © 2024</p>
+          <p>All rights reserved by Community Connect</p>
         </Col>
       </Row>
     </Container>
