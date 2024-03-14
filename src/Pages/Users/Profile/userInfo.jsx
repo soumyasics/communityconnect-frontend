@@ -9,6 +9,7 @@ import BASE_URL from "../../../api/Backend-url";
 import "./userInfo.css";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../api/BaseUrl";
+import { Button } from "react-bootstrap";
 const UserInfo = ({ activeUser }) => {
   const navigate = useNavigate();
   const { userContext } = useContext(AuthContext);
@@ -17,6 +18,7 @@ const UserInfo = ({ activeUser }) => {
     console.log("user data not found login first");
     navigate("/");
   }
+  const [editView, setEditView] = useState(false);
   const [userImgPath, setUserImgPath] = useState("");
   const [userInfo, setuserInfo] = useState({
     name: "",
@@ -108,9 +110,74 @@ const UserInfo = ({ activeUser }) => {
   useEffect(() => {
     console.log("com", commonMan);
   }, [commonMan]);
+  const saveProfile = () => {
+    console.log("new obj", userInfo);
+    setEditView(false);
+    let filterObj = {
+      name: userInfo.name,
+      email: userInfo.email,
+      phoneNumber: userInfo.phoneNumber,
+    };
+
+    if (userContext.userType == "user") {
+      axiosInstance
+        .patch("user/edit-user-by-id/" + userContext.userData._id, filterObj)
+        .then((res) => {
+          console.log("res edit", res);
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+    } else if (userContext.userType == "organization") {
+      axiosInstance
+        .patch(
+          "organization/edit-org-by-id/" + userContext.userData._id,
+          filterObj
+        )
+        .then((res) => {
+          console.log("res", res);
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+    } else if (userContext.userType == "orphanage") {
+      axiosInstance
+        .patch(
+          "orphanage/edit-orphanage-by-id/" + userContext.userData._id,
+          filterObj
+        )
+        .then((res) => {
+          console.log("res", res);
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+    } else {
+      console.log("Editing profile unsuccessful");
+    }
+  };
   return (
     <div className="userinfo-container">
-      <h5> Personal Profile </h5>
+      <div className="d-flex justify-content-between">
+        <h5> Personal Profile </h5>
+        {!editView ? (
+          <Button
+            onClick={() => {
+              setEditView(true);
+            }}
+          >
+            Edit
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              saveProfile();
+            }}
+          >
+            Save Changes
+          </Button>
+        )}
+      </div>
       <div className="profile-img-section">
         <div className="item-1">
           {userImgPath ? (
@@ -121,10 +188,25 @@ const UserInfo = ({ activeUser }) => {
         </div>
       </div>
       <div className="user-details">
-        <div>
-          <p className="user-title"> Name</p>
-          <p className="user-data">{userInfo.name}</p>
-        </div>
+        {editView ? (
+          <>
+            <p className="user-title"> Edit Name</p>
+            <input
+              type="text"
+              className="user-input"
+              value={userInfo.name}
+              onChange={(e) => {
+                setuserInfo({ ...userInfo, name: e.target.value });
+              }}
+            />
+          </>
+        ) : (
+          <div>
+            <p className="user-title"> Name</p>
+            <p className="user-data">{userInfo.name}</p>
+          </div>
+        )}
+
         {activeUser === "orphanage" ? (
           <div>
             <p className="user-title">Total Received Amount </p>
@@ -152,16 +234,51 @@ const UserInfo = ({ activeUser }) => {
             <div>
               <div className="contact">
                 <AiOutlineMail />
-                <p>Mail ID:</p>
-                <p>{userContext?.userData?.email}</p>
+                {editView ? (
+                  <>
+                    <p>Mail ID:</p>
+                    <input
+                      type="text"
+                      className="user-input"
+                      value={userInfo.email}
+                      onChange={(e) => {
+                        setuserInfo({ ...userInfo, email: e.target.value });
+                      }}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <p>Mail ID:</p>
+                    <p>{userContext?.userData?.email}</p>
+                  </>
+                )}
               </div>
               {/* <button onClick={removeEmail}>Remove</button> */}
             </div>
             <div>
               <div className="contact">
                 <BiPhoneCall />
-                <p>Phone Number:</p>
-                <p>{userContext?.userData?.phoneNumber}</p>
+                {editView ? (
+                  <>
+                    <p>Phone Number:</p>
+                    <input
+                      type="text"
+                      className="user-input"
+                      value={userInfo.phoneNumber}
+                      onChange={(e) => {
+                        setuserInfo({
+                          ...userInfo,
+                          phoneNumber: e.target.value,
+                        });
+                      }}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <p>Phone Number:</p>
+                    <p>{userContext?.userData?.phoneNumber}</p>
+                  </>
+                )}
               </div>
               {/* <button onClick={removePhonenumber}>Remove</button> */}
             </div>
