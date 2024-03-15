@@ -25,7 +25,7 @@ import OrphangeProfile from "./Pages/Users/orpProfile/newUserProfile";
 import OrganizationProfile from "./Pages/Users/newProfile2/newUserProfile"
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="community_connect_tvm">
       <Routes>
         {/* user  */}
         <Route path="/" element={<UserHome />} />
