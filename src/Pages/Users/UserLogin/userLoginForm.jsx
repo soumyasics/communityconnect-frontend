@@ -57,6 +57,7 @@ const UserLoginForm = ({ user }) => {
     }
 
     if (!isValidEmail(email)) {
+      alert("Invalid email");
       console.log("Invalid email");
       return;
     }
@@ -195,7 +196,6 @@ const UserLoginForm = ({ user }) => {
           className="user-login-input password-input-eye-btn-hide"
           type={showPassword ? "text" : "password"}
           minLength={8}
-          
           placeholder="Password"
           name="password"
           onChange={handlePasswordChange}
@@ -210,7 +210,7 @@ const UserLoginForm = ({ user }) => {
           Don’t have an account?{" "}
           <span className="user-forgot-password" onClick={redirectUserSignup}>
             {" "}
-            Sign up{" "}
+            Sign Up{" "}
           </span>
         </p>
         <br />

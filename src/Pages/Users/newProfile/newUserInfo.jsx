@@ -14,7 +14,7 @@ const NewUserInfo = ({ activeUser }) => {
   const [userProfilePicture, setUserProfilePicture] = useState(
     "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png"
   );
-  const { userContext } = useContext(AuthContext);
+  const { userContext, loginUserContext } = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState({
     firstName: "",
     email: "",
@@ -57,7 +57,6 @@ const NewUserInfo = ({ activeUser }) => {
     }
   }
   async function saveProfile() {
-    console.log("save profile", userInfo);
     let id = userContext?.userData?._id || null;
     if (id) {
       editProfile(id, userInfo);
@@ -72,6 +71,12 @@ const NewUserInfo = ({ activeUser }) => {
       .then((res) => {
         console.log("res edit", res);
         if (res.status === 200) {
+          let data = res.data?.data || null;
+          if (data) {
+            loginUserContext("user", res.data.data);
+            localStorage.setItem("user-data", JSON.stringify(data));
+          }
+
           alert("User data Updated successfully");
         }
       })

@@ -9,6 +9,7 @@ import UserFooter from "../../../Components/Common/UserFooter/userFooter.jsx";
 import AuthContext from "../../../Context/authContext.js";
 import MyActivity from "./newActivity.jsx";
 import NewUserInfo from "./newUserInfo.jsx";
+import OrphanageNavbar from "../../../Components/Orphanage/OrphanageNavbar/orphanageNavbar.jsx";
 import "./newUserProfile.css";
 
 const NewUserProfile = ({ activeUser }) => {
@@ -48,7 +49,8 @@ const NewUserProfile = ({ activeUser }) => {
 
   return (
     <>
-      <UserNavbar />
+      <OrphanageNavbar />
+
       <div className="profile-container">
         <div className="profile-info-container">
           <div className="sidebar-options">

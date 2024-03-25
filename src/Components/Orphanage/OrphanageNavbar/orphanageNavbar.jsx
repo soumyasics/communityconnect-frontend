@@ -6,13 +6,27 @@ import AuthContext from "../../../Context/authContext";
 import { CgProfile } from "react-icons/cg";
 import LoginModal from "../../Common/LoginModal/loginModal";
 import "./orphanageNavbar.css";
-
+import BASE_URL from "../../../api/Backend-url";
 const OrphanageNavbar = () => {
   const { logoutUserContext, userContext, loginUserContext } =
     useContext(AuthContext);
+  const [orpProfilePic, setOrpProfilePic] = useState(null);
+  const [orpName, setOrpName] = useState(null);
+
   const [loginModalShow, setLoginModalShow] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("orp user cont", userContext);
+    let pathname = userContext?.userData?.img?.filename || null;
+    if (pathname) {
+      setOrpProfilePic(`${BASE_URL}${pathname}`);
+    }
+    let username2 = userContext?.userData?.name || "Profile";
+    console.log("user name", username2);
+    setOrpName(username2);
+  }, [userContext]);
 
   useEffect(() => {
     const orpData = JSON.parse(localStorage.getItem("orphanage-data")) || null;
@@ -109,12 +123,29 @@ const OrphanageNavbar = () => {
           </button>
         </div>
         <div className="user-navbar-right">
-          {/* <img src="https://picsum.photos/200/300" alt="profile-icon" /> */}
           {userContext?.userType ? (
-            <button onClick={redirectProfile}>
-              {" "}
-              <CgProfile /> Profile{" "}
-            </button>
+            <div>
+              {orpProfilePic ? (
+                <div onClick={redirectProfile}>
+                  <img
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "50%",
+                    }}
+                    className="mr-3"
+                    src={orpProfilePic}
+                    alt="profile"
+                  />
+                  {orpName}
+                </div>
+              ) : (
+                <button onClick={redirectProfile}>
+                  {" "}
+                  <CgProfile /> {orpName}{" "}
+                </button>
+              )}
+            </div>
           ) : (
             <button onClick={redirectUserLogin}>Login</button>
           )}

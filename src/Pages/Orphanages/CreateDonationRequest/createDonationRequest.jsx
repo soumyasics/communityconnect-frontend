@@ -20,15 +20,15 @@ const CreateDonationRequest = () => {
   return (
     <>
       <OrphanageNavbar />
+      <br />
       {orpData ? (
         <OrphanageRequestForm orpData={orpData} />
       ) : (
-        <Container style={{minHeight: '400px'}} fluid className="p-0">
-
+        <Container style={{ minHeight: "400px" }} fluid className="mt-5 p-0">
           <h1>Please login</h1>
         </Container>
       )}
-      <div className="mt-5">
+      <div className="mt-5 w-100" style={{ position: "absolute", bottom: "0" }}>
         <UserFooter />
       </div>
     </>

@@ -296,7 +296,7 @@ const UserSignupForm = () => {
       </div>
 
       <Form.Group className="position-relative mt-3">
-        <Form.Label>Upload your photo</Form.Label>
+        <Form.Label>Upload your photo (Square image) </Form.Label>
         <Form.Control
           onChange={handleFilechange}
           type="file"

@@ -82,6 +82,7 @@ const OrganizationSignupForm = () => {
         return;
       }
       if (!isValidEmail(orgData.email)) {
+        alert("Invalid email id");
         console.log("Invalid email");
         return;
       }
@@ -276,7 +277,7 @@ const OrganizationSignupForm = () => {
       </div>
 
       <Form.Group className="position-relative mt-3">
-        <Form.Label>Upload your photo</Form.Label>
+        <Form.Label>Upload your photo (Square image)</Form.Label>
         <Form.Control
           type="file"
           name="file"
@@ -308,7 +309,7 @@ const OrganizationSignupForm = () => {
 
       <div className="signup-form-flex-div">
         <Button id="user-signup-btn" type="submit">
-          Sign UP
+          Sign Up
         </Button>
       </div>
     </Form>

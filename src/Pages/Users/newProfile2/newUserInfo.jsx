@@ -14,7 +14,7 @@ const NewUserInfo = ({ activeUser }) => {
   const [userProfilePicture, setUserProfilePicture] = useState(
     "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png"
   );
-  const { userContext } = useContext(AuthContext);
+  const { userContext, loginUserContext } = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
@@ -55,7 +55,6 @@ const NewUserInfo = ({ activeUser }) => {
     }
   }
   async function saveProfile() {
-    console.log("save profile", userInfo);
     let id = userContext?.userData?._id || null;
     if (id) {
       editProfile(id, userInfo);
@@ -68,9 +67,21 @@ const NewUserInfo = ({ activeUser }) => {
     axiosInstance
       .patch("organization/edit-org-by-id/" + id, userInfo)
       .then((res) => {
-        console.log("res edit", res);
         if (res.status === 200) {
           alert("Organization data Updated successfully");
+          
+          let data = res.data?.data || null;
+          console.log("res data edit", data);
+
+          if (data) {
+            loginUserContext("organization", data);
+              localStorage.setItem(
+                "organization-data",
+                JSON.stringify(data)
+              );
+          }
+
+
         }
       })
       .catch((err) => {

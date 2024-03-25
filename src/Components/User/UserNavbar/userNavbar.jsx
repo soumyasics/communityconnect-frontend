@@ -6,11 +6,28 @@ import { useContext, useState, useEffect } from "react";
 import { CgProfile } from "react-icons/cg";
 import LoginModal from "../../Common/LoginModal/loginModal";
 import "./userNavbar.css";
+import BASE_URL from "../../../api/Backend-url";
 
 const UserNavbar = () => {
   const [loginModalShow, setLoginModalShow] = useState(false);
+  const [userProfilePic, setUserProfilePic] = useState(null);
+  const [username, setUsername] = useState(null);
+
   const { userContext, logoutUserContext, loginUserContext } =
     useContext(AuthContext);
+
+  useEffect(() => {
+    let pathname = userContext?.userData?.img?.filename || null;
+    if (pathname) {
+      setUserProfilePic(`${BASE_URL}${pathname}`);
+    }
+    let username2 =
+      userContext?.userData?.firstName ||
+      userContext?.userData?.name ||
+      "Profile";
+    setUsername(username2);
+  }, [userContext]);
+
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user-data")) || null;
     if (userData) {
@@ -76,6 +93,7 @@ const UserNavbar = () => {
       navigate("../organization/profile");
     }
   };
+
   return (
     <>
       <Container fluid className="user-navbar-container">
@@ -110,10 +128,28 @@ const UserNavbar = () => {
         <div className="user-navbar-right">
           {/* <img src="https://picsum.photos/200/300" alt="profile-icon" /> */}
           {userContext?.userType ? (
-            <button onClick={redirectProfile}>
-              {" "}
-              <CgProfile /> Profile{" "}
-            </button>
+            <div onClick={redirectProfile} style={{ cursor: "pointer" }}>
+              {userProfilePic ? (
+                <div>
+                  <img
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "50%",
+                    }}
+                    className="mr-3"
+                    src={userProfilePic}
+                    alt="profile"
+                  />
+                  {username}
+                </div>
+              ) : (
+                <button onClick={redirectProfile}>
+                  {" "}
+                  <CgProfile /> {username}
+                </button>
+              )}
+            </div>
           ) : (
             <button onClick={redirectUserLogin}>Login</button>
           )}

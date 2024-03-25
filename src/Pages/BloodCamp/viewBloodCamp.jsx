@@ -35,8 +35,8 @@ const ViewBloodCamps = () => {
       setBookedCampId(
         userContext?.userData?.bloodDonation?.bookedCampId || null
       );
-    }else {
-      console.log("user type is not user")
+    } else {
+      console.log("user type is not user");
     }
   }, [userContext]);
 
@@ -130,9 +130,9 @@ const ViewBloodCamps = () => {
           </h3>
         )}
         {campData.length > 0 && (
-          <Table striped bordered hover>
+          <Table style={{ textAlign: "left" }} striped bordered hover>
             <thead>
-              <tr className="text-center">
+              <tr className="text-left">
                 <th>No</th>
                 <th>Camp Name</th>
                 <th>Camp Place </th>
@@ -145,10 +145,10 @@ const ViewBloodCamps = () => {
               {campData.map((camp, index) => {
                 const isCurrentSlotBooked = camp?._id === bookedCampId;
                 if (isPastDate(camp.campDate)) {
-                  return null; 
+                  return null;
                 }
                 return (
-                  <tr key={index} className="text-center">
+                  <tr key={index} className="text-left">
                     <td>{index + 1}</td>
                     <td>{camp.campName}</td>
                     <td>{camp.campPlace}</td>

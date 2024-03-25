@@ -22,7 +22,7 @@ import ViewRequests from "./Pages/Orphanages/ViewRequests/viewRequests";
 import UserProfile2 from "./Pages/Users/Profile/userProfile2";
 import NewUserProfile from "./Pages/Users/newProfile/newUserProfile";
 import OrphangeProfile from "./Pages/Users/orpProfile/newUserProfile";
-import OrganizationProfile from "./Pages/Users/newProfile2/newUserProfile"
+import OrganizationProfile from "./Pages/Users/newProfile2/newUserProfile";
 function App() {
   return (
     <BrowserRouter basename="community_connect_tvm">
@@ -50,8 +50,19 @@ function App() {
           element={<LeaderBoard activeUser="user" />}
         />
         {/* <Route path="/profile" element={<UserProfile activeUser="user" />} /> */}
-        <Route path="/user/profile" element={<NewUserProfile activeUser="user" />} />
-        <Route path="/organization/profile" element={<OrganizationProfile activeUser="organization" />} />
+        <Route
+          path="/user/profile"
+          element={<NewUserProfile activeUser="user" />}
+        />
+        <Route
+          path="/organization/profile"
+          element={<OrganizationProfile activeUser="organization" />}
+        />
+        <Route
+          path="/orphanage/profile"
+          element={<OrphangeProfile activeUser="orphanage" />}
+        />
+
         <Route path="/blood-camp" element={<BloodCamp />} />
         <Route path="/view-blood-camps" element={<ViewBloodCamps />} />
         <Route path="/orphanage/orphanage/:id" element={<OrphanageDetails />} />
@@ -59,23 +70,17 @@ function App() {
 
         {/* orphnaage routes  */}
         <Route path="/orphanage" element={<OrphanageHome />} />
-        <Route
-          path="/orphanage/profile"
-          element={<OrphangeProfile activeUser="orphanage" />}
-        />
+
         <Route
           path="/orphanage/orphanages-list"
           element={<UserOrphanagesList activeUser="orphanage" />}
         />
-        
+
         <Route
           path="/orphanage/donation-request"
           element={<CreateDonationRequest />}
         />
-        <Route
-          path="/orphanage/view-requests"
-          element={<ViewRequests />}
-        />
+        <Route path="/orphanage/view-requests" element={<ViewRequests />} />
         <Route
           path="/orphanage/leaderboard"
           element={<LeaderBoard activeUser="orphanage" />}

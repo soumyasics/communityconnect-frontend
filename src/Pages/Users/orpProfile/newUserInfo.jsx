@@ -61,8 +61,6 @@ const NewUserInfo = ({ activeUser }) => {
     }
   }
   async function saveProfile() {
-    console.log("save profile", userInfo);
-
     let id = userContext?.userData?._id || null;
     if (id) {
       editProfile(id, userInfo);
@@ -77,6 +75,12 @@ const NewUserInfo = ({ activeUser }) => {
       .then((res) => {
         console.log("res edit", res);
         if (res.status === 200) {
+          let data = res.data?.data || null;
+
+          if (data) {
+            loginUserContext("orphanage", data);
+            localStorage.setItem("orphanage-data", JSON.stringify(data));
+          }
           alert("Orphanage data Updated successfully");
         }
       })

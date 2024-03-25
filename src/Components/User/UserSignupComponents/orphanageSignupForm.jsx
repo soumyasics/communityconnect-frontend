@@ -88,12 +88,14 @@ const OrphanageSignupForm = () => {
         return;
       }
       if (!isValidEmail(orphanageData.email)) {
+        alert ("Invalid Email id")
         console.log("Invalid email");
         return;
       }
 
       if (!isValidLicsense(orphanageData.license)) {
         console.log("Invalid license number");
+        alert("Invalid license number");
         return;
       }
       sendDataToServer(orphanageData);
@@ -319,7 +321,7 @@ const OrphanageSignupForm = () => {
       </Form.Group>
 
       <Form.Group className="position-relative mt-3">
-        <Form.Label>Upload Orphanage Photos</Form.Label>
+        <Form.Label>Upload Orphanage Photos (Square image)</Form.Label>
         <Form.Control
           accept="image/*"
           onChange={handleFilechange}
@@ -351,7 +353,7 @@ const OrphanageSignupForm = () => {
 
       <div className="signup-form-flex-div">
         <Button id="user-signup-btn" type="submit">
-          Sign UP
+          Sign Up
         </Button>
       </div>
     </Form>

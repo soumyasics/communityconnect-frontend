@@ -11,7 +11,7 @@ import "./CommunityHeader.css";
 
 const CommunityHeader = ({
   imgPath = headerImg,
-  heading = "Empowring Change, Transforming Lives",
+  heading = "Empowering Change, Transforming Lives",
   description = `Welcome to COMMUNITY, where compassion meets action.
   At the heart of our mission lies the unwavering belief that every individual,
   regardless of their background or circumstance, deserves the opportunity to lead 

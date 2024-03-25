@@ -19,7 +19,7 @@ const UserHome = () => {
   const bloodDonationContent =
     "Blood donation is the real act of humanity. It is a simple gesture that can make a huge difference in someone’s life.";
   const bloodDonationBtnContent = "View Camps";
-  const contributeHeading = "How Can you contribute us";
+  const contributeHeading = "How can you contribute us?";
   const contributeContent =
     "We are a humanitarian initiative committed to making a positive impact on the world. Based on the principles of empathy, solidarity, and sustainable development, we strive to address the most pressing challenges facing communities in Trivandrum";
 

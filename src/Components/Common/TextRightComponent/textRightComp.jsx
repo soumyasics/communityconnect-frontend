@@ -22,7 +22,7 @@ const TextRightComponent = ({ imgPath, content, heading, buttonContent }) => {
         navigate("/view-blood-camps");
       }
     } else {
-      showToast("Log in First");
+      showToast("Log in for view camps");
       console.log("User is not logged in.");
     }
   };

@@ -37,10 +37,20 @@ const ViewRequests = () => {
   }, [allReqs]);
   return (
     <div>
-      <OrphanageNavbar />
+      <div
+        style={{ position: "relative", top: "-48px" }}
+        className="bg-primary"
+      >
+        <OrphanageNavbar />
+      </div>
       <div style={{ minHeight: "400px" }}>
         {allReqs.length == 0 ? (
-          <h1 className="text-center mt-5">No donation requests</h1>
+          <h1
+            className="text-center mt-5"
+            style={{ position: "relative", top: "200px" }}
+          >
+            No donation requests
+          </h1>
         ) : (
           <>
             <h1 className="text-center mt-5"> Donation request status</h1>
@@ -82,7 +92,7 @@ const ViewRequests = () => {
           </>
         )}
       </div>
-      <div className="mt-5">
+      <div className="mt-5 w-100" style={{ position: "absolute", bottom: "0" }}>
         <UserFooter />
       </div>
     </div>

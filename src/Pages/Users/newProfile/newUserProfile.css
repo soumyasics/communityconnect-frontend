@@ -5,6 +5,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+    top: 37px;
 }
 .profile-info-container {
   height: 85%;

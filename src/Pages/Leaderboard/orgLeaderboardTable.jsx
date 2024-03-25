@@ -18,15 +18,15 @@ const OrgLeaderBoardTable = ({ orgData }) => {
 
   return (
     <div className="px-5">
-      <Table className="mx-auto mt-5" striped bordered hover>
+      <Table className="mx-auto mt-5" responsive striped bordered hover>
         <thead>
-          <tr>
+          <tr style={{ textAlign: "left" }}>
             <th>No.</th>
             <th>Organization Name</th>
             <th>Owner</th>
-            <th>Donated amount</th>
+            <th>Amount</th>
             <th>Address</th>
-            <th>Phone Number</th>
+            <th>Number</th>
             <th>Email</th>
           </tr>
         </thead>
@@ -41,7 +41,6 @@ const OrgLeaderBoardTable = ({ orgData }) => {
                 <td>{org.address}</td>
                 <td>{org.phoneNumber}</td>
                 <td>{org.email}</td>
-                
               </tr>
             );
           })}
