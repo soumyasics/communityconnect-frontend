@@ -76,6 +76,11 @@ const OrganizationSignupForm = () => {
         return;
       }
 
+      let phoneNumberReg = /^[0-9]{10}$/;
+      if (!phoneNumberReg.test(orgData.phoneNumber)) {
+        alert("Phone number must be 10 digits");
+        return;
+      }
       if (!isValidEmail(orgData.email)) {
         console.log("Invalid email");
         return;

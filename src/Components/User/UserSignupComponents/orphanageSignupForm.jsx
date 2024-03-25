@@ -82,6 +82,11 @@ const OrphanageSignupForm = () => {
         console.log("Phone number must be 10 digits");
         return;
       }
+      let phoneNumberReg = /^[0-9]{10}$/;
+      if (!phoneNumberReg.test(orphanageData.phoneNumber)) {
+        alert("Phone number must be 10 digits");
+        return;
+      }
       if (!isValidEmail(orphanageData.email)) {
         console.log("Invalid email");
         return;

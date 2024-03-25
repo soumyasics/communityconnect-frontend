@@ -72,6 +72,11 @@ const UserSignupForm = () => {
         console.log("Phone number must be 10 digits");
         return;
       }
+      let phoneNumberReg = /^[0-9]{10}$/;
+      if (!phoneNumberReg.test(userData.phoneNumber)) {
+        alert("Phone number must be 10 digits");
+        return;
+      }
       if (!isValidEmail(userData.email)) {
         alert("Invalid Email Address");
         console.log("Invalid email");
