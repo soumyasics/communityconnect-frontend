@@ -44,6 +44,11 @@ const OrphanageSignupForm = () => {
     return emailRegex.test(email);
   }
 
+  function isValidLicsense(num) {
+    const licenseReg = /^[0-9]{10}$/;
+    return licenseReg.test(num);
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -79,6 +84,11 @@ const OrphanageSignupForm = () => {
       }
       if (!isValidEmail(orphanageData.email)) {
         console.log("Invalid email");
+        return;
+      }
+
+      if (!isValidLicsense(orphanageData.license)) {
+        console.log("Invalid license number");
         return;
       }
       sendDataToServer(orphanageData);
@@ -179,6 +189,7 @@ const OrphanageSignupForm = () => {
             minLength={8}
             placeholder="Password"
             name="password"
+            className="password-input-eye-btn-hide"
             onChange={handleChange}
             value={orphanageData.password}
           />
@@ -266,6 +277,7 @@ const OrphanageSignupForm = () => {
             value={orphanageData.license}
             minLength={10}
             maxLength={10}
+            pattern="[0-9]{10}"
           />
           <Form.Control.Feedback type="invalid">
             Please provide 10 digit orphanage license number.
@@ -311,26 +323,26 @@ const OrphanageSignupForm = () => {
         />
       </Form.Group>
       <Form.Group className="mt-3 ms-4">
-          <Form.Check
-            required
-            className="signup-check-box "
-            feedbackType="invalid"
-            checked={agreedToTerms}
-            onChange={handleCheckboxChange}
-          />
-          <label htmlFor="" className="ms-3">
-            Agree to our{" "}
-            <span
-              className="text-primary"
-              onClick={() => {
-                navigate("../terms");
-              }}
-            >
-              {" "}
-              terms and conditions{" "}
-            </span>
-          </label>
-        </Form.Group>
+        <Form.Check
+          required
+          className="signup-check-box "
+          feedbackType="invalid"
+          checked={agreedToTerms}
+          onChange={handleCheckboxChange}
+        />
+        <label htmlFor="" className="ms-3">
+          Agree to our{" "}
+          <span
+            className="text-primary"
+            onClick={() => {
+              navigate("../terms");
+            }}
+          >
+            {" "}
+            terms and conditions{" "}
+          </span>
+        </label>
+      </Form.Group>
 
       <div className="signup-form-flex-div">
         <Button id="user-signup-btn" type="submit">

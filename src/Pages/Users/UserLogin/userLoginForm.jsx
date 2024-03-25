@@ -46,13 +46,13 @@ const UserLoginForm = ({ user }) => {
     }
     setValidated(true);
 
-    if (!email || !password ) {
+    if (!email || !password) {
       console.log("Please fill all the fields");
       return;
     }
 
     if (password.length < 8) {
-      alert ("Invalid password");
+      alert("Invalid password");
       return;
     }
 
@@ -192,9 +192,10 @@ const UserLoginForm = ({ user }) => {
         </div>
         <Form.Control
           required
-          className="user-login-input"
+          className="user-login-input password-input-eye-btn-hide"
           type={showPassword ? "text" : "password"}
           minLength={8}
+          
           placeholder="Password"
           name="password"
           onChange={handlePasswordChange}

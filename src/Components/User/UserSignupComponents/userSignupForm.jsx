@@ -217,6 +217,7 @@ const UserSignupForm = () => {
             type={showPassword ? "text" : "password"}
             minLength={8}
             placeholder="Password"
+            className="password-input-eye-btn-hide"
             name="password"
             onChange={handleChange}
             value={userData.password}

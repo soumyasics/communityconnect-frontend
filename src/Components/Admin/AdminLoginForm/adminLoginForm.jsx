@@ -27,7 +27,7 @@ const AdminLoginForm = () => {
         navigate("/admin");
       }, 1500);
     } else {
-     alert("Please check your email and password");
+      alert("Please check your email and password");
     }
   };
   const handleChange = (e) => {
@@ -60,7 +60,7 @@ const AdminLoginForm = () => {
           <Form.Group className="mt-3">
             <Form.Control
               required
-              className="admin-login-input"
+              className="admin-login-input  password-input-eye-btn-hide"
               type="password"
               minLength={8}
               placeholder="Password"

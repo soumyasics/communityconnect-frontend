@@ -39,6 +39,11 @@ const OrganizationSignupForm = () => {
     return emailRegex.test(email);
   }
 
+  function isValidCin(cin) {
+    const cinRegex = /^[A-Z0-9]{21}$/;
+    return cinRegex.test(cin);
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -76,6 +81,10 @@ const OrganizationSignupForm = () => {
         return;
       }
 
+      if (!isValidCin(orgData.license)) {
+        console.log("Invalid CIN", orgData.license);
+        return;
+      }
       sendDataToServer(orgData);
     }
   };
@@ -178,6 +187,7 @@ const OrganizationSignupForm = () => {
             required
             type={showPassword ? "text" : "password"}
             minLength={8}
+            className="password-input-eye-btn-hide"
             placeholder="Password"
             name="password"
             onChange={handleChange}
@@ -210,11 +220,11 @@ const OrganizationSignupForm = () => {
         <Form.Group>
           <Form.Control
             type="text"
+            required
             minLength={10}
             maxLength={10}
             pattern="[0-9]{10}"
             placeholder="Phone Number"
-            required
             onChange={handleChange}
             value={orgData.phoneNumber}
             name="phoneNumber"
@@ -244,12 +254,15 @@ const OrganizationSignupForm = () => {
         </Form.Group>
         <Form.Group>
           <Form.Control
+            type="text"
+            required
+            minLength={6}
+            maxLength={6}
+            pattern="[0-9]{6}"
+            placeholder="Pincode"
             name="pincode"
             onChange={handleChange}
             value={orgData.pincode}
-            type="number"
-            placeholder="Pincode"
-            required
           />
           <Form.Control.Feedback type="invalid">
             Please provide your pincode.
