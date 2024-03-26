@@ -107,10 +107,10 @@ const UserNavbar = () => {
           <Link to="/">Home</Link>
           <Link to="/user/leaderboard">Leaderboard</Link>
           {userContext.userType === "organization" && (
-            <Link to="/blood-camp">Camp</Link>
+            <Link to="/blood-camp">View Camp</Link>
           )}
 
-          <Link to="/view-blood-camps">ViewCamp</Link>
+          <Link to="/view-blood-camps">View Camp</Link>
 
           <button
             className="border-0 text-light bg-transparent"
